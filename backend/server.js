@@ -7,6 +7,17 @@ const port = process.env.PORT || 5001;
 app.use(express.json());
 app.use(cors());
 
+const checkDatabaseConnection = async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('Database connection has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error.message);
+        console.error('Please check your database configuration and ensure the database server is running.');
+        process.exit(1); // Exit the application if the connection fails
+    }
+};
+
 
 // Endpoint to get inventory
 app.get('/api/inventory', async (req, res) => {
@@ -78,6 +89,9 @@ app.post('/api/purchase', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Backend server running at http://localhost:${port}`);
-});
+(async () => {
+    await checkDatabaseConnection();
+    app.listen(port, () => {
+        console.log(`Backend server running at http://localhost:${port}`);
+    });
+})();

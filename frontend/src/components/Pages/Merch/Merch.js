@@ -16,7 +16,7 @@ export default function Merch() {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className='merch-loading'>Loading...</div>;
     }
 
     return (

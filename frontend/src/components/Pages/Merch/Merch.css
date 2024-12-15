@@ -59,3 +59,9 @@
 .swiper-slide:hover {
     cursor: pointer;
 }
+
+
+
+.merch-loading {
+    height: 70vh;
+}

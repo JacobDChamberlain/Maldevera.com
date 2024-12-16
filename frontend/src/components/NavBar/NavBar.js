@@ -1,13 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useMerchCart } from '../../context/MerchCartContext';
 import './NavBar.css';
 
 
 export default function NavBar() {
-    const { openCart, cartQuantity } = useMerchCart();
-
-
     return (
         <div className="navbar-wrapper">
             <div className='navigation-links'>

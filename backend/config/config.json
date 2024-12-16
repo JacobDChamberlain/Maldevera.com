@@ -2,7 +2,7 @@
   "development": {
     "username": "jeff",
     "password": "jfXb6vodP1BW9jc5uVu5Jx0j8VPsrWy4",
-    "database": "maldevera_merch_inventory",
+    "database": "maldevera_merch_inventory_4d3d",
     "host": "dpg-ctfnq752ng1s738l91ug-a",
     "dialect": "postgres"
   }

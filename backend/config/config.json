@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "jeff",
-    "password": "t1QMryZfw8isNsOqvwGx2eXJKsqzADdz",
+    "password": "jfXb6vodP1BW9jc5uVu5Jx0j8VPsrWy4",
     "database": "maldevera_merch_inventory",
-    "host": "dpg-csh5qd3qf0us73fmepeg-a",
+    "host": "dpg-ctfnq752ng1s738l91ug-a",
     "dialect": "postgres"
   }
 }

@@ -12,7 +12,7 @@ module.exports = {
         "description": "A wild BLUE JEFF appears...",
         "price": 19.99,
         "size": "XS",
-        "stock": 5,
+        "stock": 0,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
@@ -25,7 +25,7 @@ module.exports = {
         "description": "A wild BLUE JEFF appears...",
         "price": 19.99,
         "size": "S",
-        "stock": 5,
+        "stock": 3,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
@@ -38,7 +38,7 @@ module.exports = {
         "description": "A wild BLUE JEFF appears...",
         "price": 19.99,
         "size": "M",
-        "stock": 5,
+        "stock": 3,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
@@ -64,7 +64,7 @@ module.exports = {
         "description": "A wild BLUE JEFF appears...",
         "price": 19.99,
         "size": "XL",
-        "stock": 5,
+        "stock": 4,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
@@ -77,7 +77,7 @@ module.exports = {
         "description": "A wild BLUE JEFF appears...",
         "price": 19.99,
         "size": "XXL",
-        "stock": 5,
+        "stock": 4,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
@@ -90,280 +90,98 @@ module.exports = {
         "description": "A wild BLUE JEFF appears...",
         "price": 19.99,
         "size": "XXXL",
-        "stock": 5,
+        "stock": 2,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
       {
         "id": 8,
-        "name": "Gore Logo - XS",
+        "name": "Mouthful Of Concrete - S",
         "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/GORE-LOGO.png"
+          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/MOUTHFUL-OF-CONCRETE.png"
         ],
-        "description": "BAPTIZED...IN BLOOD!",
+        "description": "Jeff does a curbstomp",
         "price": 19.99,
-        "size": "XS",
-        "stock": 5,
+        "size": "S",
+        "stock": 1,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
       {
         "id": 9,
-        "name": "Gore Logo - S",
+        "name": "Mouthful Of Concrete - M",
         "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/GORE-LOGO.png"
+          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/MOUTHFUL-OF-CONCRETE.png"
         ],
-        "description": "BAPTIZED...IN BLOOD!",
+        "description": "Jeff does a curbstomp",
         "price": 19.99,
-        "size": "S",
-        "stock": 5,
+        "size": "M",
+        "stock": 1,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
       {
         "id": 10,
-        "name": "Gore Logo - M",
+        "name": "From Man To Mist (CD)",
         "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/GORE-LOGO.png"
+          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/CD-FM2M.png"
         ],
-        "description": "BAPTIZED...IN BLOOD!",
-        "price": 19.99,
-        "size": "M",
-        "stock": 5,
+        "description": "Maldevera's debut album, \" From Man To Mist\", on CD",
+        "price": 6.99,
+        "size": null,
+        "stock": 51,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
       {
         "id": 11,
-        "name": "Gore Logo - L",
+        "name": "LIVE @ Haltom Theater (CD)",
         "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/GORE-LOGO.png"
+          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/CD-LiveAtHaltomTheater.png"
         ],
-        "description": "BAPTIZED...IN BLOOD!",
-        "price": 19.99,
-        "size": "L",
-        "stock": 5,
+        "description": "Blistering live recording of Maldevera's performance at Haltom Theater with fill-in drummer, Stephan the Relentless, 2024",
+        "price": 4.99,
+        "size": null,
+        "stock": 48,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
       {
         "id": 12,
-        "name": "Gore Logo - XL",
+        "name": "From Man To Mist (Cassette)",
         "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/GORE-LOGO.png"
+          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/CASSETTE-FM2M.png"
         ],
-        "description": "BAPTIZED...IN BLOOD!",
-        "price": 19.99,
-        "size": "XL",
-        "stock": 5,
+        "description": "Maldevera's debut album, \" From Man To Mist\", on analog tape",
+        "price": 6.99,
+        "size": null,
+        "stock": 13,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
       {
         "id": 13,
-        "name": "Gore Logo - XXL",
+        "name": "Mouthful Of Concrete - Single (Floppy)",
         "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/GORE-LOGO.png"
+          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/FLOPPY-MouthfulSingle.png"
         ],
-        "description": "BAPTIZED...IN BLOOD!",
-        "price": 19.99,
-        "size": "XXL",
-        "stock": 5,
+        "description": "Mouthful of Concrete in retro floppy format",
+        "price": 4.99,
+        "size": null,
+        "stock": 20,
         "createdAt": new Date(),
         "updatedAt": new Date()
       },
       {
         "id": 14,
-        "name": "Gore Logo - XXXL",
+        "name": "Maldevera Logo Patch",
         "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/GORE-LOGO.png"
+          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/PATCH-logo-redwhite.png"
         ],
-        "description": "BAPTIZED...IN BLOOD!",
-        "price": 19.99,
-        "size": "XXXL",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 15,
-        "name": "Snake Skull - XS",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/snake-skull.png"
-        ],
-        "description": "Salvadora Maldevera",
-        "price": 19.99,
-        "size": "XS",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 16,
-        "name": "Snake Skull - S",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/snake-skull.png"
-        ],
-        "description": "Salvadora Maldevera",
-        "price": 19.99,
-        "size": "S",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 17,
-        "name": "Snake Skull - M",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/snake-skull.png"
-        ],
-        "description": "Salvadora Maldevera",
-        "price": 19.99,
-        "size": "M",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 18,
-        "name": "Snake Skull - L",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/snake-skull.png"
-        ],
-        "description": "Salvadora Maldevera",
-        "price": 19.99,
-        "size": "L",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 19,
-        "name": "Snake Skull - XL",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/snake-skull.png"
-        ],
-        "description": "Salvadora Maldevera",
-        "price": 19.99,
-        "size": "XL",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 20,
-        "name": "Snake Skull - XXL",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/snake-skull.png"
-        ],
-        "description": "Salvadora Maldevera",
-        "price": 19.99,
-        "size": "XXL",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 21,
-        "name": "Snake Skull - XXXL",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/snake-skull.png"
-        ],
-        "description": "Salvadora Maldevera",
-        "price": 19.99,
-        "size": "XXXL",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 22,
-        "name": "From Man To Mist - XS",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/man2mist-FRONT.png"
-        ],
-        "description": "From Man To Mist",
-        "price": 29.99,
-        "size": "XS",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 23,
-        "name": "From Man To Mist - S",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/man2mist-FRONT.png"
-        ],
-        "description": "From Man To Mist",
-        "price": 29.99,
-        "size": "S",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 24,
-        "name": "From Man To Mist - M",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/man2mist-FRONT.png"
-        ],
-        "description": "From Man To Mist",
-        "price": 29.99,
-        "size": "M",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 25,
-        "name": "From Man To Mist - L",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/man2mist-FRONT.png"
-        ],
-        "description": "From Man To Mist",
-        "price": 29.99,
-        "size": "L",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 26,
-        "name": "From Man To Mist - XL",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/man2mist-FRONT.png"
-        ],
-        "description": "From Man To Mist",
-        "price": 29.99,
-        "size": "XL",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 27,
-        "name": "From Man To Mist - XXL",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/man2mist-FRONT.png"
-        ],
-        "description": "From Man To Mist",
-        "price": 29.99,
-        "size": "XXL",
-        "stock": 5,
-        "createdAt": new Date(),
-        "updatedAt": new Date()
-      },
-      {
-        "id": 28,
-        "name": "From Man To Mist - XXXL",
-        "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/man2mist-FRONT.png"
-        ],
-        "description": "From Man To Mist",
-        "price": 29.99,
-        "size": "XXXL",
-        "stock": 5,
+        "description": "Official Maldevera logo patch for your battle jacket",
+        "price": 6.99,
+        "size": null,
+        "stock": 198,
         "createdAt": new Date(),
         "updatedAt": new Date()
       }

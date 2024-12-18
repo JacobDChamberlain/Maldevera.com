@@ -11,12 +11,19 @@ export default function StoreItem({ item, allItems }) {
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
 
-    // Get all sizes for this style
-    const relatedItems = allItems.filter(i => i.name.split(' - ')[0] === item.name.split(' - ')[0]);
-    const availableSizes = relatedItems.reduce((sizes, currentItem) => {
-        sizes[currentItem.size] = currentItem.quantity;
-        return sizes;
-    }, {});
+    // Check if the item has sizes
+    const hasSizes = Boolean(item.size);
+
+    // Get all sizes for this style (only if the item has sizes)
+    const relatedItems = hasSizes
+        ? allItems.filter(i => i.name.split(' - ')[0] === item.name.split(' - ')[0])
+        : [];
+    const availableSizes = hasSizes
+        ? relatedItems.reduce((sizes, currentItem) => {
+              sizes[currentItem.size] = currentItem.quantity;
+              return sizes;
+          }, {})
+        : {};
 
     // Handle size selection
     const handleSizeChange = (event) => {
@@ -26,23 +33,39 @@ export default function StoreItem({ item, allItems }) {
 
     // Handle adding to cart
     const handleAddToCart = () => {
-        if (selectedSize) {
-            const selectedItem = relatedItems.find(i => i.size === selectedSize);
-            if (selectedItem && selectedItem.stock > 0) {
-                increaseItemQuantity(selectedItem.id, selectedSize, availableSizes);
+        if (hasSizes) {
+            if (selectedSize) {
+                const selectedItem = relatedItems.find(i => i.size === selectedSize);
+                if (selectedItem && selectedItem.stock > 0) {
+                    increaseItemQuantity(selectedItem.id, selectedSize, availableSizes);
+                    setItemAdded(true);
+
+                    // Reset itemAdded state after a short delay (e.g., 1 second)
+                    setTimeout(() => {
+                        setItemAdded(false);
+                    }, 1000);
+                } else {
+                    setAlertMessage("Selected size is out of stock");
+                    setShowAlert(true);
+                }
+            } else {
+                setAlertMessage("Please select a size");
+                setShowAlert(true);
+            }
+        } else {
+            // Logic for items without sizes
+            if (item.stock > 0) {
+                increaseItemQuantity(item.id, null, null); // No size info for non-size items
                 setItemAdded(true);
 
-                // Reset itemAdded state after a short delay (e.g., 2 seconds)
+                // Reset itemAdded state after a short delay (e.g., 1 second)
                 setTimeout(() => {
                     setItemAdded(false);
                 }, 1000);
             } else {
-                setAlertMessage("Selected size is out of stock");
+                setAlertMessage("This item is out of stock");
                 setShowAlert(true);
             }
-        } else {
-            setAlertMessage("Please select a size");
-            setShowAlert(true);
         }
     };
 
@@ -53,22 +76,24 @@ export default function StoreItem({ item, allItems }) {
                 <div className="store-item-name">{item.name.split(' - ')[0].toUpperCase()}</div>
                 <div className="store-item-price">{formatCurrency(item.price)}</div>
 
-                {/* Size selection dropdown */}
-                <div className="store-item-sizes">
-                    <select
-                        id={`size-select-${item.id}`}
-                        value={selectedSize}
-                        onChange={handleSizeChange}
-                        className="size-select"
-                    >
-                        <option value="">🤘Select Size🤘</option>
-                        {Object.keys(availableSizes).map((size) => (
-                            <option key={size} value={size} disabled={availableSizes[size] === 0}>
-                                {size.toUpperCase()}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                {/* Size selection dropdown (only if the item has sizes) */}
+                {hasSizes && (
+                    <div className="store-item-sizes">
+                        <select
+                            id={`size-select-${item.id}`}
+                            value={selectedSize}
+                            onChange={handleSizeChange}
+                            className="size-select"
+                        >
+                            <option value="">🤘Select Size🤘</option>
+                            {Object.keys(availableSizes).map((size) => (
+                                <option key={size} value={size} disabled={availableSizes[size] === 0}>
+                                    {size.toUpperCase()}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
 
                 {/* Add to cart button with feedback */}
                 <button

@@ -23,6 +23,10 @@ module.exports = {
         type: Sequelize.DECIMAL(10, 2),
         allowNull: false
       },
+      price_id: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       size: {
         type: Sequelize.STRING,
         allowNull: true

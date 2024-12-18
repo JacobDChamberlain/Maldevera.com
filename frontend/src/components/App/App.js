@@ -18,6 +18,8 @@ import './App.css';
 
 import { MerchCartProvider } from '../../context/MerchCartContext';
 import { InventoryProvider } from '../../context/InventoryContext';
+import SuccessfulPurchase from '../Checkout/Success/CheckoutSuccess';
+import FailedPurchase from '../Checkout/Cancel/CheckoutCancel';
 
 function App() {
   return (
@@ -82,6 +84,8 @@ function App() {
                 <Route path='/tours' Component={ Tours } />
                 <Route path='/contact' Component={ Contact } />
                 <Route path='/checkout' Component={ Purchase } />
+                <Route path='/successful-purchase' Component={ SuccessfulPurchase } />
+                <Route path='/sad-yeet' Component={ FailedPurchase } />
                 <Route path='*' Component={ NotFound } />
               </Routes>
           </BrowserRouter>

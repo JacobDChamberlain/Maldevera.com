@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false
         },
-        priceID: {
+        price_id: {
             type: DataTypes.STRING,
             allowNull: false
         },

@@ -101,7 +101,7 @@ module.exports = {
           "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/MOUTHFUL-OF-CONCRETE.png"
         ],
         "description": "Jeff does a curbstomp",
-        "price": 19.99,
+        "price": 24.99,
         "size": "S",
         "stock": 1,
         "createdAt": new Date(),
@@ -114,7 +114,7 @@ module.exports = {
           "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/MOUTHFUL-OF-CONCRETE.png"
         ],
         "description": "Jeff does a curbstomp",
-        "price": 19.99,
+        "price": 24.99,
         "size": "M",
         "stock": 1,
         "createdAt": new Date(),

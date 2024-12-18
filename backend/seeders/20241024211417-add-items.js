@@ -150,7 +150,7 @@ module.exports = {
         "id": 12,
         "name": "From Man To Mist (Cassette)",
         "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/CASSETTE-TAPE.png"
+          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/CASSETTE-FM2M.png"
         ],
         "description": "Maldevera's debut album, \" From Man To Mist\", on analog tape",
         "price": 6.99,

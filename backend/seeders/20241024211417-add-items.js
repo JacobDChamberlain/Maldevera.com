@@ -119,7 +119,7 @@ module.exports = {
         "id": 9,
         "name": "From Man To Mist (CD)",
         "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/CD-FM2M.png"
+          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/CD%20cover%20fm2m.png"
         ],
         "description": "Maldevera's debut album, \" From Man To Mist\", on CD",
         "price": 6.99,
@@ -133,7 +133,7 @@ module.exports = {
         "id": 10,
         "name": "LIVE @ Haltom Theater (CD)",
         "images": [
-          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/CD-LiveAtHaltomTheater.png"
+          "https://pub-66308e1fd62346cc9ef2c3cfc4134db4.r2.dev/Live%20at%20Haltom%20Theater.png"
         ],
         "description": "Blistering live recording of Maldevera's performance at Haltom Theater with fill-in drummer, Stephan the Relentless, 2024",
         "price": 4.99,

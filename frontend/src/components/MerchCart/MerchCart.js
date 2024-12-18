@@ -5,6 +5,7 @@ import './MerchCart.css';
 import formatCurrency from "../../utilities/formatCurrency";
 import { useEffect, useState } from "react";
 import { useInventory } from "../../context/InventoryContext";
+import getStripe from "../../lib/getStripe";
 
 export function MerchCart({ isOpen }) {
     const { closeCart, cartItems, clearCart, increaseItemQuantity, decreaseItemQuantity } = useMerchCart();
@@ -20,13 +21,32 @@ export function MerchCart({ isOpen }) {
     }, [inventory]);
 
     // Handle purchasing items in the cart
-    const handlePurchase = () => {
+    const handlePurchase = async () => {
         const itemsToPurchase = cartItems.map(({ id, quantity }) => ({
             id,
             quantity
-        }));
+        })); //* for backend / db updates
+
+        const lineItems = cartItems.map(({ price_id, quantity }) => ({
+            price: price_id,
+            quantity
+        })); //* for stripe purchases
+        console.log(lineItems)
+
+
+        const stripe = await getStripe();
+        const { error } = await stripe.redirectToCheckout({
+            lineItems,
+            mode: 'payment',
+            successUrl: 'https://www.maldevera.com/successful-purchase',
+            cancelUrl: 'https://www.maldevera.com/sad-yeet',
+            customerEmail: 'MaldeveraTX@gmail.com' //! HOW DO I GET THIS UP FRONT? ..do I even need it?
+        });
+        console.warn(error.message); //! Do I need to remove this in Production?
+
 
         fetch('https://maldeverawebsite-backend.onrender.com/api/purchase', {
+        // fetch('localhost:5001/api/purchase', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

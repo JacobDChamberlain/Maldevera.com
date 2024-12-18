@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { MerchCart } from '../components/MerchCart/MerchCart';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useInventory } from "../context/InventoryContext";
 
 const MerchCartContext = createContext();
 
@@ -9,6 +10,7 @@ export function useMerchCart() {
 }
 
 export function MerchCartProvider({ children }) {
+    const { inventory } = useInventory();
     const [cartItems, setCartItems] = useLocalStorage("shopping-cart", []);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -23,20 +25,35 @@ export function MerchCartProvider({ children }) {
 
     // Simplified increaseItemQuantity without availability check
     function increaseItemQuantity(id, size) {
-        setCartItems(prevItems => {
-            const existingItem = prevItems.find(item => item.id === id && item.size === size);
+        setCartItems((prevItems) => {
+            const existingItem = prevItems.find(
+                (item) => item.id === id && item.size === size
+            );
+
+            const merchItem = inventory.find(
+                (item) => item.id === id && item.size === size
+            );
+
+            if (!merchItem) {
+                console.error("Item not found in inventory!");
+                return prevItems;
+            }
 
             if (existingItem) {
-                return prevItems.map(item =>
+                return prevItems.map((item) =>
                     item.id === id && item.size === size
                         ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
             } else {
-                return [...prevItems, { id, size, quantity: 1 }];
+                return [
+                    ...prevItems,
+                    { id, size, price_id: merchItem.price_id, quantity: 1 },
+                ];
             }
         });
     }
+
 
     function decreaseItemQuantity(id, size) {
         setCartItems(prevItems => {

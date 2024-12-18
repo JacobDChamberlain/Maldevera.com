@@ -40,9 +40,13 @@ export function MerchCart({ isOpen }) {
             mode: 'payment',
             successUrl: 'https://www.maldevera.com/successful-purchase',
             cancelUrl: 'https://www.maldevera.com/sad-yeet',
-            customerEmail: 'MaldeveraTX@gmail.com' //! HOW DO I GET THIS UP FRONT? ..do I even need it?
+            customerEmail: 'MaldeveraTX@gmail.com' //! this is optional, but i want to see what it does
         });
-        console.warn(error.message); //! Do I need to remove this in Production?
+
+        if (error) {
+            console.error('Stripe checkout error: ', error);
+            //* show user-friendly error message
+        }
 
 
         fetch('https://maldeverawebsite-backend.onrender.com/api/purchase', {

@@ -27,7 +27,7 @@ export function MerchCart({ isOpen }) {
         }));
 
         // fetch('http://localhost:5001/create-checkout-session', {
-        fetch('https://maldeverawebsite-backend.onrender.com/api/create-checkout-session', {
+        fetch('https://maldeverawebsite-backend.onrender.com/create-checkout-session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -38,6 +38,7 @@ export function MerchCart({ isOpen }) {
             .then(data => {
                 // redirect to stripe checkout
                 if (data.url) {
+                    clearCart();
                     window.location.href = data.url;
                 }
             })

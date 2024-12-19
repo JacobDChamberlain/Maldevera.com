@@ -14,7 +14,7 @@ export function MerchCart({ isOpen }) {
     const [alertMessage, setAlertMessage] = useState("");
 
 
-    // Fetch the inventory data from the backend
+    // Fetch the inventory data from the backendf
     useEffect(() => {
         if (inventory) setMerchItems(inventory);
     }, [inventory]);

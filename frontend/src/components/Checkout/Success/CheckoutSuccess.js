@@ -7,7 +7,7 @@ const SuccessfulPurchase = () => {
 
   const handleContinueShopping = () => {
     navigate('/merch'); // Navigate to the homepage or desired route
-  };
+  }; //? will we still need these success / cancel pages when creating a stripe checkout session instead of using stripe.redirectToCheckou()?
 
   return (
     <div className='success-purchase-wrapper'>

@@ -26,29 +26,46 @@ export function MerchCart({ isOpen }) {
             quantity
         }));
 
-        fetch('https://maldeverawebsite-backend.onrender.com/api/purchase', {
+        // fetch('http://localhost:5001/create-checkout-session', {
+        fetch('https://maldeverawebsite-backend.onrender.com/api/create-checkout-session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(itemsToPurchase)
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                setAlertMessage("Purchase successful!");
-                setShowAlert(true)
-                clearCart(); // Clear the cart after successful purchase
-            } else {
-                setAlertMessage(data.message);
-                setShowAlert(true);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            setAlertMessage("An error occurred during purchase");
-            setShowAlert(true);
-        });
+            .then(response => response.json())
+            .then(data => {
+                // redirect to stripe checkout
+                if (data.url) {
+                    window.location.href = data.url;
+                }
+            })
+            .catch(err => console.error('Error from frontend handlePurchase: ', err));
+
+        // fetch('https://maldeverawebsite-backend.onrender.com/api/purchase', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(itemsToPurchase)
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     if (data.success) {
+        //         setAlertMessage("Purchase successful!");
+        //         setShowAlert(true)
+        //         clearCart(); // Clear the cart after successful purchase
+        //     } else {
+        //         setAlertMessage(data.message);
+        //         setShowAlert(true);
+        //     }
+        // })
+        // .catch(error => {
+        //     console.error('Error:', error);
+        //     setAlertMessage("An error occurred during purchase");
+        //     setShowAlert(true);
+        // });
     };
 
     return (

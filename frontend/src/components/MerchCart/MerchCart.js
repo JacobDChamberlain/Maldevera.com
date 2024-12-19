@@ -19,7 +19,7 @@ export function MerchCart({ isOpen }) {
         if (inventory) setMerchItems(inventory);
     }, [inventory]);
 
-    // Handle purchasing items in the cart
+    // Handle purchasing items in the cartt
     const handlePurchase = () => {
         const itemsToPurchase = cartItems.map(({ id, quantity }) => ({
             id,

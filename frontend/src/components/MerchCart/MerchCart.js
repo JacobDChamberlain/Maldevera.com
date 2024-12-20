@@ -27,7 +27,7 @@ export function MerchCart({ isOpen }) {
             quantity
         }));
 
-        fetch(`${backendBaseURL}/create-checkout-session`, {
+        fetch(`${backendBaseURL}/api/checkout/create-checkout-session`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

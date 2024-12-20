@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+const backendBaseURL = process.env.REACT_APP_BACKEND_URL;
 
 const InventoryContext = createContext()
 
@@ -11,8 +12,7 @@ export function InventoryProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('https://maldeverawebsite-backend.onrender.com/api/inventory')
-    // fetch('http://localhost:5001/api/inventory') //* please set up dev / prod environment and use env vars so i dont have to swap these out every time. please. and remember, start env vars with REACT_APP_<envvarname>
+    fetch(`${backendBaseURL}/api/inventory`)
       .then(response => response.json())
       .then(data => {
         setInventory(data)
@@ -27,8 +27,7 @@ export function InventoryProvider({ children }) {
   const refreshInventory = useCallback(async () => {
     setLoading(true)
     try {
-      const response = await fetch('https://maldeverawebsite-backend.onrender.com/api/inventory')
-      // const response = await fetch('http://localhost:5001/api/inventory')
+      const response = await fetch(`${backendBaseURL}/api/inventory`)
       const data = await response.json()
       setInventory(data)
     } catch (error) {

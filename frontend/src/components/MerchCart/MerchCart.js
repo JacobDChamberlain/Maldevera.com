@@ -5,6 +5,7 @@ import './MerchCart.css';
 import formatCurrency from "../../utilities/formatCurrency";
 import { useEffect, useState } from "react";
 import { useInventory } from "../../context/InventoryContext";
+const backendBaseURL = process.env.REACT_APP_BACKEND_URL;
 
 export function MerchCart({ isOpen }) {
     const { closeCart, cartItems, clearCart, increaseItemQuantity, decreaseItemQuantity } = useMerchCart();
@@ -26,8 +27,7 @@ export function MerchCart({ isOpen }) {
             quantity
         }));
 
-        // fetch('http://localhost:5001/create-checkout-session', {
-        fetch('https://maldeverawebsite-backend.onrender.com/create-checkout-session', {
+        fetch(`${backendBaseURL}/create-checkout-session`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

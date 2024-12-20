@@ -5,15 +5,14 @@ const app = express();
 const port = process.env.PORT || 5001;
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
-const isProduction = process.env.NODE_ENV === 'production';
-
+const frontendBaseURL = process.env.FRONTEND_URL;
 
 
 app.use(express.json());
 app.use(cors());
 
 
+// create checkout session & decrement item quantities
 app.post('/create-checkout-session', async (req, res) => {
     const itemsToPurchase = req.body; // Expecting array of { id, quantity }
     const purchasedItems = [];
@@ -65,8 +64,8 @@ app.post('/create-checkout-session', async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
-            success_url: 'https://www.maldevera.com/successful-purchase',
-            cancel_url: 'https://www.maldevera.com/sad-yeet',
+            success_url: `${frontendBaseURL}/successful-purchase`,
+            cancel_url: `${frontendBaseURL}/sad-yeet`,
         });
 
         // Respond with session URL
@@ -108,47 +107,8 @@ app.get('/api/inventory/:id', async (req, res) => {
     }
 });
 
-// Endpoint to decrement multiple item quantities
-app.post('/api/purchase', async (req, res) => {
-    const itemsToPurchase = req.body; // Array of objects { id, quantity }
-    const purchasedItems = [];
 
-    try {
-        for ( let item of itemsToPurchase ) {
-            if (item.quantity < 1 ) {
-                throw new Error("Invalid item quantity");
-            }
-        }
-
-        // Use a transaction to ensure atomicity
-        await sequelize.transaction(async (t) => {
-            for (const { id, quantity } of itemsToPurchase) {
-                const item = await Item.findByPk(id, { transaction: t });
-
-                if (!item || item.stock < quantity) {
-                    throw new Error(`Requested quantity not available for ${item ? item.name : 'Unknown item'}`);
-                }
-
-                // Decrement the item's stock
-                item.stock -= quantity;
-                await item.save({ transaction: t });
-
-                // Add the item to the list of purchased items
-                purchasedItems.push({
-                    id: item.id,
-                    name: item.name,
-                    quantity
-                });
-            }
-        });
-
-        // Return the list of purchased items
-        res.status(200).json({ success: true, purchasedItems });
-    } catch (error) {
-        res.status(400).json({ success: false, message: error.message });
-    }
-});
 
 app.listen(port, () => {
-    console.log(`Backend server running at http://localhost:${port}`);
+    console.log(`Backend server running, dont question it b`);
 });

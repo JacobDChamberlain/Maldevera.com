@@ -42,7 +42,11 @@ export function MerchCart({ isOpen }) {
                     window.location.href = data.url;
                 }
             })
-            .catch(err => console.error('Error from frontend handlePurchase: ', err));
+            .catch(err => {
+                console.error('Error from frontend handlePurchase: ', err)
+                // setAlertMessage(err); //* make sure this works and shows if something is out of stock
+                // setShowAlert(true);
+            });
 
         // fetch('https://maldeverawebsite-backend.onrender.com/api/purchase', {
         //     method: 'POST',

@@ -3,8 +3,11 @@ const cors = require('cors');
 const { sequelize, Item } = require('./models'); // Import Sequelize instance and Item model
 const app = express();
 const port = process.env.PORT || 5001;
-require('dotenv').config({ path: './.env'});
+require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+const isProduction = process.env.NODE_ENV === 'production';
+
 
 
 app.use(express.json());

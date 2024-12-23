@@ -13,7 +13,7 @@ app.use(cors());
 
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/checkout', checkoutRoutes);
-app.use('/api/webhook', webhookRoutes);
+app.use('/api/webhooks', webhookRoutes);
 
 
 app.listen(port, async () => {

@@ -6,12 +6,12 @@ const frontendBaseURL = process.env.FRONTEND_URL;
 
 
 router.post('/create-checkout-session', async (req, res) => {
-    const itemsToPurchase = req.body; // Expecting array of { id, quantity }
+    const { items, customerInfo } = req.body; // Expecting { items: [{ id, quantity }], customerInfo: {...} }
     const purchasedItems = [];
 
     try {
         // Validate item quantities
-        for (let item of itemsToPurchase) {
+        for (let item of items) {
             if (item.quantity < 1) {
                 throw new Error("Invalid item quantity");
             }
@@ -19,7 +19,7 @@ router.post('/create-checkout-session', async (req, res) => {
 
         // Use a transaction to ensure atomicity
         await sequelize.transaction(async (t) => {
-            for (const { id, quantity } of itemsToPurchase) {
+            for (const { id, quantity } of items) {
                 const item = await Item.findByPk(id, { transaction: t });
 
                 if (!item || item.stock < quantity) {
@@ -32,7 +32,7 @@ router.post('/create-checkout-session', async (req, res) => {
                 purchasedItems.push({
                     id: item.id,
                     name: item.name,
-                    price: Math.round(item.price * 100),
+                    price: Math.round(item.price * 100), // Convert to cents for Stripe
                     quantity
                 });
             }
@@ -53,6 +53,12 @@ router.post('/create-checkout-session', async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
+            customer_email: customerInfo.email, // Associate email with session
+            metadata: {
+                customerName: customerInfo.name,
+                address: `${customerInfo.address}, ${customerInfo.city}, ${customerInfo.state}, ${customerInfo.zip}`,
+                purchasedItems: JSON.stringify(purchasedItems), // Optionally store purchased items
+            },
             success_url: `${frontendBaseURL}/successful-purchase`,
             cancel_url: `${frontendBaseURL}/sad-yeet`,
         });
@@ -64,5 +70,6 @@ router.post('/create-checkout-session', async (req, res) => {
         res.status(400).json({ success: false, message: error.message });
     }
 });
+
 
 module.exports = router;

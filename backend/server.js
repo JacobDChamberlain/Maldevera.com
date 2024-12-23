@@ -6,12 +6,14 @@ const port = process.env.PORT || 5001;
 require('dotenv').config();
 const inventoryRoutes = require('./routes/inventory');
 const checkoutRoutes = require('./routes/checkout');
+const webhookRoutes = require('./routes/webhooks');
 
 app.use(express.json());
 app.use(cors());
 
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/checkout', checkoutRoutes);
+app.use('/api/webhooks', webhookRoutes);
 
 
 app.listen(port, async () => {

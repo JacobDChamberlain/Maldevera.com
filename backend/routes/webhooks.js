@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 
 router.post('/', async (req, res) => {
@@ -9,31 +10,15 @@ router.post('/', async (req, res) => {
 
     const event = req.body;
 
-    console.log("*~*~*event: *~*~* ", event);
-    //* charge.succeeded
-    //* checkout.session.completed
-    //* payment_intent.succeeded --> paymentIntent.amount_received = 699 for $6.99 item (test again with multiple, confirm if this is total)
-    //* payment_intent.created
-    //* charge.updated
-    //? All the above events were received when completing a purchase in test mode.
-    //? which should I respond to to update my db/decrement item quantities, to send a confirmation email to the customer with item data pics and a brice breakdown, and send an email to use (MaldeveraTX@gmail.com) with the cusomter invoice and shipping data?
+    //* checkout.session.completed --> RESPOND TO THIS
 
-    switch (event.type) {
-        case 'payment_intent.succeeded':
-            const paymentIntent = event.data.object;
-            console.log("webhook received => paymentIntent: ", paymentIntent);
-            //* Then define and call a method to handle the successful payment intent.
-            //* handlePaymentIntentSucceeded(paymentIntent);
-            break;
-        case 'payment_method.attached':
-            const paymentMethod = event.data.object;
-            console.log("webhook received => paymentMethod: ", paymentMethod);
-            //* Then define and call a method to handle the successful attachment of a PaymentMethod.
-            //* handlePaymentMethodAttached(paymentMethod);
-            //? why would i need to do this?
-            break;
-        default:
-            console.log(`Unhandled event type ${event.type}`);
+
+    if (event.type === 'checkout.session.completed') {
+        const session = event.data.object;
+        console.log("***Checkout Session Object: ", session);
+
+        console.log("Customer Details: ", session.customer_details);
+
     }
 
     return res.json({ received: true });

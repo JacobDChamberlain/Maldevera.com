@@ -21,6 +21,7 @@ import { InventoryProvider } from '../../context/InventoryContext';
 import SuccessfulPurchase from '../Checkout/Success/CheckoutSuccess';
 import FailedPurchase from '../Checkout/Cancel/CheckoutCancel';
 import CustomerInfoForm from '../CustomerInfoForm/CustomerInfoForm';
+import CurrentStock from '../CurrentStock/CurrentStock';
 
 function App() {
   return (
@@ -88,6 +89,7 @@ function App() {
                 <Route path='/checkout' Component={ Purchase } />
                 <Route path='/successful-purchase' Component={ SuccessfulPurchase } />
                 <Route path='/sad-yeet' Component={ FailedPurchase } />
+                <Route path='/stock' Component={ CurrentStock } />
                 <Route path='*' Component={ NotFound } />
               </Routes>
           </BrowserRouter>

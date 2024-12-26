@@ -8,6 +8,10 @@ router.post('/', async (req, res) => {
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object;
 
+        console.log("*~*~*~~~~~EVENT RECEIVED~~~~~*~*~*")
+        console.log("Event: ", session);
+        console.log("----------------------------------");
+
         try {
             const purchasedItems = JSON.parse(session.metadata.purchasedItems);
 

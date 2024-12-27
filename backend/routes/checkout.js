@@ -48,8 +48,13 @@ router.post('/create-checkout-session', async (req, res) => {
             customer_email: customerInfo.email,
             metadata: {
                 customerName: customerInfo.name,
-                address: `${customerInfo.address}, ${customerInfo.city}, ${customerInfo.state}, ${customerInfo.zip}`,
                 purchasedItems: JSON.stringify(purchasedItems),
+            },
+            shipping_address_collection: {
+                allowed_countries: ['US', 'CA'], // Update this list to match the countries you support
+            },
+            phone_number_collection: {
+                enabled: true
             },
             success_url: `${frontendBaseURL}/successful-purchase`,
             cancel_url: `${frontendBaseURL}/sad-yeet`,

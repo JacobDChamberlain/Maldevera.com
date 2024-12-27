@@ -5,7 +5,7 @@ const router = express.Router();
 const frontendBaseURL = process.env.FRONTEND_URL;
 
 router.post('/create-checkout-session', async (req, res) => {
-    const { items } = req.body; // Expecting { items: [{ id, quantity }] }
+    const items = req.body; // Expecting [{ id, quantity }]
     const purchasedItems = [];
 
     try {

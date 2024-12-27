@@ -26,7 +26,7 @@ export function MerchCart({ isOpen }) {
             quantity,
         }));
 
-        const payload = { items: itemsToPurchase };
+        const payload = itemsToPurchase;
 
         fetch(`${backendBaseURL}/api/checkout/create-checkout-session`, {
             method: 'POST',

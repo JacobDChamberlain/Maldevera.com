@@ -5,7 +5,7 @@ import './MerchCart.css';
 import formatCurrency from "../../utilities/formatCurrency";
 import { useEffect, useState } from "react";
 import { useInventory } from "../../context/InventoryContext";
-import CustomerInfoForm from "../CustomerInfoForm/CustomerInfoForm";
+
 const backendBaseURL = process.env.REACT_APP_BACKEND_URL;
 
 export function MerchCart({ isOpen }) {
@@ -14,23 +14,19 @@ export function MerchCart({ isOpen }) {
     const [merchItems, setMerchItems] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
-    const [showForm, setShowForm] = useState(false); // Toggle between cart and form
 
     // Fetch the inventory data from the backend
     useEffect(() => {
         if (inventory) setMerchItems(inventory);
     }, [inventory]);
 
-    const handlePurchase = (customerInfo) => {
+    const handlePurchase = () => {
         const itemsToPurchase = cartItems.map(({ id, quantity }) => ({
             id,
-            quantity
+            quantity,
         }));
 
-        const payload = {
-            items: itemsToPurchase,
-            customerInfo,
-        };
+        const payload = itemsToPurchase;
 
         fetch(`${backendBaseURL}/api/checkout/create-checkout-session`, {
             method: 'POST',
@@ -43,7 +39,7 @@ export function MerchCart({ isOpen }) {
             .then(data => {
                 if (data.url) {
                     clearCart();
-                    window.location.href = data.url;
+                    window.location.href = data.url; // Redirect to Stripe's checkout page
                 }
             })
             .catch(err => {
@@ -53,10 +49,6 @@ export function MerchCart({ isOpen }) {
             });
     };
 
-    const handleFormSubmit = (formData) => {
-        handlePurchase(formData);
-    };
-
     return (
         <>
             <Offcanvas show={isOpen} onHide={closeCart} placement="end">
@@ -64,43 +56,39 @@ export function MerchCart({ isOpen }) {
                     <Offcanvas.Title>Cart</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    {showForm ? (
-                        <CustomerInfoForm onSubmit={handleFormSubmit} />
-                    ) : (
-                        <Stack gap={3}>
-                            {cartItems.map((item) => (
-                                <CartItem
-                                    key={`${item.id}-${item.size}`}
-                                    {...item}
-                                    merchItems={merchItems}
-                                    increaseQuantity={() => increaseItemQuantity(item.id, item.size)}
-                                    decreaseQuantity={() => decreaseItemQuantity(item.id, item.size)}
-                                />
-                            ))}
-                            <div className="ms-auto fw-bold fs-5">
-                                Total{" "}
-                                {formatCurrency(
-                                    cartItems.reduce((total, cartItem) => {
-                                        const item = merchItems.find(i => i.id === cartItem.id);
-                                        return total + (item?.price || 0) * cartItem.quantity;
-                                    }, 0)
-                                )}
+                    <Stack gap={3}>
+                        {cartItems.map((item) => (
+                            <CartItem
+                                key={`${item.id}-${item.size}`}
+                                {...item}
+                                merchItems={merchItems}
+                                increaseQuantity={() => increaseItemQuantity(item.id, item.size)}
+                                decreaseQuantity={() => decreaseItemQuantity(item.id, item.size)}
+                            />
+                        ))}
+                        <div className="ms-auto fw-bold fs-5">
+                            Total{" "}
+                            {formatCurrency(
+                                cartItems.reduce((total, cartItem) => {
+                                    const item = merchItems.find(i => i.id === cartItem.id);
+                                    return total + (item?.price || 0) * cartItem.quantity;
+                                }, 0)
+                            )}
+                        </div>
+                        <button
+                            className="btn btn-primary w-100 mt-3"
+                            onClick={handlePurchase} // Directly call handlePurchase
+                            disabled={cartItems.length === 0}
+                        >
+                            Purchase
+                        </button>
+                        <div className="ms-auto fs-5">
+                            Page Under Construction
+                            <div className="ms-auto fs-6">
+                                For all merch & size inquiries, please message us on Instagram @maldevera, or any social media platform.
                             </div>
-                            <button
-                                className="btn btn-primary w-100 mt-3"
-                                onClick={() => setShowForm(true)} // Show the form when Purchase is clicked
-                                disabled={cartItems.length === 0}
-                            >
-                                Purchase
-                            </button>
-                            <div className="ms-auto fs-5">
-                                Page Under Construction
-                                <div className="ms-auto fs-6">
-                                    For all merch & size inquiries, please message us on Instagram @maldevera, or any social media platform.
-                                </div>
-                            </div>
-                        </Stack>
-                    )}
+                        </div>
+                    </Stack>
                 </Offcanvas.Body>
             </Offcanvas>
 

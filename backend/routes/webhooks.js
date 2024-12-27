@@ -33,10 +33,7 @@ router.post('/', async (req, res) => {
             const { name, email, phone } = session.customer_details;
             const { line1, line2, city, state, postal_code, country } = session.customer_details.address;
 
-            console.log("Customer Details: ", session.customer_details);
-            console.log("Session object: ", session);
-
-            // Prepare email content for Maldevera
+            // Prepare email content for both Maldevera and Customer
             const purchasedItemsDetails = async (purchasedItems) => {
                 let totalPrice = 0;
 
@@ -53,40 +50,87 @@ router.post('/', async (req, res) => {
 
                         return `
                             <tr>
-                                <td>${item.name}</td>
-                                <td><img src='${item.images[0] || "No Image Available"}' alt='${item.name}' width='100'/></td>
-                                <td>$${parseFloat(item.price).toFixed(2)}</td>
-                                <td>${quantity}</td>
+                                <td style='padding: 10px;'>${item.name}</td>
+                                <td style='padding: 10px;'><img src='${item.images[0] || "https://via.placeholder.com/100"}' alt='${item.name}' width='100' /></td>
+                                <td style='padding: 10px;'>$${parseFloat(item.price).toFixed(2)}</td>
+                                <td style='padding: 10px;'>${quantity}</td>
                             </tr>
                         `;
                     })
                 );
 
-                return `
-                    <table border="1" cellpadding="5" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Picture</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${itemDetails.join('')}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3" align="right"><strong>Total Price:</strong></td>
-                                <td><strong>$${totalPrice.toFixed(2)}</strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                `;
+                return {
+                    html: `
+                        <table style='width: 100%; border-collapse: collapse;'>
+                            <thead>
+                                <tr style='background-color: #f4f4f4;'>
+                                    <th style='padding: 10px; border: 1px solid #ddd;'>Name</th>
+                                    <th style='padding: 10px; border: 1px solid #ddd;'>Picture</th>
+                                    <th style='padding: 10px; border: 1px solid #ddd;'>Price</th>
+                                    <th style='padding: 10px; border: 1px solid #ddd;'>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${itemDetails.join('')}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3" style='padding: 10px; text-align: right; font-weight: bold;'>Total Price:</td>
+                                    <td style='padding: 10px; font-weight: bold;'>$${totalPrice.toFixed(2)}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    `,
+                    totalPrice
+                };
             };
 
+            const { html: purchasedItemsFormattedDetails, totalPrice } = await purchasedItemsDetails(purchasedItems);
 
-            const purchasedItemsFormattedDetails = await purchasedItemsDetails(purchasedItems);
+            const customerEmailContent = `
+                <div style='font-family: Arial, sans-serif; line-height: 1.5; color: #333;'>
+                    <h1 style='background-color: #007bff; color: white; padding: 10px;'>Thank You for Your Order!</h1>
+                    <p>Hi ${name},</p>
+                    <p>Thank you for shopping with Maldevera! Here are the details of your order:</p>
+
+                    <h2>Shipping Address:</h2>
+                    <p>${line1}<br/>${line2 || ''}<br/>${city}, ${state} ${postal_code}<br/>${country}</p>
+
+                    <h2>Order Details:</h2>
+                    ${purchasedItemsFormattedDetails}
+
+                    <p style='margin-top: 20px;'>We will process and ship your order soon. If you have any questions, feel free to contact us at <a href='mailto:MaldeveraTX@gmail.com'>MaldeveraTX@gmail.com</a>.</p>
+
+                    <p>Thank you for supporting Maldevera!</p>
+                    <p><strong>Total Price:</strong> $${totalPrice.toFixed(2)}</p>
+                    <footer style='margin-top: 20px; font-size: 0.9em; color: #666;'>
+                        <p>Maldevera Merch Store<br/>Dallas/New Orleans</p>
+                    </footer>
+                </div>
+            `;
+
+            // Configure Nodemailer
+            const transporter = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false,
+                auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS,
+                },
+            });
+
+            // Send email to Customer
+            await transporter.sendMail({
+                from: `"Maldevera Merch Store" <${process.env.EMAIL_USER}>`,
+                to: email,
+                subject: "Order Confirmation - Maldevera Merch Store",
+                html: customerEmailContent,
+            });
+
+            console.log(`Email successfully sent to customer: ${email}`);
+
+            // Send email to Maldevera
             const maldeveraEmailContent = `
                 <h1>New Purchase Notification</h1>
                 <h2>Customer Info:</h2>
@@ -101,18 +145,6 @@ router.post('/', async (req, res) => {
                 ${purchasedItemsFormattedDetails}
             `;
 
-            // Configure Nodemailer
-            const transporter = nodemailer.createTransport({
-                host: "smtp.gmail.com",
-                port: 587,
-                secure: false,
-                auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS,
-                },
-            });
-
-            // Send email to Maldevera
             await transporter.sendMail({
                 from: `"Maldevera Merch Store" <${process.env.EMAIL_USER}>`,
                 to: "MaldeveraTX@gmail.com",

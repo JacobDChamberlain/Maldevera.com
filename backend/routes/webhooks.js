@@ -10,6 +10,7 @@ router.post('/', async (req, res) => {
         const session = event.data.object;
 
         try {
+            // Parse purchased items from session metadata
             const purchasedItems = JSON.parse(session.metadata.purchasedItems);
 
             // Update stock in a transaction
@@ -29,12 +30,16 @@ router.post('/', async (req, res) => {
             console.log("Stock successfully updated for purchased items.");
 
             // Extract customer details and shipping info
-            const { name, email, phone, address } = session.customer_details;
+            const { name, email, phone } = session.customer_details;
+            const { line1, line2, city, state, postal_code, country } = session.customer_details.address;
+
+            console.log("Customer Details: ", session.customer_details);
+            console.log("Session object: ", session);
 
             // Prepare email content for Maldevera
-            const purchasedItemsDetails = purchasedItems.map(({ id, quantity }) =>
-                `- Item ID: ${id}, Quantity: ${quantity}`
-            ).join('\n');
+            const purchasedItemsDetails = purchasedItems
+                .map(({ id, quantity }) => `- Item ID: ${id}, Quantity: ${quantity}`)
+                .join('\n');
 
             const maldeveraEmailContent = `
                 New Purchase Notification:
@@ -42,13 +47,13 @@ router.post('/', async (req, res) => {
                 Customer Info:
                 - Name: ${name}
                 - Email: ${email}
-                - Phone: ${phone}
+                - Phone: ${phone || 'N/A'}
 
                 Shipping Address:
-                ${address.line1}
-                ${address.line2 || ''}
-                ${address.city}, ${address.state} ${address.postal_code}
-                ${address.country}
+                ${line1}
+                ${line2 || ''}
+                ${city}, ${state} ${postal_code}
+                ${country}
 
                 Purchased Items:
                 ${purchasedItemsDetails}

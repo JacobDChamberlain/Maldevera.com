@@ -45,7 +45,7 @@ router.post('/create-checkout-session', async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
-            customer_email: customerInfo.email,
+            customer_creation: 'always',
             metadata: {
                 customerName: customerInfo.name,
                 purchasedItems: JSON.stringify(purchasedItems),

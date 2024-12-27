@@ -37,26 +37,68 @@ router.post('/', async (req, res) => {
             console.log("Session object: ", session);
 
             // Prepare email content for Maldevera
-            const purchasedItemsDetails = purchasedItems
-                .map(({ id, quantity }) => `- Item ID: ${id}, Quantity: ${quantity}`)
-                .join('\n');
+            const purchasedItemsDetails = async (purchasedItems) => {
+                let totalPrice = 0;
 
+                const itemDetails = await Promise.all(
+                    purchasedItems.map(async ({ id, quantity }) => {
+                        const item = await Item.findByPk(id);
+
+                        if (!item) {
+                            throw new Error(`Item with ID ${id} not found`);
+                        }
+
+                        const itemTotal = parseFloat(item.price) * quantity;
+                        totalPrice += itemTotal;
+
+                        return `
+                            <tr>
+                                <td>${item.name}</td>
+                                <td><img src='${item.images[0] || "No Image Available"}' alt='${item.name}' width='100'/></td>
+                                <td>$${parseFloat(item.price).toFixed(2)}</td>
+                                <td>${quantity}</td>
+                            </tr>
+                        `;
+                    })
+                );
+
+                return `
+                    <table border="1" cellpadding="5" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Picture</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemDetails.join('')}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" align="right"><strong>Total Price:</strong></td>
+                                <td><strong>$${totalPrice.toFixed(2)}</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                `;
+            };
+
+
+            const purchasedItemsFormattedDetails = await purchasedItemsDetails(purchasedItems);
             const maldeveraEmailContent = `
-                New Purchase Notification:
-
-                Customer Info:
-                - Name: ${name}
-                - Email: ${email}
-                - Phone: ${phone || 'N/A'}
-
-                Shipping Address:
-                ${line1}
-                ${line2 || ''}
-                ${city}, ${state} ${postal_code}
-                ${country}
-
-                Purchased Items:
-                ${purchasedItemsDetails}
+                <h1>New Purchase Notification</h1>
+                <h2>Customer Info:</h2>
+                <ul>
+                    <li><strong>Name:</strong> ${name}</li>
+                    <li><strong>Email:</strong> ${email}</li>
+                    <li><strong>Phone:</strong> ${phone || 'N/A'}</li>
+                </ul>
+                <h2>Shipping Address:</h2>
+                <p>${line1}<br/>${line2 || ''}<br/>${city}, ${state} ${postal_code}<br/>${country}</p>
+                <h2>Purchased Items:</h2>
+                ${purchasedItemsFormattedDetails}
             `;
 
             // Configure Nodemailer
@@ -75,7 +117,7 @@ router.post('/', async (req, res) => {
                 from: `"Maldevera Merch Store" <${process.env.EMAIL_USER}>`,
                 to: "MaldeveraTX@gmail.com",
                 subject: "New Merch Purchase - Order Details",
-                text: maldeveraEmailContent,
+                html: maldeveraEmailContent,
             });
 
             console.log("Email successfully sent to MaldeveraTX@gmail.com");

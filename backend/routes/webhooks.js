@@ -67,7 +67,7 @@ router.post('/', async (req, res) => {
 
             // Send email to Maldevera
             await transporter.sendMail({
-                from: `"Maldevera Merch Store" ${process.env.EMAIL_USER}`,
+                from: `"Maldevera Merch Store" <${process.env.EMAIL_USER}>`,
                 to: "MaldeveraTX@gmail.com",
                 subject: "New Merch Purchase - Order Details",
                 text: maldeveraEmailContent,

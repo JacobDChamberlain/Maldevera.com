@@ -5,7 +5,7 @@ const router = express.Router();
 const frontendBaseURL = process.env.FRONTEND_URL;
 
 router.post('/create-checkout-session', async (req, res) => {
-    const { items, customerInfo } = req.body; // Expecting { items: [{ id, quantity }], customerInfo: {...} }
+    const { items } = req.body; // Expecting { items: [{ id, quantity }] }
     const purchasedItems = [];
 
     try {
@@ -45,16 +45,15 @@ router.post('/create-checkout-session', async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
-            customer_creation: 'always',
+            customer_creation: 'always', // Ensure a customer is created or reused for this session
             metadata: {
-                customerName: customerInfo.name,
-                purchasedItems: JSON.stringify(purchasedItems),
+                purchasedItems: JSON.stringify(purchasedItems), // Store items for use in webhook
             },
             shipping_address_collection: {
-                allowed_countries: ['US', 'CA'], // Update this list to match the countries you support
+                allowed_countries: ['US', 'CA'], // Adjust as needed
             },
             phone_number_collection: {
-                enabled: true
+                enabled: true,
             },
             success_url: `${frontendBaseURL}/successful-purchase`,
             cancel_url: `${frontendBaseURL}/sad-yeet`,

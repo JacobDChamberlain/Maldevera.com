@@ -82,12 +82,16 @@ export function MerchCart({ isOpen }) {
                         >
                             Purchase
                         </button>
-                        <div className="ms-auto fs-5">
+                        {/* <div className="ms-auto fs-5">
                             Page Under Construction
                             <div className="ms-auto fs-6">
                                 For all merch & size inquiries, please message us on Instagram @maldevera, or any social media platform.
                             </div>
+                        </div> */}
+                        <div className="ms-auto fs-6" style={{ fontStyle: "italic", fontSize: "smaller", color: "grey" }}>
+                            Taste the corners of your wallet...
                         </div>
+
                     </Stack>
                 </Offcanvas.Body>
             </Offcanvas>

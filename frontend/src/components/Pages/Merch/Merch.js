@@ -21,9 +21,12 @@ export default function Merch() {
 
     return (
         <ul className="merch-ul">
-            {uniqueItems.map(item => (
-                <StoreItem key={item.id} item={item} allItems={inventory} />
-            ))}
+            {uniqueItems
+                .sort((a, b) => a.id - b.id)
+                .map(item => (
+                    <StoreItem key={item.id} item={item} inventory={inventory} />
+                )
+            )}
         </ul>
     );
 }

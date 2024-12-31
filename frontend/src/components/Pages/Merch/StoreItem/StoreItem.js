@@ -4,8 +4,8 @@ import './StoreItem.css';
 import { useMerchCart } from "../../../../context/MerchCartContext";
 import { Button, Modal } from "react-bootstrap";
 
-export default function StoreItem({ item, allItems }) {
-    const { increaseItemQuantity } = useMerchCart();
+export default function StoreItem({ item, inventory }) {
+    const { getItemQuantity, increaseItemQuantity } = useMerchCart();
     const [selectedSize, setSelectedSize] = useState("");
     const [itemAdded, setItemAdded] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -16,7 +16,7 @@ export default function StoreItem({ item, allItems }) {
 
     // Get all sizes for this style (only if the item has sizes)
     const relatedItems = hasSizes
-        ? allItems.filter(i => i.name.split(' - ')[0] === item.name.split(' - ')[0])
+        ? inventory.filter(i => i.name.split(' - ')[0] === item.name.split(' - ')[0])
         : [];
     const availableSizes = hasSizes
         ? relatedItems.reduce((sizes, currentItem) => {
@@ -36,7 +36,7 @@ export default function StoreItem({ item, allItems }) {
         if (hasSizes) {
             if (selectedSize) {
                 const selectedItem = relatedItems.find(i => i.size === selectedSize);
-                if (selectedItem && selectedItem.stock > 0) {
+                if (selectedItem && selectedItem.stock > 0 && getItemQuantity(selectedItem.id, selectedSize) + 1 <= selectedItem.stock) {
                     increaseItemQuantity(selectedItem.id, selectedSize, availableSizes);
                     setItemAdded(true);
 

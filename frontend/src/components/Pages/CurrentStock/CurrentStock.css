@@ -1,46 +1,6 @@
-.stock-wrapper {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.stock-container {
-  width: 500px;
-  padding: 16px;
-  position: sticky;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  overflow: hidden;
-}
-
-.stock-header {
-  text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 16px;
-  color: #333;
-}
-
-.table-wrapper {
-  max-height: 600px;
-  overflow-y: auto;
-}
-
-.stock-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.stock-cell {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 8px;
-  text-align: left;
-  white-space: nowrap;
-  color: #333;
-}
+.current-stock-container {
+    background-color: rgba(0, 255, 255, 0.3); /* White with slight transparency */
+    border-radius: 8px; /* Optional: Rounds the corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+    padding: 20px; /* Extra padding for aesthetics */
+  }

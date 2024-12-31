@@ -18,9 +18,9 @@ import './App.css';
 
 import { MerchCartProvider } from '../../context/MerchCartContext';
 import { InventoryProvider } from '../../context/InventoryContext';
-import SuccessfulPurchase from '../Checkout/Success/CheckoutSuccess';
-import FailedPurchase from '../Checkout/Cancel/CheckoutCancel';
-import CurrentStock from '../CurrentStock/CurrentStock';
+import SuccessfulPurchase from '../Pages/Checkout/Success/CheckoutSuccess';
+import FailedPurchase from '../Pages/Checkout/Cancel/CheckoutCancel';
+import CurrentStock from '../Pages/CurrentStock/CurrentStock';
 
 function App() {
   return (

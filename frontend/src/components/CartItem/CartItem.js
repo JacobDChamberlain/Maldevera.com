@@ -1,6 +1,7 @@
 import React from "react";
 import formatCurrency from "../../utilities/formatCurrency";
 import { useMerchCart } from "../../context/MerchCartContext";
+import './CartItem.css';
 
 export function CartItem({ id, quantity, size, merchItems }) {
     const { removeFromCart, increaseItemQuantity, decreaseItemQuantity } = useMerchCart();
@@ -26,7 +27,7 @@ export function CartItem({ id, quantity, size, merchItems }) {
                 </div>
                 <div className="d-flex align-items-center mt-2">
                     <button
-                        className="btn btn-outline-primary btn-sm me-2"
+                        className={`btn btn-sm me-2 ${quantity <= 1 ? "btn-outline-secondary disabled-opacity" : "btn-outline-primary"}`}
                         onClick={() => decreaseItemQuantity(id, size)}
                         disabled={quantity <= 1}
                     >
@@ -34,8 +35,9 @@ export function CartItem({ id, quantity, size, merchItems }) {
                     </button>
                     <span className="mx-2">{quantity}</span>
                     <button
-                        className="btn btn-outline-primary btn-sm ms-2"
+                        className={`btn btn-sm ms-2 ${quantity + 1 > item.stock ? "btn-outline-secondary disabled-opacity" : "btn-outline-primary"}`}
                         onClick={() => increaseItemQuantity(id, size)}
+                        disabled={quantity + 1 > item.stock}
                     >
                         +
                     </button>

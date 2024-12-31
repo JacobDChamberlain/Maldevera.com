@@ -6,10 +6,10 @@
 }
 
 .stock-container {
-  max-width: 400px;
+  width: 500px;
   padding: 16px;
-  position: fixed;
-  bottom: 30px;
+  position: sticky;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.9);
@@ -28,7 +28,7 @@
 }
 
 .table-wrapper {
-  max-height: 300px;
+  max-height: 600px;
   overflow-y: auto;
 }
 

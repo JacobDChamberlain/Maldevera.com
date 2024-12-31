@@ -66,11 +66,22 @@ const CurrentStock = () => {
   };
 
   const handleSave = async () => {
+    // Create an object with only the changed items
+    const updatedStock = localInventory.reduce((acc, item) => {
+      const originalItem = inventory.find((invItem) => invItem.id === item.id);
+      if (originalItem && originalItem.stock !== item.stock) {
+        acc[item.id] = item.stock;
+      }
+      return acc;
+    }, {});
+
+    console.log('sending this to backend: ', updatedStock);
+
     try {
       const response = await fetch(`${backendBaseURL}/api/update-inventory`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(localInventory),
+        body: JSON.stringify(updatedStock),
       });
       if (!response.ok) {
         throw new Error('Failed to update inventory.');

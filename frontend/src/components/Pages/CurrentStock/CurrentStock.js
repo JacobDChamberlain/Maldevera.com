@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './CurrentStock.css';
 
 const CurrentStock = () => {
   const [inventory, setInventory] = useState([]);
@@ -36,26 +37,30 @@ const CurrentStock = () => {
   }
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.header}>Current Stock</h1>
-      <div style={styles.tableWrapper}>
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.cell}>Item Name</th>
-              <th style={styles.cell}>Stock</th>
-            </tr>
-          </thead>
-          <tbody>
-            {inventory.map((item) => (
-              <tr key={item.id}>
-                <td style={styles.cell}>{item.name}</td>
-                <td style={styles.cell}>{item.stock}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <div className='stock-wrapper'>
+      <div style={styles.container}>
+            <h1 style={styles.header}>Current Stock</h1>
+            <div style={styles.tableWrapper}>
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={styles.cell}>Item Name</th>
+                    <th style={styles.cell}>Stock</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {inventory
+                    .sort((a, b) => a.id - b.id)
+                    .map((item) => (
+                      <tr key={item.id}>
+                        <td style={styles.cell}>{item.name}</td>
+                        <td style={styles.cell}>{item.stock}</td>
+                      </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
     </div>
   );
 };

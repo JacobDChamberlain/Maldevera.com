@@ -3,8 +3,10 @@ import './CurrentStock.css';
 
 const CurrentStock = () => {
   const [inventory, setInventory] = useState([]);
+  const [localInventory, setLocalInventory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   const backendBaseURL = process.env.REACT_APP_BACKEND_URL;
 
@@ -17,6 +19,7 @@ const CurrentStock = () => {
         }
         const data = await response.json();
         setInventory(data);
+        setLocalInventory(data); // Initialize localInventory with fetched data
       } catch (err) {
         setError('Error fetching inventory data.');
         console.error(err);
@@ -26,82 +29,148 @@ const CurrentStock = () => {
     };
 
     fetchInventory();
-  }, []);
+  }, [backendBaseURL]);
+
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleCancel = () => {
+    setLocalInventory(inventory); // Reset localInventory to original data
+    setIsEditing(false); // Exit edit mode
+  };
+
+  const incrementStock = (id) => {
+    setLocalInventory((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, stock: item.stock + 1 } : item
+      )
+    );
+  };
+
+  const decrementStock = (id) => {
+    setLocalInventory((prev) =>
+      prev.map((item) =>
+        item.id === id && item.stock > 0
+          ? { ...item, stock: item.stock - 1 }
+          : item
+      )
+    );
+  };
+
+  const handleStockChange = (id, value) => {
+    const newStock = parseInt(value, 10) || 0;
+    setLocalInventory((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, stock: newStock } : item))
+    );
+  };
+
+  const handleSave = async () => {
+    // Create an object with only the changed items
+    const updatedStock = localInventory.reduce((acc, item) => {
+      const originalItem = inventory.find((invItem) => invItem.id === item.id);
+      if (originalItem && originalItem.stock !== item.stock) {
+        acc[item.id] = item.stock;
+      }
+      return acc;
+    }, {});
+
+    console.log('sending this to backend: ', updatedStock);
+
+    try {
+      const response = await fetch(`${backendBaseURL}/api/update-inventory`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedStock),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update inventory.');
+      }
+      setInventory(localInventory); // Sync with updated data
+      setIsEditing(false);
+    } catch (err) {
+      setError('Error updating inventory.');
+      console.error(err);
+    }
+  };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center py-5">Loading...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="alert alert-danger text-center">{error}</div>;
   }
 
   return (
-    <div className='stock-wrapper'>
-      <div style={styles.container}>
-            <h1 style={styles.header}>Current Stock</h1>
-            <div style={styles.tableWrapper}>
-              <table style={styles.table}>
-                <thead>
-                  <tr>
-                    <th style={styles.cell}>Item Name</th>
-                    <th style={styles.cell}>Stock</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {inventory
-                    .sort((a, b) => a.id - b.id)
-                    .map((item) => (
-                      <tr key={item.id}>
-                        <td style={styles.cell}>{item.name}</td>
-                        <td style={styles.cell}>{item.stock}</td>
-                      </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+    <div className="container py-4 current-stock-container">
+      <h1 className="text-center mb-4">Current Stock</h1>
+      <div className="text-end mb-3">
+        {isEditing ? (
+          <>
+            <button className="btn btn-secondary me-2" onClick={handleCancel}>
+              Cancel
+            </button>
+            <button className="btn btn-success" onClick={handleSave}>
+              Save Changes
+            </button>
+          </>
+        ) : (
+          <button className="btn btn-primary" onClick={handleEditToggle}>
+            Edit Stock
+          </button>
+        )}
+      </div>
+      <div className="table-responsive">
+        <table className="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th className="text-center">Stock</th>
+            </tr>
+          </thead>
+          <tbody>
+            {localInventory
+              .sort((a, b) => a.id - b.id)
+              .map((item) => (
+                <tr key={item.id}>
+                  <td>{item.name}</td>
+                  <td className="text-center">
+                    {isEditing ? (
+                      <div className="d-flex justify-content-center align-items-center">
+                        <button
+                          className="btn btn-sm btn-outline-secondary me-2"
+                          onClick={() => decrementStock(item.id)}
+                        >
+                          -
+                        </button>
+                        <input
+                          className="form-control form-control-sm text-center"
+                          type="number"
+                          style={{ width: '60px' }}
+                          value={item.stock}
+                          onChange={(e) =>
+                            handleStockChange(item.id, e.target.value)
+                          }
+                        />
+                        <button
+                          className="btn btn-sm btn-outline-primary ms-2"
+                          onClick={() => incrementStock(item.id)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    ) : (
+                      item.stock
+                    )}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    maxWidth: '400px',
-    margin: '0 auto',
-    padding: '16px',
-    position: 'fixed', // Ensures it stays fixed relative to the viewport
-    bottom: '30px', // Position from the bottom of the viewport
-    left: '50%', // Center horizontally
-    transform: 'translateX(-50%)', // Exact centering
-    background: 'rgba(255, 255, 255, 0.9)', // Slightly opaque white
-    borderRadius: '12px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)', // Subtle shadow for depth
-    backdropFilter: 'blur(10px)', // Glassy effect for modern browsers
-    WebkitBackdropFilter: 'blur(10px)', // Safari compatibility
-    overflow: 'hidden', // Prevent content from spilling out
-  },
-  header: {
-    textAlign: 'center',
-    fontSize: '1.5rem',
-    marginBottom: '16px',
-    color: '#333', // Ensures readability
-  },
-  tableWrapper: {
-    maxHeight: '300px', // Prevents the table from overflowing the container
-    overflowY: 'auto', // Adds vertical scrolling for long lists
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-  },
-  cell: {
-    border: '1px solid rgba(0, 0, 0, 0.1)',
-    padding: '8px',
-    textAlign: 'left',
-    whiteSpace: 'nowrap',
-    color: '#333', // Keeps text readable
-  },
 };
 
 export default CurrentStock;

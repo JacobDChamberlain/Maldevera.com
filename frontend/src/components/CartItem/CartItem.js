@@ -5,6 +5,7 @@ import { useMerchCart } from "../../context/MerchCartContext";
 export function CartItem({ id, quantity, size, merchItems }) {
     const { removeFromCart, increaseItemQuantity, decreaseItemQuantity } = useMerchCart();
     const item = merchItems.find(i => i.id === id);
+    const itemStock = item.stock;
 
     if (item == null) return null;
 
@@ -39,6 +40,13 @@ export function CartItem({ id, quantity, size, merchItems }) {
                         +
                     </button>
                 </div>
+                {itemStock && itemStock < 20 ? (
+                    <div className={itemStock <= 3 ? "text-danger" : "text-muted"}>
+                        {itemStock <= 3
+                        ? `Hurry! Only ${itemStock} left in stock!`
+                        : `${itemStock} left`}
+                    </div>
+                ) : null}
             </div>
             <div className="ms-3">{formatCurrency(item.price * quantity)}</div>
             <button

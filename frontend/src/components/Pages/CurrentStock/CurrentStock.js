@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Login } from '../Login/Login';
+import { Login } from '../Login/Login'; //* move ALL OF STOCK DISPLAY into a component, and show either Login or Stock based on presence of token.
 import './CurrentStock.css';
 
 const CurrentStock = () => {

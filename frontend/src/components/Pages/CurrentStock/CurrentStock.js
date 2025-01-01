@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Login } from '../Login/Login'; //* move ALL OF STOCK DISPLAY into a component, and show either Login or Stock based on presence of token.
 import './CurrentStock.css';
 
 const CurrentStock = () => {
@@ -75,10 +76,8 @@ const CurrentStock = () => {
       return acc;
     }, {});
 
-    console.log('sending this to backend: ', updatedStock);
-
     try {
-      const response = await fetch(`${backendBaseURL}/api/update-inventory`, {
+      const response = await fetch(`${backendBaseURL}/api/inventory`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedStock),

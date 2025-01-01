@@ -7,6 +7,7 @@ require('dotenv').config();
 const inventoryRoutes = require('./routes/inventory');
 const checkoutRoutes = require('./routes/checkout');
 const webhookRoutes = require('./routes/webhooks');
+const loginRoutes = require('./routes/login');
 
 app.use(express.json());
 app.use(cors());
@@ -14,6 +15,7 @@ app.use(cors());
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/webhooks', webhookRoutes);
+app.use('/api/login', loginRoutes);
 
 
 app.listen(port, async () => {

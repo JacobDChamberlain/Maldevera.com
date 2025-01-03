@@ -21,19 +21,19 @@ export default function About() {
             <ul className='individual-photos-ul'>
                 <li className='individual-photo-li'>
                     <img className='individual-photo' src={ pPhoto } alt='Parker Turney'></img>
-                    <p className='indivitual-photo-description'>Parker Turney</p>
+                    <div className='indivitual-photo-description'>Parker Turney</div>
                 </li>
                 <li className='individual-photo-li'>
                     <img className='individual-photo' src={ jPhoto } alt='Jacob Chamberlain'></img>
-                    <p className='indivitual-photo-description'>Jacob Chamberlain</p>
+                    <div className='indivitual-photo-description'>Jacob Chamberlain</div>
                 </li>
                 <li className='individual-photo-li'>
                     <img className='individual-photo' src={ sPhoto } alt='Shannon Paine-Jesam'></img>
-                    <p className='indivitual-photo-description'>Shannon Paine-Jesam</p>
+                    <div className='indivitual-photo-description'>Shannon Paine-Jesam</div>
                 </li>
                 <li className='individual-photo-li'>
                     <img className='individual-photo' src={ kPhoto } alt='Keith Brown'></img>
-                    <p className='indivitual-photo-description'>Keith Brown</p>
+                    <div className='indivitual-photo-description'>Keith Brown</div>
                 </li>
             </ul>
         </div>

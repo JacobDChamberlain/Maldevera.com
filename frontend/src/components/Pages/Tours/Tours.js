@@ -17,7 +17,7 @@ export default function Tours() {
 
     return (
         <div className="tours-wrapper">
-            <img
+            {/* <img
                 className="tour-flyer"
                 src={TourCancel_01}
                 alt="tour-flyer-2024"
@@ -45,7 +45,10 @@ export default function Tours() {
                     className="modal-flyer-image"
                     onClick={toggleModal}
                 />
-            </ReactModal>
+            </ReactModal> */}
+            <h2 className="tour-page-header">
+                2025 Tour info coming soon...
+            </h2>
         </div>
     )
 }

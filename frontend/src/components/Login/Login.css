@@ -1,5 +1,31 @@
-.login-wrapper {
-    height: 100vh;
+.login-container {
+    /* background: linear-gradient(135deg, #4c8cfa, #6f42c1); */
+    color: #fff;
+    padding: 20px;
 }
 
-/* please make all css boostrap like stock page */
+.card {
+    border: none;
+    border-radius: 12px;
+    background-color: #fff;
+}
+
+.card h2 {
+    color: #4c8cfa;
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 6px;
+}
+
+.btn-primary {
+    background: #4c8cfa;
+    border: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #357ae8;
+}

@@ -172,10 +172,11 @@
 
 
   .navbar-wrapper {
-    width: 90vw;
+    width: 100%;
   }
   .my-nav-link {
     font-size: 14px;
+    text-align: center;
   }
 
 
@@ -199,7 +200,7 @@
 
 
   .store-item-wrapper {
-    width: 400px; /** altering this changes visible window of third shirt */
+    width: 400px;
     padding: 0px;
   }
 
@@ -229,8 +230,6 @@
   .show-description {
     margin: 5px;
   }
-
-  /** consider changing merch centering here */
 }
 
 

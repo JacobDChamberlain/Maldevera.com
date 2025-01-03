@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Login } from '../Login/Login'; //* move ALL OF STOCK DISPLAY into a component, and show either Login or Stock based on presence of token.
+import Login from '../../Login/Login'; //* move ALL OF STOCK DISPLAY into a component, and show either Login or Stock based on presence of token.
 import './CurrentStock.css';
 
 const CurrentStock = () => {
@@ -8,6 +8,8 @@ const CurrentStock = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+
 
   const backendBaseURL = process.env.REACT_APP_BACKEND_URL;
 
@@ -35,6 +37,11 @@ const CurrentStock = () => {
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+  }
 
   const handleCancel = () => {
     setLocalInventory(inventory); // Reset localInventory to original data
@@ -101,7 +108,9 @@ const CurrentStock = () => {
     return <div className="alert alert-danger text-center">{error}</div>;
   }
 
+
   return (
+    !isLoggedIn ? <Login setIsLoggedIn={setIsLoggedIn} /> :
     <div className="container py-4 current-stock-container">
       <h1 className="text-center mb-4">Current Stock</h1>
       <div className="text-end mb-3">
@@ -115,9 +124,15 @@ const CurrentStock = () => {
             </button>
           </>
         ) : (
-          <button className="btn btn-primary" onClick={handleEditToggle}>
-            Edit Stock
-          </button>
+          <>
+            <button className="btn btn-warning" onClick={handleLogout}>
+              Logout
+            </button>
+            <button className="btn btn-primary" onClick={handleEditToggle}>
+              Edit Stock
+            </button>
+          </>
+
         )}
       </div>
       <div className="table-responsive">

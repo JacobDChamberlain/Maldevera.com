@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import './Login.css';
 const backendBaseURL = process.env.REACT_APP_BACKEND_URL;
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -19,7 +18,7 @@ const Login = () => {
             const data = await response.json();
             if (data.success) {
                 localStorage.setItem('token', data.token);
-                navigate('/stock'); // Redirect to the stock page
+                setIsLoggedIn(true)
             } else {
                 setError(data.message);
             }

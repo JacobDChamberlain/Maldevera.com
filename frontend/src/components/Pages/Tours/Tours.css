@@ -9,6 +9,8 @@
   padding: 20px; /* Padding to prevent content from touching the edges */
 
   padding-bottom: 110px; /* add room for audio player */
+
+  height: 70vh;
 }
 
 .tour-flyer {

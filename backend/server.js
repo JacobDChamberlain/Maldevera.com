@@ -15,12 +15,7 @@ const loginRoutes = require('./routes/login');
 
 // Middleware
 app.use(express.json());
-app.use(
-    cors({
-        origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Frontend URL
-        methods: ['GET', 'POST'],
-    })
-);
+app.use(cors());
 
 // Routes
 app.use('/api/inventory', inventoryRoutes);
@@ -32,7 +27,14 @@ app.use('/api/login', loginRoutes);
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Frontend URL
+        origin: (origin, callback) => {
+            const allowedOrigins = ['https://maldevera.com', 'https://www.maldevera.com', 'http://localhost:3000'];
+            if (allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
         methods: ['GET', 'POST'],
     },
 });

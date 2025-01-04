@@ -1,9 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const { sequelize, Item } = require('./models');
-const http = require('http'); // Required to integrate WebSocket
-const { Server } = require('socket.io'); // Socket.io for WebSocket support
+const http = require('http');
+const { Server } = require('socket.io');
 const { v4: uuidv4 } = require('uuid');
+const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 5001;
 require('dotenv').config();
@@ -49,9 +50,15 @@ io.on('connection', (socket) => {
     console.log(`User connected: ${userId}`);
     io.emit('onlineUsers', Object.keys(connectedUsers).length); // Broadcast the user count
 
-    socket.on('message', (msg) => {
-        // Broadcast the message with the sender's ID
+    socket.on('message', async (msg) => {
+        console.log(`Message received from ${userId}: ${msg}`);
+
+        // Generate James Hetfield-style limerick
+        const limerick = await generateHetfieldLimerick(msg);
+
+        // Broadcast the original message and bot response
         io.emit('message', { userId: connectedUsers[socket.id], msg });
+        io.emit('message', { userId: 'JamesHetfieldBot', msg: limerick });
     });
 
     socket.on('disconnect', () => {
@@ -61,13 +68,43 @@ io.on('connection', (socket) => {
     });
 });
 
+// Function to fetch Hetfield-style limericks
+async function generateHetfieldLimerick(input) {
+    try {
+        const prompt = `Write a limerick in the style of James Hetfield responding to: \"${input}\"`;
+        const response = await axios.post(
+            'https://api.openai.com/v1/chat/completions',
+            {
+                model: 'gpt-3.5-turbo', // Correct model name
+                messages: [
+                    { role: 'system', content: 'You are James Hetfield. Always respond in limericks.' },
+                    { role: 'user', content: prompt }
+                ],
+                max_tokens: 100,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+                },
+            }
+        );
+
+        return response.data.choices[0].message.content.trim();
+    } catch (error) {
+        console.error('Error generating limerick:', error.response?.data || error.message);
+        return "Apologies, something went wrong with my lyrical prowess.";
+    }
+}
+
+
+
 // Start the server
 server.listen(port, async () => {
     try {
         await sequelize.authenticate();
         console.log('Database connected! Fuck on!');
     } catch (error) {
-        console.error('Unable to connect to the database, probably because you\'re a bitch, but here\'s an additional reason:', error);
+        console.error("Unable to connect to the database, probably because you're a bitch, but here's an additional reason:", error);
     }
     console.log(`Backend server running, don't question it b`);
 });

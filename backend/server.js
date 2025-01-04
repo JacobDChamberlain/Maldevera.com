@@ -47,6 +47,7 @@ io.on('connection', (socket) => {
     connectedUsers[socket.id] = userId;
 
     console.log(`User connected: ${userId}`);
+    io.emit('onlineUsers', Object.keys(connectedUsers).length); // Broadcast the user count
 
     socket.on('message', (msg) => {
         // Broadcast the message with the sender's ID
@@ -56,6 +57,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log(`User disconnected: ${connectedUsers[socket.id]}`);
         delete connectedUsers[socket.id];
+        io.emit('onlineUsers', Object.keys(connectedUsers).length); // Broadcast the updated user count
     });
 });
 

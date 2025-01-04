@@ -7,6 +7,7 @@ function Chat() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [myUserId, setMyUserId] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState(0); // Track the number of online users
     const userColors = useRef({}); // Persistent mapping for user colors
 
     const getUserColor = (userId) => {
@@ -27,7 +28,6 @@ function Chat() {
         return userColors.current[userId];
     };
 
-
     useEffect(() => {
         // Connect to WebSocket and set up listeners
         socket.on('connect', () => {
@@ -38,9 +38,14 @@ function Chat() {
             setMessages((prevMessages) => [...prevMessages, { userId, msg }]);
         });
 
+        socket.on('onlineUsers', (count) => {
+            setOnlineUsers(count); // Update the online users count
+        });
+
         return () => {
             socket.off('connect');
             socket.off('message');
+            socket.off('onlineUsers');
         };
     }, []);
 
@@ -77,7 +82,10 @@ function Chat() {
                 }}
             >
                 <h2 style={{ color: '#fff', textAlign: 'center' }}>Sup, Fool?</h2>
-                <h4 style={{ color: '#fff', textAlign: 'center', marginBottom: '20px' }}>You wanna talk some shit?</h4>
+                <h4 style={{ color: '#fff', textAlign: 'center', marginBottom: '10px' }}>You wanna talk some shit?</h4>
+                <p style={{ color: '#fff', textAlign: 'center', marginBottom: '20px' }}>
+                    Users online: <strong>{onlineUsers}</strong>
+                </p>
                 <div
                     style={{
                         maxHeight: '300px',

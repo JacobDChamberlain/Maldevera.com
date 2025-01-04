@@ -21,6 +21,7 @@ import { InventoryProvider } from '../../context/InventoryContext';
 import SuccessfulPurchase from '../Pages/Checkout/Success/CheckoutSuccess';
 import FailedPurchase from '../Pages/Checkout/Cancel/CheckoutCancel';
 import CurrentStock from '../Pages/CurrentStock/CurrentStock';
+import Chat from '../Pages/Chat/Chat';
 
 function App() {
   return (
@@ -87,6 +88,7 @@ function App() {
                 <Route path='/checkout' Component={ Purchase } />
                 <Route path='/successful-purchase' Component={ SuccessfulPurchase } />
                 <Route path='/sad-yeet' Component={ FailedPurchase } />
+                <Route path='/sup' Component={ Chat } />
                 <Route path='/stock' Component={ CurrentStock } />
                 <Route path='*' Component={ NotFound } />
               </Routes>

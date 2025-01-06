@@ -1,0 +1,109 @@
+/* Chat.css */
+
+.chat-wrapper {
+    height: 100vh;
+    background: linear-gradient(to bottom right, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8));
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.chat-container {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header {
+    color: #fff;
+    text-align: center;
+}
+
+.chat-users-online {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.chat-messages {
+    max-height: 300px;
+    overflow-y: scroll;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    color: #000;
+}
+
+.chat-input-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.chat-input {
+    flex: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    outline: none;
+}
+
+.chat-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+
+.username-prompt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom right, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8));
+}
+
+.username-header {
+    color: #fff;
+}
+
+.username-input {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.username-button {
+    padding: 10px 20px;
+    background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}

@@ -40,26 +40,51 @@ const io = new Server(server, {
 });
 
 // WebSocket logic
-const connectedUsers = {}; // Store user IDs and associated sockets
+const connectedUsers = {}; // Store socket ID, user ID, and username
 
 io.on('connection', (socket) => {
-    const userId = uuidv4(); // Generate a unique ID for the user
-    connectedUsers[socket.id] = userId;
+    let userId = uuidv4(); // Generate a unique user ID
+    connectedUsers[socket.id] = { userId, username: null }; // Initialize without a username
 
     console.log(`User connected: ${userId}`);
-    io.emit('onlineUsers', Object.keys(connectedUsers).length); // Broadcast the user count
 
+    // Handle username setting
+    socket.on('setUsername', (username, callback) => {
+        // Validate username
+        if (!username || typeof username !== 'string' || username.trim().length < 3) {
+            return callback({ error: 'Username must be at least 3 characters.' });
+        }
+
+        // Check if the username is already taken
+        const isTaken = Object.values(connectedUsers).some(user => user.username === username.trim());
+        if (isTaken) {
+            return callback({ error: 'Username is already taken.' });
+        }
+
+        connectedUsers[socket.id].username = username.trim();
+        console.log(`Username set: ${username} for user ${userId}`);
+        callback({ success: true });
+    });
+
+    // Handle incoming messages
     socket.on('message', (msg) => {
-        // Broadcast the message with the sender's ID
-        io.emit('message', { userId: connectedUsers[socket.id], msg });
+        const user = connectedUsers[socket.id];
+        if (user.username) {
+            io.emit('message', { username: user.username, msg });
+        } else {
+            console.log(`Message from unnamed user: ${userId}`);
+        }
     });
 
     socket.on('disconnect', () => {
-        console.log(`User disconnected: ${connectedUsers[socket.id]}`);
+        console.log(`User disconnected: ${connectedUsers[socket.id]?.username || userId}`);
         delete connectedUsers[socket.id];
         io.emit('onlineUsers', Object.keys(connectedUsers).length); // Broadcast the updated user count
     });
+
+    io.emit('onlineUsers', Object.keys(connectedUsers).length); // Broadcast the user count
 });
+
 
 // Start the server
 server.listen(port, async () => {

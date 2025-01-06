@@ -1,68 +1,120 @@
 import { useEffect, useState, useRef } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io(process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001'); // Use environment variable or default URL
+const socket = io(process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001'); // Connect to the backend
 
 function Chat() {
-    const [messages, setMessages] = useState([]);
-    const [input, setInput] = useState('');
-    const [myUserId, setMyUserId] = useState(null);
+    const [messages, setMessages] = useState([]); // Store chat messages
+    const [input, setInput] = useState(''); // Input field for new messages
+    const [username, setUsername] = useState(null); // Store the username after setting
+    const [usernameInput, setUsernameInput] = useState(''); // Input field for setting the username
     const [onlineUsers, setOnlineUsers] = useState(0); // Track the number of online users
-    const userColors = useRef({}); // Persistent mapping for user colors
+    const userColors = useRef({}); // Persistent mapping of usernames to colors
 
-    const getUserColor = (userId) => {
-        if (!userColors.current[userId]) {
-            // Generate either a neon or pastel color
-            const isNeon = Math.random() > 0.5; // Randomly decide between neon or pastel
-
-            if (isNeon) {
-                // Neon color: High saturation, random hue
-                const hue = Math.floor(Math.random() * 360); // Random hue (0-360)
-                userColors.current[userId] = `hsl(${hue}, 100%, 50%)`; // Neon: 100% saturation, 50% lightness
-            } else {
-                // Pastel color: Low saturation, higher lightness
-                const hue = Math.floor(Math.random() * 360); // Random hue (0-360)
-                userColors.current[userId] = `hsl(${hue}, 70%, 80%)`; // Pastel: 70% saturation, 80% lightness
-            }
+    // Assign a unique color to each username
+    const getUserColor = (username) => {
+        if (!userColors.current[username]) {
+            const hue = Math.floor(Math.random() * 360); // Generate a random hue
+            userColors.current[username] = `hsl(${hue}, 70%, 80%)`; // Pastel color
         }
-        return userColors.current[userId];
+        return userColors.current[username];
     };
 
     useEffect(() => {
-        // Connect to WebSocket and set up listeners
-        socket.on('connect', () => {
-            setMyUserId(socket.id); // Set your user ID
-        });
-
-        socket.on('message', ({ userId, msg }) => {
-            setMessages((prevMessages) => [...prevMessages, { userId, msg }]);
+        // Set up WebSocket listeners
+        socket.on('message', ({ username, msg }) => {
+            if (typeof msg === 'string') {
+                setMessages((prevMessages) => [...prevMessages, { username, msg }]); // Add new message
+            } else {
+                console.warn('Invalid message format received:', msg);
+            }
         });
 
         socket.on('onlineUsers', (count) => {
-            setOnlineUsers(count); // Update the online users count
+            setOnlineUsers(count); // Update online user count
         });
 
         return () => {
-            socket.off('connect');
             socket.off('message');
             socket.off('onlineUsers');
         };
     }, []);
 
+    // Handle setting the username
+    const setUsernameHandler = () => {
+        if (usernameInput.trim()) {
+            socket.emit('setUsername', usernameInput, (response) => {
+                if (response.success) {
+                    setUsername(usernameInput.trim()); // Save the username
+                } else {
+                    alert(response.error); // Display error if username is invalid
+                }
+            });
+        }
+    };
+
+    // Handle sending a message
     const sendMessage = () => {
-        if (input.trim()) {
-            socket.emit('message', input); // Send your message
+        if (input.trim() && username) {
+            socket.emit('message', input); // Send the message
             setInput(''); // Clear the input field
         }
     };
 
+    // Render username prompt if not set
+    if (!username) {
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100vh',
+                    background: 'linear-gradient(to bottom right, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8))',
+                }}
+            >
+                <h2 style={{ color: '#fff' }}>Choose a Username</h2>
+                <input
+                    type="text"
+                    value={usernameInput}
+                    onChange={(e) => setUsernameInput(e.target.value)}
+                    placeholder="Enter your username"
+                    style={{
+                        padding: '10px',
+                        margin: '10px 0',
+                        borderRadius: '5px',
+                        outline: 'none',
+                        border: '1px solid rgba(255, 255, 255, 0.5)',
+                        background: 'rgba(255, 255, 255, 0.2)',
+                        color: '#fff',
+                    }}
+                />
+                <button
+                    onClick={setUsernameHandler}
+                    style={{
+                        padding: '10px 20px',
+                        background: 'linear-gradient(to bottom right, #6a11cb, #2575fc)',
+                        color: '#fff',
+                        borderRadius: '5px',
+                        border: 'none',
+                        cursor: 'pointer',
+                    }}
+                >
+                    Set Username
+                </button>
+            </div>
+        );
+    }
+
+    // Render chat interface if username is set
     return (
         <div
             className="chat-wrapper"
             style={{
                 height: '100vh',
                 background: 'linear-gradient(to bottom right, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8))',
-                backdropFilter: 'blur(10px)', // Glassy effect
+                backdropFilter: 'blur(10px)',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -77,12 +129,11 @@ function Chat() {
                     padding: '20px',
                     border: '1px solid rgba(255, 255, 255, 0.5)',
                     borderRadius: '10px',
-                    background: 'rgba(255, 255, 255, 0.2)', // Frosted glass look
+                    background: 'rgba(255, 255, 255, 0.2)',
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                 }}
             >
-                <h2 style={{ color: '#fff', textAlign: 'center' }}>Sup, Fool?</h2>
-                <h4 style={{ color: '#fff', textAlign: 'center', marginBottom: '10px' }}>You wanna talk some shit?</h4>
+                <h2 style={{ color: '#fff', textAlign: 'center' }}>Sup, {username}?</h2>
                 <p style={{ color: '#fff', textAlign: 'center', marginBottom: '20px' }}>
                     Users online: <strong>{onlineUsers}</strong>
                 </p>
@@ -97,31 +148,18 @@ function Chat() {
                         background: 'rgba(255, 255, 255, 0.1)',
                     }}
                 >
-                    {messages.map(({ userId, msg }, index) => (
+                    {messages.map(({ username, msg }, index) => (
                         <div
                             key={index}
                             style={{
                                 margin: '10px 0',
-                                padding: '10px 10px 5px 10px', // Add space for the user ID
+                                padding: '10px',
                                 borderRadius: '8px',
-                                background: userId === myUserId ? '#ADD8E6' : getUserColor(userId),
+                                background: getUserColor(username),
                                 color: '#000',
-                                position: 'relative', // Relative for child positioning
                             }}
                         >
-                            {/* User ID at the top inside the message box */}
-                            <span
-                                style={{
-                                    display: 'block', // Ensures the ID takes its own line
-                                    fontSize: '12px',
-                                    color: '#555',
-                                    fontStyle: 'italic',
-                                    marginBottom: '5px', // Space between ID and message
-                                }}
-                            >
-                                {userId === myUserId ? 'You' : userId}
-                            </span>
-                            {msg}
+                            <strong>{username}:</strong> {msg}
                         </div>
                     ))}
                 </div>

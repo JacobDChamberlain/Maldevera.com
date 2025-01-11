@@ -4,4 +4,5 @@ COPY package.json .
 RUN npm install
 COPY . .
 EXPOSE 5001
-CMD npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && node server.js
+# CMD npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && node server.js
+CMD node server.js

@@ -15,34 +15,23 @@ import IAmSantaClaus from './audio/IAmSantaClaus.mp3';
 import RudolphTheRedNosedReindeer from './audio/RudolphTheRedNosedReindeer.mp3';
 
 const albumTracks = [
-    // { title: 'Guts', path: Guts, },
-    // { title: 'Sus Digo City', path: SusDigoCity, },
-    // { title: 'Mouthful Of Concrete', path: MouthfulOfConcrete, },
-    // { title: 'Hydraulic Injection Injury', path: HydraulicInjectionInjury, },
-    // { title: 'Jukai', path: Jukai, },
-    // { title: 'Icon Of Sin', path: IconOfSin, },
+    { title: 'Guts', path: Guts, },
+    { title: 'Sus Digo City', path: SusDigoCity, },
+    { title: 'Mouthful Of Concrete', path: MouthfulOfConcrete, },
+    { title: 'Hydraulic Injection Injury', path: HydraulicInjectionInjury, },
+    { title: 'Jukai', path: Jukai, },
+    { title: 'Icon Of Sin', path: IconOfSin, },
     { title: 'Winter Palace', path: WinterPalace },
-    // { title: 'Gangsta Pat - Mo Murda', path: MoMurda },
-    { title: 'Christmas In Hollis', path: ChristmasInHollis },
-    { title: 'I Am Santa Clas', path: IAmSantaClaus },
-    { title: 'Rudolph The Red Nosed Reindeer', path: RudolphTheRedNosedReindeer }
+    { title: 'Gangsta Pat - Mo Murda', path: MoMurda },
+    // { title: 'Christmas In Hollis', path: ChristmasInHollis },
+    // { title: 'I Am Santa Clas', path: IAmSantaClaus },
+    // { title: 'Rudolph The Red Nosed Reindeer', path: RudolphTheRedNosedReindeer }
 ]
 
 
 export default function Footer() {
     const [selectedTrack, setSelectedTrack] = useState(null); // Initialize with null
     const [isMinimized, setIsMinimized] = useState(true);
-
-    // Function to select a random track
-    // const getRandomTrack = () => {
-    //     const randomIndex = Math.floor(Math.random() * albumTracks.length);
-    //     return albumTracks[randomIndex].path;
-    // };
-
-    // useEffect(() => {
-    //     // Set a random track when the component mounts
-    //     setSelectedTrack(getRandomTrack());
-    // }, []); // Empty dependency array ensures it runs once
 
     useEffect(() => {
         const randomTrackIndex = Math.floor(Math.random() * albumTracks.length);

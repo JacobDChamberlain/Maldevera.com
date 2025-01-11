@@ -69,6 +69,15 @@ export default function StoreItem({ item, inventory }) {
         }
     };
 
+
+    // initially, on purchase, the purchased size would be set to the bottom of the dropdown.
+    // this fixes that.
+    const predefinedOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']; // Define the desired order
+    const sortedSizes = Object.keys(availableSizes).sort(
+        (a, b) => predefinedOrder.indexOf(a) - predefinedOrder.indexOf(b)
+    );
+
+
     return (
         <div className="store-item-wrapper">
             <img className="store-item-image" src={item.images[0]} alt={`${item.description}`} />
@@ -86,7 +95,7 @@ export default function StoreItem({ item, inventory }) {
                             className="size-select"
                         >
                             <option value="">🤘Select Size🤘</option>
-                            {Object.keys(availableSizes).map((size) => (
+                            {sortedSizes.map((size) => (
                                 <option key={size} value={size} disabled={availableSizes[size] === 0}>
                                     {size.toUpperCase()}
                                 </option>

@@ -38,7 +38,7 @@ export default function Shows() {
         // { flyer: '.'+fm2m, alt: 'october_25th_2024_CheapSteaks', date: 'October 25th, 2024', venue: 'Cheap Steaks', address: '2613 Elm St, Dallas, TX 75226', bands: ['Festival'] },
         // { flyer: '.'+fm2m, alt: 'december_7th_2024_RenosChopShop', date: 'December 7th, 2024', venue: 'Reno\'s Chop Shop', address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Festival'] }
         { flyer: '.'+mar27_2025, alt: 'march_27th_2025_ThreeLinks', date: 'March 27th, 2025', venue: 'Three Links', address: '2704 Elm St, Dallas, TX 75226', bands: ['Void', 'Odious', 'Carnist'] },
-        { flyer: '.'+may24_2025, alt: 'may_24th_2025_DoubleWide', date: 'May 24th, 2025', venue: 'DoubleWide', address: '3510 Commerce St, Dallas, TX', bands: ['Volcandra', 'Saldar', 'Inverted Candles'] }
+        { flyer: '.'+may24_2025, alt: 'may_24th_2025_DoubleWide', date: 'May 24th, 2025', venue: 'DoubleWide', address: '3510 Commerce St, Dallas, TX', bands: ['Volcandra', 'Saidan', 'Inverted Candles'] }
     ];
 
     return (

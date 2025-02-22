@@ -14,6 +14,8 @@ import './Shows.css';
 // import oct4 from './Flyers/oct4-renos.PNG';
 // import oct13 from './Flyers/oct13-growl.PNG'
 // import fm2m from './Flyers/from-man2mist-version2.png';
+import mar27_2025 from './Flyers/march27-2025-3L.png';
+import may24_2025 from './Flyers/may24-2025-DW.png';
 
 export default function Shows() {
 
@@ -35,21 +37,23 @@ export default function Shows() {
         // { flyer: '.'+oct13, alt: 'october_13th_2024_GrowlRecords', date: 'October 13th, 2024', venue: 'Growl Records', address: '09 E Abram St, Arlington, TX 76010', bands: ['Civil Serpents', 'Negative Influence', 'Bliss Fields'] },
         // { flyer: '.'+fm2m, alt: 'october_25th_2024_CheapSteaks', date: 'October 25th, 2024', venue: 'Cheap Steaks', address: '2613 Elm St, Dallas, TX 75226', bands: ['Festival'] },
         // { flyer: '.'+fm2m, alt: 'december_7th_2024_RenosChopShop', date: 'December 7th, 2024', venue: 'Reno\'s Chop Shop', address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Festival'] }
+        { flyer: '.'+mar27_2025, alt: 'march_27th_2025_ThreeLinks', date: 'March 27th, 2025', venue: 'Three Links', address: '2704 Elm St, Dallas, TX 75226', bands: ['Void', 'Odious', 'Carnist'] },
+        { flyer: '.'+may24_2025, alt: 'may_24th_2025_DoubleWide', date: 'May 24th, 2025', venue: 'DoubleWide', address: '3510 Commerce St, Dallas, TX', bands: ['Volcandra', 'Saldar', 'Inverted Candles'] }
     ];
 
     return (
         <div className="shows-wrapper">
-            {/* <h2 className='shows-page-header'>Upcoming Shows:</h2>
+            <h2 className='shows-page-header'>Upcoming Shows:</h2>
             <h4 className='shows-page-header'>(click or tap the venue name for directions)</h4>
             <ul className='show-dates-ul'>
                 {shows.map((show, idx) => (
                     <Show show={show} key={idx} />
                 ))}
-            </ul> */}
+            </ul>
 
-            <h2 className='shows-page-header'>
+            {/* <h2 className='shows-page-header'>
                 No upcoming shows, check back soon!
-            </h2>
+            </h2> */}
         </div>
     )
 }

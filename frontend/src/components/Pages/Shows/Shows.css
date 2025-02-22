@@ -14,7 +14,9 @@
 
     padding-bottom: 110px; /* add room for audio player */
 
-    height: 70vh;
+
+    /* use when no shows present */
+    /* height: 70vh; */
 }
 
 .show-dates-ul {

@@ -11,6 +11,7 @@ import About from '../Pages/About/About';
 import Shows from '../Pages/Shows/Shows';
 import Tours from '../Pages/Tours/Tours';
 import Contact from '../Pages/Contact/Contact';
+import Tabs from '../Pages/Tabs/Tabs';
 import Purchase from '../Pages/Purchase/Purchase';
 import NotFound from '../Pages/NotFound/NotFound';
 import FloatingCartButton from '../FloatingCartButton/FloatingCartButton';
@@ -84,6 +85,7 @@ function App() {
                 <Route path='/shows' Component={ Shows } />
                 <Route path='/tour' Component={ Tours } />
                 <Route path='/tours' Component={ Tours } />
+                <Route path='/tabs' Component={ Tabs } />
                 <Route path='/contact' Component={ Contact } />
                 <Route path='/checkout' Component={ Purchase } />
                 <Route path='/successful-purchase' Component={ SuccessfulPurchase } />

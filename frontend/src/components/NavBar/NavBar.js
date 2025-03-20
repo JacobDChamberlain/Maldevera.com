@@ -12,6 +12,7 @@ export default function NavBar() {
                 <NavLink className="my-nav-link" to='/merch'>MERCH</NavLink>
                 <NavLink className="my-nav-link" to='/about'>ABOUT</NavLink>
                 <NavLink className="my-nav-link" to='/shows'>SHOWS</NavLink>
+                <NavLink className="my-nav-link" to='/tabs'>TABS</NavLink>
                 <NavLink className="my-nav-link" to='/contact'>CONTACT</NavLink>
             </div>
         </div>

@@ -15,3 +15,14 @@
 
     padding-bottom: 110px; /* add room for audio player */
 }
+
+.tabs-body {
+    width: 100%;
+    padding-bottom: 50px; /* add room for audio player */
+    background-color: white;
+    /* PLEASE change color scheme
+     OR
+     fix scrolling behavior to allow to scroll to view entire tab
+     iframe but keep the main website's background the same with no whitespace
+     so the tab iframe doesnt hang over the edge of the main background */
+}

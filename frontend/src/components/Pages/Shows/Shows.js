@@ -18,6 +18,8 @@ import mar27_2025 from './Flyers/march27-2025-3L.png';
 import may17_2025 from './Flyers/may17thRGFlyer.jpg'
 import may24_2025 from './Flyers/may24-2025-DW.png';
 import july23_2025 from './Flyers/july23_2025.jpeg';
+import aug8_2025 from './Flyers/aug8thzounds.jpeg';
+import aug25_2025 from './Flyers/aug25th2025.jpg'
 
 export default function Shows() {
 
@@ -39,7 +41,8 @@ export default function Shows() {
         { flyer: '.' + may17_2025, alt: 'may_17th_2025_RubberGloves', date: 'May 17th, 2025', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Pale Misery', 'Tsuris', 'Nocturnal Spawn'] },
         { flyer: '.' + may24_2025, alt: 'may_24th_2025_DoubleWide', date: 'May 24th, 2025', venue: 'DoubleWide', address: '3510 Commerce St, Dallas, TX', bands: ['Volcandra', 'Saidan', 'Inverted Candles'] },
         { flyer: '.' + july23_2025, alt: 'july_23_2025_RubberGloves', date: 'July 23rd, 2025', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Eternal', 'Nocturnal Spawn', 'Repulse'] },
-        { flyer: '.' + fm2m, alt: 'aug_25th_ThreeLinks', date: 'August 25th, 2025', venue: 'Three Links', address: '2704 Elm St, Dallas, TX 75226', bands: ['Panpsychism'] }
+        { flyer: '.' + aug8_2025, alt: 'aug_8th_2025_ZoundsBSide', date: 'Aug 8th, 2025', venue: 'Zounds B-Side', address: '10050 Shoreview Rd, Dallas, TX 75238', bands: ['Throat Locust', 'Animus'] },
+        { flyer: '.' + aug25_2025, alt: 'aug_25th_TBD', date: 'August 25th, 2025', venue: 'TBD', address: '', bands: ['Panpsychism', 'Psychiatric Regurgitation', 'Cynical'] }
     ];
 
     return (

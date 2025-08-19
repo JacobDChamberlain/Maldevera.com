@@ -19,7 +19,7 @@ import may17_2025 from './Flyers/may17thRGFlyer.jpg'
 import may24_2025 from './Flyers/may24-2025-DW.png';
 import july23_2025 from './Flyers/july23_2025.jpeg';
 import aug8_2025 from './Flyers/aug8thzounds.jpeg';
-import aug25_2025 from './Flyers/aug25_texasTeaRoom.jpeg';
+import aug25_2025 from './Flyers/aug25_txtearoom.jpeg';
 import sept4th_2025 from './Flyers/sept4_haltomTheater.jpeg';
 
 export default function Shows() {

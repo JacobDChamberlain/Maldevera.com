@@ -21,6 +21,7 @@ import july23_2025 from './Flyers/july23_2025.jpeg';
 import aug8_2025 from './Flyers/aug8thzounds.jpeg';
 import aug25_2025 from './Flyers/aug25_txtearoom.jpeg';
 import sept4th_2025 from './Flyers/sept4_haltomTheater.jpeg';
+import oct11th_2025 from './Flyers/oct_11-DW.jpg';
 import nov8th_renos from './Flyers/nov8_renos.jpg';
 
 export default function Shows() {
@@ -46,6 +47,7 @@ export default function Shows() {
         { flyer: '.' + aug8_2025, alt: 'aug_8th_2025_ZoundsBSide', date: 'Aug 8th, 2025', venue: 'Zounds B-Side', address: '10050 Shoreview Rd, Dallas, TX 75238', bands: ['Throat Locust', 'Animus', 'No Gimmicks'] },
         { flyer: '.' + aug25_2025, alt: 'aug_25th_TXTeaRoom', date: 'August 25th, 2025', venue: 'TX Tea Room', address: '2815 Main St Suite B, Dallas, TX 75226', bands: ['Panpsychism', 'Psychiatric Regurgitation', 'Cynical'] },
         { flyer: '.' + sept4th_2025, alt: 'sept_4th_HaltomTheater', date: 'September 4th, 2025', venue: 'Haltom Theater', address: '5601 E Belknap St, Haltom City, TX 76117', bands: ['Labyrinth', 'Warhog', 'Skull Archer', 'Odious'] },
+        { flyer: '.' + oct11th_2025, alt: 'oct_11th_DoubleWide', date: 'October 11th, 2025', venue: 'DoubleWide', address: '3510 Commerce St, Dallas, TX', bands: ['Tencher', 'Sadistic Force', 'Accuser', 'Narcissist'] },
         { flyer: '.' + nov8th_renos, alt: 'nov_8th_RenosChopShop', date: 'November 8th, 2025', venue: 'Reno\'s Chop Shop', address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Evil Army', 'Silver Tongue Devil', 'Accuser', 'Odious'] }
     ];
 

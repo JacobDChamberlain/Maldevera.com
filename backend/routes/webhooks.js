@@ -1,7 +1,25 @@
 const express = require('express');
 const { sequelize, Item } = require('../models');
-const nodemailer = require('nodemailer');
 const router = express.Router();
+
+// Helper function to send email via Resend API
+async function sendEmail({ from, to, subject, html }) {
+    const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ from, to, subject, html }),
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(`Resend API error: ${JSON.stringify(error)}`);
+    }
+
+    return response.json();
+}
 
 router.post('/', async (req, res) => {
     const event = req.body;
@@ -109,22 +127,11 @@ router.post('/', async (req, res) => {
                 </div>
             `;
 
-            // Configure Nodemailer
-            const transporter = nodemailer.createTransport({
-                host: "smtp.gmail.com",
-                port: 587,
-                secure: false,
-                auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS,
-                },
-            });
-
-            // Send email to Customer
-            await transporter.sendMail({
-                from: `"Maldevera Merch Store" <${process.env.EMAIL_USER}>`,
+            // Send email to Customer via Resend
+            await sendEmail({
+                from: 'Maldevera Merch Store <orders@maldevera.com>',
                 to: email,
-                subject: "Order Confirmation - Maldevera Merch Store",
+                subject: 'Order Confirmation - Maldevera Merch Store',
                 html: customerEmailContent,
             });
 
@@ -145,10 +152,10 @@ router.post('/', async (req, res) => {
                 ${purchasedItemsFormattedDetails}
             `;
 
-            await transporter.sendMail({
-                from: `"Maldevera Merch Store" <${process.env.EMAIL_USER}>`,
-                to: "MaldeveraTX@gmail.com",
-                subject: "New Merch Purchase - Order Details",
+            await sendEmail({
+                from: 'Maldevera Merch Store <orders@maldevera.com>',
+                to: 'MaldeveraTX@gmail.com',
+                subject: 'New Merch Purchase - Order Details',
                 html: maldeveraEmailContent,
             });
 

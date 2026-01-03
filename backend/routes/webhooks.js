@@ -3,14 +3,14 @@ const { sequelize, Item } = require('../models');
 const router = express.Router();
 
 // Helper function to send email via Resend API
-async function sendEmail({ from, to, subject, html }) {
+async function sendEmail({ from, to, subject, html, reply_to }) {
     const response = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ from, to, subject, html }),
+        body: JSON.stringify({ from, to, subject, html, reply_to }),
     });
 
     if (!response.ok) {
@@ -133,6 +133,7 @@ router.post('/', async (req, res) => {
                 to: email,
                 subject: 'Order Confirmation - Maldevera Merch Store',
                 html: customerEmailContent,
+                reply_to: ['MaldeveraTX@gmail.com', 'maldeveraorders@gmail.com'],
             });
 
             console.log(`Email successfully sent to customer: ${email}`);
@@ -157,6 +158,7 @@ router.post('/', async (req, res) => {
                 to: 'MaldeveraTX@gmail.com',
                 subject: 'New Merch Purchase - Order Details',
                 html: maldeveraEmailContent,
+                reply_to: email,  // Reply goes to the customer
             });
 
             console.log("Email successfully sent to MaldeveraTX@gmail.com");

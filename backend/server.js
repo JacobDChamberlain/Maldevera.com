@@ -14,13 +14,15 @@ const webhookRoutes = require('./routes/webhooks');
 const loginRoutes = require('./routes/login');
 
 // Middleware
-app.use(express.json());
 app.use(cors());
 
-// Routes
+// Webhook route needs raw body for signature verification
+app.use('/api/webhooks', express.raw({ type: 'application/json' }), webhookRoutes);
+
+// Other routes use JSON parsing
+app.use(express.json());
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/checkout', checkoutRoutes);
-app.use('/api/webhooks', webhookRoutes);
 app.use('/api/login', loginRoutes);
 
 // Create HTTP server and integrate with WebSocket

@@ -1,5 +1,6 @@
 const express = require('express');
 const { sequelize, Item } = require('../models');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const router = express.Router();
 
 // Helper function to send email via Resend API
@@ -22,7 +23,16 @@ async function sendEmail({ from, to, subject, html, reply_to }) {
 }
 
 router.post('/', async (req, res) => {
-    const event = req.body;
+    const sig = req.headers['stripe-signature'];
+    let event;
+
+    // Verify webhook signature
+    try {
+        event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    } catch (err) {
+        console.error('Webhook signature verification failed:', err.message);
+        return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
 
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object;
@@ -137,6 +147,9 @@ router.post('/', async (req, res) => {
             });
 
             console.log(`Email successfully sent to customer: ${email}`);
+
+            // Wait 1 second to avoid Resend rate limit (2 requests/second)
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Send email to Maldevera
             const maldeveraEmailContent = `

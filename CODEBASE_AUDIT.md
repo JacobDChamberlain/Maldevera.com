@@ -20,29 +20,23 @@ Exposed secrets:
 - OpenAI API key
 - Database password
 
-**Also:** `docker-compose.yml` has hardcoded `panda666` password
+**Also:** `docker-compose.yml` had hardcoded password (now uses env var)
 
 **Action:** Rotate ALL credentials immediately, remove from git history with `git-filter-repo`
 
-### 2. Missing Webhook Signature Verification
-**Location:** `backend/routes/webhooks.js:6-7`
+### 2. ~~Missing Webhook Signature Verification~~ FIXED
+**Location:** `backend/routes/webhooks.js`
 
-```javascript
-router.post('/', async (req, res) => {
-    const event = req.body;  // NO SIGNATURE VERIFICATION
-```
+~~Attackers can fake payment completion events.~~
 
-Attackers can fake payment completion events.
+Now verifies Stripe webhook signatures using `stripe.webhooks.constructEvent()`.
 
-### 3. Unprotected Inventory API
-**Location:** `backend/routes/inventory.js:30-51`
+### 3. ~~Unprotected Inventory API~~ FIXED
+**Location:** `backend/routes/inventory.js`
 
-PUT endpoint has:
-- No authentication
-- No input validation
-- No type checking
+~~PUT endpoint has no authentication - anyone can modify stock levels.~~
 
-Anyone can modify stock levels.
+Now protected by JWT auth middleware (`backend/middleware/auth.js`).
 
 ### 4. Race Condition in Stock Management
 **Location:** `backend/routes/checkout.js`
@@ -77,13 +71,13 @@ Vulnerable to XSS. Consider httpOnly cookies.
 
 ## MEDIUM - Code Quality
 
-### 9. Dead Code (~150+ lines)
-| File | Lines | Description |
-|------|-------|-------------|
-| `App.js` | 30-73 | Commented HTML decorations |
-| `Tours.js` | 20-147 | Commented tour data/CSS |
-| `Shows.js` | 6-42 | Commented imports |
-| `Home.js` | 12, 18-21 | Commented embed IDs |
+### 9. ~~Dead Code (~150+ lines)~~ CLEANED
+| File | Status |
+|------|--------|
+| `App.js` | Lightrope decoration re-enabled |
+| `Tours.js` | Cleaned (118 → 12 lines), fancy border saved to Templates |
+| `Shows.js` | Old shows kept for posterity |
+| `Home.js` | Embed ID notes kept as reference |
 
 ### 10. Missing useMemo
 **Location:** `frontend/src/components/Pages/Merch/Merch.js:10-16`
@@ -186,10 +180,11 @@ maldevera_com/
 ```
 
 **Recommended Changes:**
-1. Add `/backend/middleware/` for auth, validation, rate limiting
+1. ~~Add `/backend/middleware/`~~ DONE - auth middleware created
 2. Add `/backend/services/` for email, stripe logic extraction
 3. Add `/frontend/src/api/` for centralized fetch client
 4. Add `/frontend/src/components/common/ErrorBoundary.js`
+5. ~~Add `/frontend/src/components/Templates/`~~ DONE - FancyBorder component saved
 
 ---
 
@@ -203,3 +198,10 @@ maldevera_com/
 - Order confirmation emails sent to customers with order details
 - Order notification emails sent to MaldeveraTX@gmail.com with customer/shipping info
 - Added `.env` to `.gitignore`
+- Removed hardcoded password from `docker-compose.yml` (now uses env vars)
+- Cleaned up dead commented code in Tours.js (118 → 12 lines)
+- Created `frontend/src/components/Templates/FancyBorder.js` - reusable border component
+- Added JWT auth middleware (`backend/middleware/auth.js`)
+- Protected inventory PUT endpoint with authentication
+- Deleted `codebase_issues.md` (consolidated into this file)
+- Updated Architecture Notes: `/backend/middleware/` now exists

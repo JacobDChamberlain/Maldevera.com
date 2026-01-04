@@ -8,7 +8,7 @@ export default function NavBar() {
         <div className="navbar-wrapper">
             <div className='navigation-links'>
                 <NavLink className="my-nav-link" to="/" >HOME</NavLink>
-                <NavLink className="my-nav-link" to='/tours'>TOUR</NavLink>
+                {/* <NavLink className="my-nav-link" to='/tours'>TOUR</NavLink> */}
                 <NavLink className="my-nav-link" to='/merch'>MERCH</NavLink>
                 <NavLink className="my-nav-link" to='/about'>ABOUT</NavLink>
                 <NavLink className="my-nav-link" to='/shows'>SHOWS</NavLink>

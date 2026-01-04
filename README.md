@@ -124,13 +124,3 @@ maldevera_com/
 | `REACT_APP_BACKEND_URL` | Backend API URL |
 
 ---
-
-## Recent Updates (January 2026)
-
-- Migrated email sending from Gmail SMTP to **Resend** (Render blocks SMTP on free tier)
-- Migrated DNS from Namecheap to **Cloudflare** for better record control
-- Emails now sent from `orders@maldevera.com` with reply-to configured
-- Set up local Stripe webhook testing with Stripe CLI
-- Added Stripe webhook signature verification for security
-- Order confirmation emails sent to customers with order details
-- Order notification emails sent to MaldeveraTX@gmail.com with customer/shipping info

@@ -1,0 +1,76 @@
+/* FancyBorder - Triple-border design with decorative flourishes
+ * Color: #DE9B72 (warm copper/bronze tone)
+ */
+
+.fancy-outer-border {
+    border: 2px solid #DE9B72;
+    padding: 6px;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.fancy-mid-border {
+    border: 6px solid #DE9B72;
+    padding: 6px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.fancy-inner-border {
+    border: 2px solid #DE9B72;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.fancy-border-title {
+    color: #DE9B72;
+    font-family: 'Times New Roman', serif;
+    margin: 10px 0 20px 0;
+    font-size: 1.8rem;
+}
+
+.fancy-border-list {
+    padding: 0;
+    list-style-type: none;
+    color: white;
+    text-align: left;
+    display: inline-block;
+}
+
+.fancy-border-li {
+    list-style: none;
+    padding: 4px 0;
+    font-family: monospace;
+    font-size: 1rem;
+}
+
+.fancy-vertical-decoration {
+    width: 80%;
+    max-width: 300px;
+    margin: 10px auto;
+    display: block;
+}
+
+.fancy-vertical-decoration.bottom {
+    transform: rotate(180deg);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .fancy-outer-border {
+        width: 95%;
+    }
+
+    .fancy-border-title {
+        font-size: 1.4rem;
+    }
+
+    .fancy-border-li {
+        font-size: 0.9rem;
+    }
+}

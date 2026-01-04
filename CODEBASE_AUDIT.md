@@ -145,7 +145,7 @@ Entire codebase untyped.
 ```
 [ ] 1. Rotate all exposed credentials
 [ ] 2. Remove .env from git history
-[ ] 3. Add Stripe webhook signature verification
+[x] 3. Add Stripe webhook signature verification
 [ ] 4. Add auth to inventory PUT endpoint
 [ ] 5. Add rate limiting to login
 [ ] 6. Add helmet() middleware
@@ -158,6 +158,11 @@ Entire codebase untyped.
 [ ] 13. Split large files
 [ ] 14. Clean up unprofessional messages
 [ ] 15. Add basic tests
+[ ] 16. Add site analytics (Cloudflare Web Analytics or Google Analytics)
+[ ] 17. Create structured archive of all shows (dates, venues, locations, flyers, bands)
+[ ] 18. Redesign homepage
+[ ] 19. Mobile-first responsive design for entire app (prioritize mobile UX, maintain desktop look)
+[ ] 20. Optimize music player for mobile
 ```
 
 ---
@@ -185,3 +190,16 @@ maldevera_com/
 2. Add `/backend/services/` for email, stripe logic extraction
 3. Add `/frontend/src/api/` for centralized fetch client
 4. Add `/frontend/src/components/common/ErrorBoundary.js`
+
+---
+
+## Recent Updates (January 2026)
+
+- Migrated email sending from Gmail SMTP to **Resend** (Render blocks SMTP on free tier)
+- Migrated DNS from Namecheap to **Cloudflare** for better record control
+- Emails now sent from `orders@maldevera.com` with reply-to configured
+- Set up local Stripe webhook testing with Stripe CLI
+- Added Stripe webhook signature verification for security
+- Order confirmation emails sent to customers with order details
+- Order notification emails sent to MaldeveraTX@gmail.com with customer/shipping info
+- Added `.env` to `.gitignore`

@@ -22,12 +22,13 @@ import SuccessfulPurchase from '../Pages/Checkout/Success/CheckoutSuccess';
 import FailedPurchase from '../Pages/Checkout/Cancel/CheckoutCancel';
 import CurrentStock from '../Pages/CurrentStock/CurrentStock';
 import Chat from '../Pages/Chat/Chat';
+import FancyBorderPreview from '../Templates/FancyBorder';
 
 function App() {
   return (
     <div className="App">
 
-      {/* <ul class="lightrope">
+      <ul class="lightrope">
         <li></li>
         <li></li>
         <li></li>
@@ -70,7 +71,7 @@ function App() {
         <li></li>
         <li></li>
         <li></li>
-      </ul> */}
+      </ul>
       <InventoryProvider>
         <MerchCartProvider>
           <BrowserRouter>
@@ -90,6 +91,7 @@ function App() {
                 <Route path='/sad-yeet' Component={ FailedPurchase } />
                 <Route path='/sup' Component={ Chat } />
                 <Route path='/stock' Component={ CurrentStock } />
+                <Route path='/preview/fancy-border' Component={ FancyBorderPreview } />
                 <Route path='*' Component={ NotFound } />
               </Routes>
           </BrowserRouter>

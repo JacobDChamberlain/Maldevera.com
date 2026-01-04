@@ -2,3 +2,38 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+/* Override Bootstrap button styles in cart */
+.offcanvas .btn-outline-primary {
+    color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+}
+
+.offcanvas .btn-outline-primary:hover {
+    background-color: var(--color-primary) !important;
+    color: var(--color-bg-primary) !important;
+}
+
+.offcanvas .btn-outline-secondary {
+    color: var(--color-text-secondary) !important;
+    border-color: var(--color-border-subtle) !important;
+}
+
+.offcanvas .btn-outline-danger {
+    color: var(--color-notification) !important;
+    border-color: var(--color-notification) !important;
+}
+
+.offcanvas .btn-outline-danger:hover {
+    background-color: var(--color-notification) !important;
+    color: var(--color-text-primary) !important;
+}
+
+/* Override Bootstrap text utilities */
+.offcanvas .text-muted {
+    color: var(--color-text-secondary) !important;
+}
+
+.offcanvas .text-danger {
+    color: var(--color-notification) !important;
+}

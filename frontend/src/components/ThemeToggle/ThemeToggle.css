@@ -143,6 +143,12 @@
     );
 }
 
+/* Ensure iframes stay below flashlight overlay */
+[data-flashlight="on"] iframe {
+    position: relative;
+    z-index: 1;
+}
+
 @keyframes eldritch-pulse {
     0%, 100% {
         box-shadow: 0 0 10px rgba(61, 122, 122, 0.3);

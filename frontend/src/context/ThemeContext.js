@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 const ThemeContext = createContext();
@@ -20,6 +20,17 @@ export function ThemeProvider({ children }) {
         document.documentElement.setAttribute('data-lights', showLights ? 'on' : 'off');
     }, [showLights]);
 
+    // Track mouse position globally so flashlight knows where to start
+    const mousePos = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+
+    useEffect(() => {
+        const trackMouse = (e) => {
+            mousePos.current = { x: e.clientX, y: e.clientY };
+        };
+        window.addEventListener('mousemove', trackMouse);
+        return () => window.removeEventListener('mousemove', trackMouse);
+    }, []);
+
     // Flashlight mouse tracking
     const handleMouseMove = useCallback((e) => {
         document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
@@ -29,10 +40,10 @@ export function ThemeProvider({ children }) {
     useEffect(() => {
         if (flashlightMode) {
             document.documentElement.setAttribute('data-flashlight', 'on');
+            // Set initial position to current mouse position
+            document.documentElement.style.setProperty('--mouse-x', `${mousePos.current.x}px`);
+            document.documentElement.style.setProperty('--mouse-y', `${mousePos.current.y}px`);
             window.addEventListener('mousemove', handleMouseMove);
-            // Set initial position to center
-            document.documentElement.style.setProperty('--mouse-x', `${window.innerWidth / 2}px`);
-            document.documentElement.style.setProperty('--mouse-y', `${window.innerHeight / 2}px`);
         } else {
             document.documentElement.setAttribute('data-flashlight', 'off');
             window.removeEventListener('mousemove', handleMouseMove);

@@ -1,5 +1,6 @@
 const express = require('express');
 const { Item } = require('../models');
+const { requireAuth } = require('../middleware/auth');
 const router = express.Router();
 
 
@@ -27,7 +28,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.put('/', async (req, res) => {
+router.put('/', requireAuth, async (req, res) => {
     const updates = req.body; // Expecting an object: { itemId1: newStock1, itemId2: newStock2, ... }
 
     try {

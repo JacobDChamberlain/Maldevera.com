@@ -146,11 +146,11 @@ Entire codebase untyped.
 [ ] 1. Rotate all exposed credentials
 [ ] 2. Remove .env from git history
 [x] 3. Add Stripe webhook signature verification
-[ ] 4. Add auth to inventory PUT endpoint
+[x] 4. Add auth to inventory PUT endpoint
 [ ] 5. Add rate limiting to login
 [ ] 6. Add helmet() middleware
 [ ] 7. Fix stock race condition with transactions
-[ ] 8. Remove dead commented code
+[x] 8. Remove dead commented code
 [ ] 9. Add useMemo to Merch.js
 [ ] 10. Fix Chat.js React keys
 [ ] 11. Create centralized API client

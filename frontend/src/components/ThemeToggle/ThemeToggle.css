@@ -86,6 +86,63 @@
     line-height: 1;
 }
 
+/* Flashlight toggle button */
+.flashlight-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 20px;
+    color: var(--color-text-primary);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all var(--animation-duration) ease;
+}
+
+.flashlight-toggle.on {
+    box-shadow: 0 0 15px rgba(255, 255, 200, 0.8), 0 0 30px rgba(255, 255, 150, 0.4);
+    border-color: #ffff88;
+    background: var(--color-bg-secondary);
+}
+
+.flashlight-toggle.off {
+    opacity: 0.6;
+    box-shadow: none;
+}
+
+.flashlight-toggle:hover {
+    transform: scale(1.05);
+    background: var(--color-hover);
+}
+
+.flashlight-toggle:active {
+    transform: scale(0.98);
+}
+
+.flashlight-icon {
+    line-height: 1;
+}
+
+/* Flashlight overlay */
+[data-flashlight="on"]::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9998;
+    background: radial-gradient(
+        circle 50px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        transparent 0%,
+        transparent 40px,
+        rgba(0, 0, 0, 0.97) 50px
+    );
+}
+
 @keyframes eldritch-pulse {
     0%, 100% {
         box-shadow: 0 0 10px rgba(61, 122, 122, 0.3);
@@ -116,5 +173,9 @@
     .lights-toggle {
         padding: 4px 10px;
         font-size: 14px;
+    }
+
+    .flashlight-toggle {
+        display: none;
     }
 }

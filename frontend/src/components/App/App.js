@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="App">
 
-      {/* <ul class="lightrope">
+      <ul class="lightrope">
         <li></li>
         <li></li>
         <li></li>
@@ -70,7 +70,7 @@ function App() {
         <li></li>
         <li></li>
         <li></li>
-      </ul> */}
+      </ul>
       <InventoryProvider>
         <MerchCartProvider>
           <BrowserRouter>

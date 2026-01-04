@@ -84,9 +84,13 @@ const CurrentStock = () => {
     }, {});
 
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch(`${backendBaseURL}/api/inventory`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify(updatedStock),
       });
       if (!response.ok) {

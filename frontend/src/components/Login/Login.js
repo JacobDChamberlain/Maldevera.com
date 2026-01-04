@@ -39,7 +39,7 @@ const Login = ({ setIsLoggedIn }) => {
                             id="username"
                             type="text"
                             className="form-control"
-                            placeholder="Who amst you"
+                            placeholder="who dat? who der?" //include gif of the football player guy from waterboy
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />

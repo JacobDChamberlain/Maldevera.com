@@ -125,6 +125,66 @@
     line-height: 1;
 }
 
+/* Logo toggle button */
+.logo-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 20px;
+    color: var(--color-text-primary);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all var(--animation-duration) ease;
+}
+
+.logo-toggle.off {
+    opacity: 0.6;
+    box-shadow: none;
+}
+
+.logo-toggle.cycling {
+    animation: button-lightning-flash 4s ease-in-out infinite;
+}
+
+@keyframes button-lightning-flash {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+    16%, 19% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.6);
+        border-color: rgba(255, 255, 255, 0.9);
+    }
+    18%, 21% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+    61%, 63% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 40px rgba(255, 255, 255, 0.7);
+        border-color: rgba(255, 255, 255, 1);
+    }
+    62%, 65% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+.logo-toggle:hover {
+    transform: scale(1.05);
+    background: var(--color-hover);
+}
+
+.logo-toggle:active {
+    transform: scale(0.98);
+}
+
+.logo-icon {
+    line-height: 1;
+}
+
 /* Flashlight overlay */
 [data-flashlight="on"]::after {
     content: "";

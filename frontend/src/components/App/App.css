@@ -308,6 +308,12 @@
   display: none;
 }
 
+/* Pause Lovecraftian animations when flashlight is on for performance */
+[data-flashlight="on"][data-theme="lovecraftian"] .App::before,
+[data-flashlight="on"][data-theme="lovecraftian"] .App::after {
+  animation-play-state: paused;
+}
+
 /* Lovecraftian background - keep original image with dark overlay */
 [data-theme="lovecraftian"] .App {
   background-color: var(--color-bg-primary);

@@ -1,25 +1,158 @@
+/* ========================================
+   CSS Custom Properties - Theme System
+   ======================================== */
+
+/* Default Theme (Current Neon/Metal) */
+:root,
+:root[data-theme="default"] {
+    /* Primary Colors */
+    --color-primary: #00ffff;
+    --color-secondary: #f70094;
+    --color-tertiary: #00f7a5;
+
+    /* Background Colors */
+    --color-bg-primary: #000000;
+    --color-bg-secondary: #222222;
+    --color-bg-tertiary: #333333;
+    --color-bg-overlay: rgba(0, 0, 0, 0.5);
+
+    /* Text Colors */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #cccccc;
+    --color-text-accent: rgb(162, 68, 68);
+    --color-text-link: #ffffff;
+    --color-text-link-hover: rgb(162, 68, 68);
+
+    /* Interactive Colors */
+    --color-hover: orange;
+    --color-button-bg: #333333;
+    --color-button-text: #ffffff;
+    --color-notification: #ff3e3e;
+
+    /* Footer */
+    --color-footer-bg: #336;
+    --color-footer-text: #ffffff;
+    --color-player-accent: #1ED760;
+
+    /* Borders */
+    --color-border: #DE9B72;
+    --color-border-subtle: #444444;
+
+    /* Shadows & Glows */
+    --shadow-glow-primary: 0px 4.66667px 24px 3px rgba(0, 255, 255, 0.5);
+    --shadow-glow-secondary: 0px 4.66667px 24px 3px rgba(247, 0, 148, 1);
+    --shadow-glow-tertiary: 0px 4.66667px 24px 3px rgba(0, 247, 165, 1);
+    --shadow-text: none;
+
+    /* Fonts */
+    --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    --font-display: inherit;
+
+    /* Animation */
+    --animation-duration: 0.3s;
+    --lightrope-display: inline-block;
+}
+
+/* Lovecraftian Theme */
+:root[data-theme="lovecraftian"] {
+    /* Primary Colors - Deep Sea / Cosmic */
+    --color-primary: #3d7a7a;
+    --color-secondary: #4a1a4a;
+    --color-tertiary: #2d4a3a;
+    --color-accent-glow: #3d7a7a;
+
+    /* Background Colors */
+    --color-bg-primary: #0a0a12;
+    --color-bg-secondary: #12121a;
+    --color-bg-tertiary: #1a1a25;
+    --color-bg-overlay: rgba(10, 10, 18, 0.85);
+
+    /* Text Colors */
+    --color-text-primary: #c4c4b8;
+    --color-text-secondary: #8a8a7e;
+    --color-text-accent: #5a8a8a;
+    --color-text-link: #9a9a8e;
+    --color-text-link-hover: #5a8a8a;
+
+    /* Interactive Colors */
+    --color-hover: #3d5a5a;
+    --color-button-bg: #1a1a25;
+    --color-button-text: #c4c4b8;
+    --color-notification: #5a3a5a;
+
+    /* Footer */
+    --color-footer-bg: #15151f;
+    --color-footer-text: #8a8a7e;
+    --color-player-accent: #3d7a7a;
+
+    /* Borders */
+    --color-border: #3d5a5a;
+    --color-border-subtle: #2a2a35;
+
+    /* Shadows & Glows */
+    --shadow-glow-primary: 0px 4px 20px 2px rgba(61, 122, 122, 0.3);
+    --shadow-glow-secondary: 0px 4px 20px 2px rgba(74, 26, 74, 0.4);
+    --shadow-glow-tertiary: 0px 4px 20px 2px rgba(45, 74, 58, 0.3);
+    --shadow-text: 0 0 10px rgba(61, 122, 122, 0.3), 0 0 20px rgba(74, 26, 74, 0.2);
+
+    /* Fonts */
+    --font-primary: 'Crimson Text', 'Times New Roman', serif;
+    --font-display: 'IM Fell English', 'Palatino', serif;
+
+    /* Animation */
+    --animation-duration: 0.5s;
+    --lightrope-display: inline-block;
+}
+
+/* ========================================
+   Global Styles
+   ======================================== */
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  background-color: black;
-
-  height: 100vh;
-  width: 100vw;
+    margin: 0;
+    font-family: var(--font-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    height: 100vh;
+    width: 100vw;
+    transition: background-color var(--animation-duration) ease,
+                color var(--animation-duration) ease;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+/* ========================================
+   Lovecraftian Typography Effects
+   ======================================== */
 
+[data-theme="lovecraftian"] h1,
+[data-theme="lovecraftian"] h2,
+[data-theme="lovecraftian"] h3,
+[data-theme="lovecraftian"] .page-title {
+    font-family: var(--font-display);
+    text-shadow: var(--shadow-text);
+    letter-spacing: 2px;
+}
 
-/* #root {
-  height: 100%;
-  width: 100%;
-} */
+/* Subtle flicker effect on hover */
+@keyframes eldritch-flicker {
+    0%, 100% { opacity: 1; transform: skewX(0deg); }
+    25% { opacity: 0.95; transform: skewX(0.5deg); }
+    75% { opacity: 0.97; transform: skewX(-0.3deg); }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

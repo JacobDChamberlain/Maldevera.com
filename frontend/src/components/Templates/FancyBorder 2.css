@@ -1,25 +1,26 @@
-/* FancyBorder - Triple-border design with decorative flourishes */
+/* FancyBorder - Triple-border design with decorative flourishes
+ * Color: #DE9B72 (warm copper/bronze tone)
+ */
 
 .fancy-outer-border {
-    border: 2px solid var(--color-border);
+    border: 2px solid #DE9B72;
     padding: 6px;
     width: 90%;
     max-width: 600px;
     margin: 0 auto;
     position: relative;
     box-sizing: border-box;
-    transition: border-color var(--animation-duration) ease;
 }
 
 .fancy-mid-border {
-    border: 6px solid var(--color-border);
+    border: 6px solid #DE9B72;
     padding: 6px;
     width: 100%;
     box-sizing: border-box;
 }
 
 .fancy-inner-border {
-    border: 2px solid var(--color-border);
+    border: 2px solid #DE9B72;
     padding: 20px;
     width: 100%;
     box-sizing: border-box;
@@ -27,8 +28,8 @@
 }
 
 .fancy-border-title {
-    color: var(--color-border);
-    font-family: var(--font-display, 'Times New Roman', serif);
+    color: #DE9B72;
+    font-family: 'Times New Roman', serif;
     margin: 10px 0 20px 0;
     font-size: 1.8rem;
 }
@@ -36,7 +37,7 @@
 .fancy-border-list {
     padding: 0;
     list-style-type: none;
-    color: var(--color-text-primary);
+    color: white;
     text-align: left;
     display: inline-block;
 }
@@ -57,11 +58,6 @@
 
 .fancy-vertical-decoration.bottom {
     transform: rotate(180deg);
-}
-
-/* Lovecraftian fancy border: add subtle glow */
-[data-theme="lovecraftian"] .fancy-outer-border {
-    box-shadow: 0 0 20px rgba(61, 122, 122, 0.2);
 }
 
 /* Responsive adjustments */

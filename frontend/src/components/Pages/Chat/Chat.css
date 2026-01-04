@@ -8,6 +8,7 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+    transition: background var(--animation-duration) ease;
 }
 
 .chat-container {
@@ -106,4 +107,44 @@
     border-radius: 5px;
     border: none;
     cursor: pointer;
+}
+
+/* Lovecraftian chat theme */
+[data-theme="lovecraftian"] .chat-wrapper,
+[data-theme="lovecraftian"] .username-prompt {
+    background: linear-gradient(to bottom right, rgba(10, 10, 18, 0.95), rgba(26, 74, 94, 0.8));
+}
+
+[data-theme="lovecraftian"] .chat-container {
+    border-color: var(--color-border-subtle);
+    background: rgba(18, 18, 26, 0.8);
+}
+
+[data-theme="lovecraftian"] .chat-header,
+[data-theme="lovecraftian"] .chat-users-online,
+[data-theme="lovecraftian"] .username-header {
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
+}
+
+[data-theme="lovecraftian"] .chat-messages {
+    border-color: var(--color-border-subtle);
+    background: rgba(10, 10, 18, 0.5);
+}
+
+[data-theme="lovecraftian"] .chat-message {
+    color: var(--color-text-primary);
+    background: rgba(26, 26, 37, 0.8);
+}
+
+[data-theme="lovecraftian"] .chat-input,
+[data-theme="lovecraftian"] .username-input {
+    border-color: var(--color-border-subtle);
+    background: rgba(26, 26, 37, 0.6);
+    color: var(--color-text-primary);
+}
+
+[data-theme="lovecraftian"] .chat-button,
+[data-theme="lovecraftian"] .username-button {
+    background: linear-gradient(to bottom right, var(--color-secondary), var(--color-primary));
 }

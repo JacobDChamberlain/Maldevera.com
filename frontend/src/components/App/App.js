@@ -14,8 +14,10 @@ import Contact from '../Pages/Contact/Contact';
 import Purchase from '../Pages/Purchase/Purchase';
 import NotFound from '../Pages/NotFound/NotFound';
 import FloatingCartButton from '../FloatingCartButton/FloatingCartButton';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import './App.css';
 
+import { ThemeProvider } from '../../context/ThemeContext';
 import { MerchCartProvider } from '../../context/MerchCartContext';
 import { InventoryProvider } from '../../context/InventoryContext';
 import SuccessfulPurchase from '../Pages/Checkout/Success/CheckoutSuccess';
@@ -26,7 +28,9 @@ import FancyBorderPreview from '../Templates/FancyBorder';
 
 function App() {
   return (
+    <ThemeProvider>
     <div className="App">
+      <ThemeToggle />
 
       <ul class="lightrope">
         <li></li>
@@ -100,6 +104,7 @@ function App() {
       </InventoryProvider>
       <Footer />
     </div>
+    </ThemeProvider>
   );
 }
 

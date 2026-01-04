@@ -58,7 +58,7 @@ export default function Footer() {
                             <option key={idx} value={track.path}>{track.title}</option>
                         ))}
                     </select>
-                    {selectedTrack && <Player track={selectedTrack} />} {/* Check if selectedTrack is not null */}
+                    {selectedTrack && <Player track={selectedTrack} />}
                 </>
             )}
         </div>

@@ -1,15 +1,15 @@
 .footer-wrapper {
-  position: fixed;
+  position: fixed !important;
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #336; /* Change this to your desired background color
-  color: white; /* Change this to your desired text color */
+  background-color: var(--color-footer-bg);
+  color: var(--color-footer-text);
   text-align: center;
-  padding: 0px 0; /* Adjust the padding as needed */
-  z-index: 1000; /* Ensures it appears on top of other content */
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); /* Optional: adds a shadow for better visibility */
-  transition: height 0.3s ease; /* smooth transition */
+  padding: 0px 0;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+  transition: height var(--animation-duration) ease, background-color var(--animation-duration) ease;
   height: 120px;
 }
 
@@ -22,23 +22,65 @@
 .footer-toggle {
   background: none;
   border: none;
-  color: white;
+  color: var(--color-footer-text);
   font-size: 20px;
   cursor: pointer;
+  transition: color var(--animation-duration) ease;
 }
 
 .footer-toggle:hover {
-  color:  rgb(162, 68, 68);
+  color: var(--color-text-accent);
 }
 
 .song-select {
-  background-color: #333;
+  background-color: var(--color-bg-tertiary);
   text-align: center;
-  color: #1ED760;
+  color: var(--color-player-accent);
   font-size: 15px;
   border-radius: 40px;
+  border: 1px solid var(--color-border-subtle);
+  transition: background-color var(--animation-duration) ease;
 }
 
 .rhap_container .rhap_time {
-  color: #1ED760; /* Replace with your desired color */
+  color: var(--color-player-accent);
+}
+
+/* Audio player base styles */
+.maldevera-player {
+  background-color: var(--color-footer-bg) !important;
+}
+
+.maldevera-player .rhap_main-controls-button,
+.maldevera-player .rhap_volume-button {
+  color: var(--color-footer-text);
+}
+
+.maldevera-player .rhap_progress-filled,
+.maldevera-player .rhap_volume-indicator {
+  background-color: var(--color-player-accent);
+}
+
+.maldevera-player .rhap_progress-bar,
+.maldevera-player .rhap_volume-bar {
+  background-color: var(--color-bg-tertiary);
+}
+
+.maldevera-player .rhap_download-progress {
+  background-color: var(--color-border-subtle);
+}
+
+/* Lovecraftian footer enhancements */
+[data-theme="lovecraftian"] .footer-wrapper {
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+[data-theme="lovecraftian"] .maldevera-player .rhap_main-controls-button,
+[data-theme="lovecraftian"] .maldevera-player .rhap_volume-button {
+  color: var(--color-text-primary);
+}
+
+[data-theme="lovecraftian"] .maldevera-player .rhap_main-controls-button:hover,
+[data-theme="lovecraftian"] .maldevera-player .rhap_volume-button:hover {
+  color: var(--color-player-accent);
 }

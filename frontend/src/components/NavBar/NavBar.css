@@ -1,17 +1,9 @@
 .my-navbar-wrapper {
-    /* border: 1px solid red;
-    border-radius: 20px; */
-
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding: 20px;
     flex-direction: column;
-    /* width: 100%; */
-
-    /* position: sticky;
-    top: 0px; <-- use this to make the navbar
-    stick to the top of the page when scrolling */
 }
 
 .navigation-links {
@@ -19,20 +11,31 @@
 
 .my-nav-link {
     text-decoration: none;
-    color: white;
+    color: var(--color-text-primary);
     padding: 5px;
     font-size: 30px;
     font-weight: bold;
     min-width: 0;
     flex-shrink: 1;
-    transition: font-size 0.3s ease;
+    transition: font-size var(--animation-duration) ease, color var(--animation-duration) ease;
 }
 
 .my-nav-link:hover {
-    color: rgb(162, 68, 68);
+    color: var(--color-text-accent);
     .cart-svg {
-        fill: rgb(162, 68, 68);
+        fill: var(--color-text-accent);
     }
+}
+
+/* Lovecraftian nav link enhancements */
+[data-theme="lovecraftian"] .my-nav-link {
+    font-family: var(--font-display);
+    letter-spacing: 2px;
+}
+
+[data-theme="lovecraftian"] .my-nav-link:hover {
+    animation: eldritch-flicker 0.3s ease;
+    text-shadow: var(--shadow-text);
 }
 
 a:visited {
@@ -41,7 +44,7 @@ a:visited {
 
 .cart-notification {
     display: flex;
-    border: 1px solid red;
+    border: 1px solid var(--color-notification);
     border-radius: 40px;
     justify-content: center;
     align-items: center;
@@ -51,7 +54,7 @@ a:visited {
     bottom: 0;
     right: 0;
     font-size: medium;
-    background-color: orangered;
-    color: white;
+    background-color: var(--color-notification);
+    color: var(--color-text-primary);
     transform: translate(10%, 10%);
 }

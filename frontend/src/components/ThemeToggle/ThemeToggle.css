@@ -136,10 +136,13 @@
     pointer-events: none;
     z-index: 9998;
     background: radial-gradient(
-        circle 50px at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        transparent 0%,
-        transparent 40px,
-        rgba(0, 0, 0, 0.97) 50px
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(0, 0, 0, var(--flashlight-fade, 0)) 0px,
+        rgba(0, 0, 0, var(--flashlight-fade, 0)) 40px,
+        rgba(0, 0, 0, calc(0.3 + var(--flashlight-fade, 0) * 0.7)) 60px,
+        rgba(0, 0, 0, calc(0.6 + var(--flashlight-fade, 0) * 0.4)) 80px,
+        rgba(0, 0, 0, calc(0.85 + var(--flashlight-fade, 0) * 0.15)) 100px,
+        rgba(0, 0, 0, 0.97) 130px
     );
 }
 

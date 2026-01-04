@@ -281,10 +281,10 @@
 [data-theme="lovecraftian"] .App::after {
   content: "";
   position: fixed;
-  bottom: 0;
+  bottom: -5px;
   left: 0;
   width: 100%;
-  height: 50%;
+  height: calc(50% + 5px);
   background: linear-gradient(
     to top,
     rgba(10, 10, 18, 0.95) 0%,
@@ -294,7 +294,7 @@
   );
   pointer-events: none;
   z-index: 0;
-  animation: fog-crawl 25s ease-in-out infinite;
+  animation: fog-crawl 10s ease-in-out infinite;
 }
 
 /* Ensure content stays above overlays (exclude fixed elements) */
@@ -306,6 +306,20 @@
 /* Hide lightrope when lights are off */
 [data-lights="off"] .lightrope {
   display: none;
+}
+
+/* Rain video overlay */
+.rain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 9996;
+  mix-blend-mode: screen;
+  opacity: 0.6;
 }
 
 /* Pause Lovecraftian animations when flashlight is on for performance */
@@ -334,3 +348,4 @@
     transform: translateY(-30px);
   }
 }
+

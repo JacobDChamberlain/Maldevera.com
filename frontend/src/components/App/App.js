@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import NavBar from '../NavBar/NavBar';
 import Header from '../Header/Header';
+import { useTheme } from '../../context/ThemeContext';
 import Footer from '../Footer/Footer';
 import SocialMediaBar from '../SocialMediaBar/SocialMediaBar';
 import Home from '../Pages/Home/Home';
@@ -26,9 +27,28 @@ import CurrentStock from '../Pages/CurrentStock/CurrentStock';
 import Chat from '../Pages/Chat/Chat';
 import FancyBorderPreview from '../Templates/FancyBorder';
 
+function RainOverlay() {
+  const { logoCycling } = useTheme();
+
+  if (!logoCycling) return null;
+
+  return (
+    <video
+      className="rain-overlay"
+      autoPlay
+      loop
+      muted
+      playsInline
+    >
+      <source src="/videos/rain-overlay.mp4" type="video/mp4" />
+    </video>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider>
+    <RainOverlay />
     <div className="App">
       <ThemeToggle />
 

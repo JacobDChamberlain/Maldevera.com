@@ -3,7 +3,7 @@ import { useTheme } from '../../context/ThemeContext';
 import './ThemeToggle.css';
 
 export default function ThemeToggle() {
-    const { toggleTheme, isLovecraftian, showLights, toggleLights, flashlightMode, toggleFlashlight } = useTheme();
+    const { toggleTheme, isLovecraftian, showLights, toggleLights, flashlightMode, toggleFlashlight, logoCycling, toggleLogoCycling } = useTheme();
 
     return (
         <div className="theme-controls">
@@ -30,6 +30,14 @@ export default function ThemeToggle() {
                 title={`Turn flashlight ${flashlightMode ? 'off' : 'on'}`}
             >
                 <span className="flashlight-icon">🔦</span>
+            </button>
+            <button
+                className={`logo-toggle ${logoCycling ? 'cycling' : 'off'}`}
+                onClick={toggleLogoCycling}
+                aria-label={`Turn storm mode ${logoCycling ? 'off' : 'on'}`}
+                title={`Storm mode: ${logoCycling ? 'on' : 'off'}`}
+            >
+                <span className="logo-icon">⚡</span>
             </button>
         </div>
     );

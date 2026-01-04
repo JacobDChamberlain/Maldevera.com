@@ -11,6 +11,7 @@ export function ThemeProvider({ children }) {
     const [theme, setTheme] = useLocalStorage("maldevera-theme", "default");
     const [showLights, setShowLights] = useLocalStorage("maldevera-lights", true);
     const [flashlightMode, setFlashlightMode] = useState(false);
+    const [logoCycling, setLogoCycling] = useLocalStorage("maldevera-logo-cycling", false);
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
@@ -19,6 +20,10 @@ export function ThemeProvider({ children }) {
     useEffect(() => {
         document.documentElement.setAttribute('data-lights', showLights ? 'on' : 'off');
     }, [showLights]);
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-logo', logoCycling ? 'cycling' : 'original');
+    }, [logoCycling]);
 
     // Track mouse position globally so flashlight knows where to start
     const mousePos = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
@@ -181,6 +186,10 @@ export function ThemeProvider({ children }) {
         setFlashlightMode(prev => !prev);
     };
 
+    const toggleLogoCycling = () => {
+        setLogoCycling(prev => !prev);
+    };
+
     const value = {
         theme,
         setTheme,
@@ -189,7 +198,9 @@ export function ThemeProvider({ children }) {
         showLights,
         toggleLights,
         flashlightMode,
-        toggleFlashlight
+        toggleFlashlight,
+        logoCycling,
+        toggleLogoCycling
     };
 
     return (

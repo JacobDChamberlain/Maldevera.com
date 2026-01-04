@@ -1,0 +1,28 @@
+import React from 'react';
+import { useTheme } from '../../context/ThemeContext';
+import './ThemeToggle.css';
+
+export default function ThemeToggle() {
+    const { toggleTheme, isLovecraftian, showLights, toggleLights } = useTheme();
+
+    return (
+        <div className="theme-controls">
+            <button
+                className={`theme-toggle ${isLovecraftian ? 'lovecraftian' : ''}`}
+                onClick={toggleTheme}
+                aria-label={`Switch to ${isLovecraftian ? 'metal' : 'eldritch'} theme`}
+                title={`Switch to ${isLovecraftian ? 'Metal' : 'Cosmic Horror'} theme`}
+            >
+                <span className="theme-label">{isLovecraftian ? 'NEW' : 'OG'}</span>
+            </button>
+            <button
+                className={`lights-toggle ${showLights ? 'on' : 'off'}`}
+                onClick={toggleLights}
+                aria-label={`Turn lights ${showLights ? 'off' : 'on'}`}
+                title={`Turn lights ${showLights ? 'off' : 'on'}`}
+            >
+                <span className="lights-icon">💡</span>
+            </button>
+        </div>
+    );
+}

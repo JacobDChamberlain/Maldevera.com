@@ -10,9 +10,7 @@ export default function Player({ track }) {
         <AudioPlayer
             autoPlay
             src={ track }
-            // onPlay={e => console.log("onPlay")}
-            // style={{height: '120px'}}
-            style={{backgroundColor: '#336'}}
+            className="maldevera-player"
         />
     )
 };

@@ -5,6 +5,7 @@ import bandPhoto from './BandPhotos/bandphoto.jpg';
 import jPhoto from './BandPhotos/jacob.jpg';
 import pPhoto from './BandPhotos/parker.jpg';
 import sPhoto from './BandPhotos/shan.jpg';
+import stephanPhoto from './BandPhotos/stephan.jpg';
 import kPhoto from './BandPhotos/keith.jpg';
 
 
@@ -28,7 +29,10 @@ export default function About() {
                     <div className='indivitual-photo-description'>Jacob Chamberlain</div>
                 </li>
                 <li className='individual-photo-li'>
-                    <img className='individual-photo' src={ sPhoto } alt='Shannon Paine-Jesam'></img>
+                    <div className='photo-flip-container'>
+                        <img className='individual-photo photo-front' src={ sPhoto } alt='Shannon Paine-Jesam'></img>
+                        <img className='individual-photo photo-back' src={ stephanPhoto } alt='Stephan'></img>
+                    </div>
                     <div className='indivitual-photo-description'>Shannon Paine-Jesam</div>
                 </li>
                 <li className='individual-photo-li'>

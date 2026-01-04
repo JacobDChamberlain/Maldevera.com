@@ -13,16 +13,16 @@
 ### 1. Exposed Credentials in Git
 **Location:** `backend/.env` (committed to repo)
 
-Exposed secrets:
-- Stripe test key
-- JWT secret
-- Gmail app password
-- OpenAI API key
-- Database password
+Exposed secrets (in git history):
+- Stripe test key - still in `.env` history
+- JWT secret - still in `.env` history
+- ~~Gmail app password~~ - no longer needed (migrated to Resend)
+- ~~OpenAI API key~~ - was never used in codebase
+- ~~Database password~~ - docker-compose.yml fixed (now uses env var)
 
 **Also:** `docker-compose.yml` had hardcoded password (now uses env var)
 
-**Action:** Rotate ALL credentials immediately, remove from git history with `git-filter-repo`
+**Action:** Rotate Stripe key and JWT secret in Render environment variables. Once rotated, the old values in git history become useless - no need to scrub history.
 
 ### 2. ~~Missing Webhook Signature Verification~~ FIXED
 **Location:** `backend/routes/webhooks.js`
@@ -157,6 +157,7 @@ Entire codebase untyped.
 [ ] 18. Redesign homepage
 [ ] 19. Mobile-first responsive design for entire app (prioritize mobile UX, maintain desktop look)
 [ ] 20. Optimize music player for mobile
+[ ] 21. Modern, dark, Lovecraftian UI update
 ```
 
 ---

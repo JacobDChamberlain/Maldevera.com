@@ -159,6 +159,10 @@ Entire codebase untyped.
 [ ] 14. Clean up unprofessional messages
 [ ] 15. Add basic tests
 [ ] 16. Add site analytics (Cloudflare Web Analytics or Google Analytics)
+[ ] 17. Create structured archive of all shows (dates, venues, locations, flyers, bands)
+[ ] 18. Redesign homepage
+[ ] 19. Mobile-first responsive design for entire app (prioritize mobile UX, maintain desktop look)
+[ ] 20. Optimize music player for mobile
 ```
 
 ---

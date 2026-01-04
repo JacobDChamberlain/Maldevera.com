@@ -6,33 +6,21 @@
   color: white;
   font-size: 20px;
   font-weight: bold;
-  padding: 20px; /* Padding to prevent content from touching the edges */
-
+  padding: 20px;
   padding-bottom: 110px; /* add room for audio player */
-
   height: 70vh;
 }
 
+.tour-page-header {
+  text-align: center;
+}
+
 .tour-flyer {
-  width: 100%; /* Fill the width of the screen */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: contain; /* Ensure the entire image is visible without cropping */
-  max-width: 600px; /* Optional: set a max width to prevent it from getting too large */
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-width: 600px;
   margin: 20px;
-}
-
-
-.tour-cancel-description {
-width: 90vw;
-color: rgb(175, 65, 65);
-background-color: black;
-padding: 15px;
-border-radius: 10px;
-}
-
-.tour-cancel-updated-at {
-font-size: 12px;
-color: rgb(134, 50, 50);
 }
 
 .tour-flyer-overlay {

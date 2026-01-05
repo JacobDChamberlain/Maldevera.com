@@ -1,4 +1,9 @@
 /* ========================================
+   Font Imports
+   ======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+/* ========================================
    CSS Custom Properties - Theme System
    ======================================== */
 
@@ -51,6 +56,57 @@
 
     /* Animation */
     --animation-duration: 0.3s;
+    --lightrope-display: inline-block;
+}
+
+/* Alien Theme - Bioluminescent / Extraterrestrial */
+:root[data-theme="alien"] {
+    /* Primary Colors - Acid Green / Bioluminescent */
+    --color-primary: #39ff14;
+    --color-secondary: #9d00ff;
+    --color-tertiary: #00ffcc;
+    --color-accent-glow: #39ff14;
+
+    /* Background Colors - Deep Space Black with Green Tint */
+    --color-bg-primary: #020808;
+    --color-bg-secondary: #071410;
+    --color-bg-tertiary: #0a1f18;
+    --color-bg-overlay: rgba(2, 8, 8, 0.9);
+
+    /* Text Colors - Pale Green / Clinical */
+    --color-text-primary: #d4ffd4;
+    --color-text-secondary: #7fff7f;
+    --color-text-accent: #39ff14;
+    --color-text-link: #b3ffb3;
+    --color-text-link-hover: #39ff14;
+
+    /* Interactive Colors */
+    --color-hover: #2bd612;
+    --color-button-bg: #0a1f18;
+    --color-button-text: #d4ffd4;
+    --color-notification: #9d00ff;
+
+    /* Footer */
+    --color-footer-bg: #051210;
+    --color-footer-text: #7fff7f;
+    --color-player-accent: #39ff14;
+
+    /* Borders */
+    --color-border: #39ff14;
+    --color-border-subtle: #1a3d2e;
+
+    /* Shadows & Glows - Intense Bioluminescent */
+    --shadow-glow-primary: 0px 4px 30px 5px rgba(57, 255, 20, 0.6);
+    --shadow-glow-secondary: 0px 4px 25px 4px rgba(157, 0, 255, 0.5);
+    --shadow-glow-tertiary: 0px 4px 25px 4px rgba(0, 255, 204, 0.5);
+    --shadow-text: 0 0 15px rgba(57, 255, 20, 0.5), 0 0 30px rgba(57, 255, 20, 0.3);
+
+    /* Fonts - Tech/Clinical */
+    --font-primary: 'Orbitron', 'Courier New', monospace;
+    --font-display: 'Orbitron', 'Courier New', monospace;
+
+    /* Animation */
+    --animation-duration: 0.2s;
     --lightrope-display: inline-block;
 }
 
@@ -144,6 +200,97 @@ code {
     0%, 100% { opacity: 1; transform: skewX(0deg); }
     25% { opacity: 0.95; transform: skewX(0.5deg); }
     75% { opacity: 0.97; transform: skewX(-0.3deg); }
+}
+
+/* ========================================
+   Alien Typography Effects
+   ======================================== */
+
+/* Apply Orbitron font to everything in alien theme */
+[data-theme="alien"] body,
+[data-theme="alien"] * {
+    font-family: 'Orbitron', 'Courier New', monospace !important;
+}
+
+[data-theme="alien"] h1,
+[data-theme="alien"] h2,
+[data-theme="alien"] h3,
+[data-theme="alien"] .page-title {
+    font-family: var(--font-display);
+    text-shadow: var(--shadow-text);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* Glowing text for links in alien theme */
+[data-theme="alien"] a {
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.5);
+}
+
+[data-theme="alien"] a:hover {
+    text-shadow: 0 0 15px rgba(57, 255, 20, 0.8), 0 0 25px rgba(57, 255, 20, 0.4);
+}
+
+/* Neon glow on buttons in alien theme */
+[data-theme="alien"] button {
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.3), inset 0 0 5px rgba(57, 255, 20, 0.1);
+    border-color: var(--color-primary) !important;
+}
+
+[data-theme="alien"] button:hover {
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.6), 0 0 40px rgba(57, 255, 20, 0.3), inset 0 0 10px rgba(57, 255, 20, 0.2);
+}
+
+/* Glowing borders on inputs */
+[data-theme="alien"] input,
+[data-theme="alien"] textarea {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 5px rgba(57, 255, 20, 0.3);
+    background-color: rgba(2, 8, 8, 0.8) !important;
+    color: var(--color-text-primary) !important;
+}
+
+[data-theme="alien"] input:focus,
+[data-theme="alien"] textarea:focus {
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.5), 0 0 30px rgba(57, 255, 20, 0.2);
+    outline: none;
+}
+
+/* Images get a green tint/glow in alien theme */
+[data-theme="alien"] img {
+    filter: sepia(20%) hue-rotate(70deg) saturate(1.2);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+}
+
+[data-theme="alien"] img:hover {
+    filter: sepia(10%) hue-rotate(70deg) saturate(1.4);
+    box-shadow: 0 0 25px rgba(57, 255, 20, 0.5);
+}
+
+/* Scanning line effect on hover */
+@keyframes alien-scan {
+    0% {
+        background-position: 0 -100%;
+        text-shadow: var(--shadow-text);
+    }
+    50% {
+        background-position: 0 100%;
+        text-shadow: 0 0 20px rgba(57, 255, 20, 0.8), 0 0 40px rgba(57, 255, 20, 0.4);
+    }
+    100% {
+        background-position: 0 200%;
+        text-shadow: var(--shadow-text);
+    }
+}
+
+/* Bioluminescent pulse effect */
+@keyframes bioluminescent-pulse {
+    0%, 100% {
+        filter: brightness(1) drop-shadow(0 0 5px rgba(57, 255, 20, 0.5));
+    }
+    50% {
+        filter: brightness(1.2) drop-shadow(0 0 15px rgba(57, 255, 20, 0.8));
+    }
 }
 
 /* Respect reduced motion preferences */

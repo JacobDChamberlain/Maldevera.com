@@ -175,7 +175,11 @@ export function ThemeProvider({ children }) {
     }, [flashlightMode, handleMouseMove, startFadeTimer, hideHint]);
 
     const toggleTheme = () => {
-        setTheme(prev => prev === 'default' ? 'lovecraftian' : 'default');
+        setTheme(prev => {
+            if (prev === 'default') return 'lovecraftian';
+            if (prev === 'lovecraftian') return 'alien';
+            return 'default';
+        });
     };
 
     const toggleLights = () => {
@@ -195,6 +199,7 @@ export function ThemeProvider({ children }) {
         setTheme,
         toggleTheme,
         isLovecraftian: theme === 'lovecraftian',
+        isAlien: theme === 'alien',
         showLights,
         toggleLights,
         flashlightMode,

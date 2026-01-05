@@ -3,17 +3,29 @@ import { useTheme } from '../../context/ThemeContext';
 import './ThemeToggle.css';
 
 export default function ThemeToggle() {
-    const { toggleTheme, isLovecraftian, showLights, toggleLights, flashlightMode, toggleFlashlight, logoCycling, toggleLogoCycling } = useTheme();
+    const { toggleTheme, theme, isLovecraftian, isAlien, showLights, toggleLights, flashlightMode, toggleFlashlight, logoCycling, toggleLogoCycling } = useTheme();
+
+    const getThemeLabel = () => {
+        if (isAlien) return 'XENO';
+        if (isLovecraftian) return 'NEW';
+        return 'OG';
+    };
+
+    const getNextThemeName = () => {
+        if (theme === 'default') return 'Cosmic Horror';
+        if (theme === 'lovecraftian') return 'Xeno';
+        return 'Metal';
+    };
 
     return (
         <div className="theme-controls">
             <button
-                className={`theme-toggle ${isLovecraftian ? 'lovecraftian' : ''}`}
+                className={`theme-toggle ${isLovecraftian ? 'lovecraftian' : ''} ${isAlien ? 'alien' : ''}`}
                 onClick={toggleTheme}
-                aria-label={`Switch to ${isLovecraftian ? 'metal' : 'eldritch'} theme`}
-                title={`Switch to ${isLovecraftian ? 'Metal' : 'Cosmic Horror'} theme`}
+                aria-label={`Switch to ${getNextThemeName()} theme`}
+                title={`Switch to ${getNextThemeName()} theme`}
             >
-                <span className="theme-label">{isLovecraftian ? 'NEW' : 'OG'}</span>
+                <span className="theme-label">{getThemeLabel()}</span>
             </button>
             <button
                 className={`lights-toggle ${showLights ? 'on' : 'off'}`}

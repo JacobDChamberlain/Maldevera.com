@@ -39,6 +39,12 @@
     animation: eldritch-pulse 4s infinite ease-in-out;
 }
 
+.theme-toggle.alien {
+    animation: alien-pulse 2s infinite ease-in-out;
+    border-color: #39ff14;
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.8);
+}
+
 .theme-icon {
     font-size: 18px;
     line-height: 1;
@@ -220,6 +226,17 @@
     50% {
         box-shadow: 0 0 20px rgba(74, 26, 74, 0.5);
         border-color: var(--color-secondary);
+    }
+}
+
+@keyframes alien-pulse {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(57, 255, 20, 0.4), 0 0 20px rgba(57, 255, 20, 0.2);
+        border-color: #39ff14;
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(57, 255, 20, 0.8), 0 0 40px rgba(157, 0, 255, 0.4);
+        border-color: #00ffcc;
     }
 }
 

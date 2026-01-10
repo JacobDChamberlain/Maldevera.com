@@ -8,7 +8,7 @@ export function useTheme() {
 }
 
 export function ThemeProvider({ children }) {
-    const [theme, setTheme] = useLocalStorage("maldevera-theme", "default");
+    const [theme, setTheme] = useLocalStorage("maldevera-theme", "lovecraftian");
     const [showLights, setShowLights] = useLocalStorage("maldevera-lights", true);
     const [flashlightMode, setFlashlightMode] = useState(false);
     const [logoCycling, setLogoCycling] = useLocalStorage("maldevera-logo-cycling", false);
@@ -175,11 +175,7 @@ export function ThemeProvider({ children }) {
     }, [flashlightMode, handleMouseMove, startFadeTimer, hideHint]);
 
     const toggleTheme = () => {
-        setTheme(prev => {
-            if (prev === 'default') return 'lovecraftian';
-            if (prev === 'lovecraftian') return 'alien';
-            return 'default';
-        });
+        setTheme(prev => prev === 'alien' ? 'lovecraftian' : 'alien');
     };
 
     const toggleLights = () => {

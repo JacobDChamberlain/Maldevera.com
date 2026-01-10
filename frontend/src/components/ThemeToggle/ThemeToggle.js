@@ -1,56 +1,70 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import './ThemeToggle.css';
 
 export default function ThemeToggle() {
-    const { toggleTheme, theme, isLovecraftian, isAlien, showLights, toggleLights, flashlightMode, toggleFlashlight, logoCycling, toggleLogoCycling } = useTheme();
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef(null);
+    const { toggleTheme, isAlien, showLights, toggleLights, flashlightMode, toggleFlashlight, logoCycling, toggleLogoCycling } = useTheme();
 
-    const getThemeLabel = () => {
-        if (isAlien) return 'XENO';
-        if (isLovecraftian) return 'NEW';
-        return 'OG';
-    };
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
 
-    const getNextThemeName = () => {
-        if (theme === 'default') return 'Cosmic Horror';
-        if (theme === 'lovecraftian') return 'Xeno';
-        return 'Metal';
-    };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     return (
-        <div className="theme-controls">
+        <div className="theme-controls" ref={dropdownRef}>
             <button
-                className={`theme-toggle ${isLovecraftian ? 'lovecraftian' : ''} ${isAlien ? 'alien' : ''}`}
-                onClick={toggleTheme}
-                aria-label={`Switch to ${getNextThemeName()} theme`}
-                title={`Switch to ${getNextThemeName()} theme`}
+                className={`dropdown-trigger ${isOpen ? 'open' : ''}`}
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label="Toggle effects menu"
+                title="Effects"
             >
-                <span className="theme-label">{getThemeLabel()}</span>
+                <span className="dropdown-arrow">▼</span>
             </button>
-            <button
-                className={`lights-toggle ${showLights ? 'on' : 'off'}`}
-                onClick={toggleLights}
-                aria-label={`Turn lights ${showLights ? 'off' : 'on'}`}
-                title={`Turn lights ${showLights ? 'off' : 'on'}`}
-            >
-                <span className="lights-icon">💡</span>
-            </button>
-            <button
-                className={`flashlight-toggle ${flashlightMode ? 'on' : 'off'}`}
-                onClick={toggleFlashlight}
-                aria-label={`Turn flashlight ${flashlightMode ? 'off' : 'on'}`}
-                title={`Turn flashlight ${flashlightMode ? 'off' : 'on'}`}
-            >
-                <span className="flashlight-icon">🔦</span>
-            </button>
-            <button
-                className={`logo-toggle ${logoCycling ? 'cycling' : 'off'}`}
-                onClick={toggleLogoCycling}
-                aria-label={`Turn storm mode ${logoCycling ? 'off' : 'on'}`}
-                title={`Storm mode: ${logoCycling ? 'on' : 'off'}`}
-            >
-                <span className="logo-icon">⚡</span>
-            </button>
+
+            {isOpen && (
+                <div className="effects-dropdown">
+                    <button
+                        className={`effect-btn ${isAlien ? 'on' : 'off'}`}
+                        onClick={toggleTheme}
+                        title={isAlien ? 'Turn off Xeno mode' : 'Turn on Xeno mode'}
+                    >
+                        👽
+                    </button>
+
+                    <button
+                        className={`effect-btn ${showLights ? 'on' : 'off'}`}
+                        onClick={toggleLights}
+                        title={`Turn lights ${showLights ? 'off' : 'on'}`}
+                    >
+                        💡
+                    </button>
+
+                    <button
+                        className={`effect-btn flashlight-btn ${flashlightMode ? 'on' : 'off'}`}
+                        onClick={toggleFlashlight}
+                        title={`Turn flashlight ${flashlightMode ? 'off' : 'on'}`}
+                    >
+                        🔦
+                    </button>
+
+                    <button
+                        className={`effect-btn storm-btn ${logoCycling ? 'on' : 'off'}`}
+                        onClick={toggleLogoCycling}
+                        title={`Storm mode: ${logoCycling ? 'on' : 'off'}`}
+                    >
+                        ⚡
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

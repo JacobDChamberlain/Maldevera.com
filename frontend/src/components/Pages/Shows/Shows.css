@@ -1,67 +1,471 @@
+/* ========================================
+   Shows Page - Main Wrapper
+   ======================================== */
+
 .shows-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
-
     color: var(--color-text-primary);
-    font-size: 30px;
-    font-weight: bold;
-
     padding-bottom: 110px;
+    min-height: 100vh;
 }
 
-.show-dates-ul {
-    list-style: none;
-    padding-left: 0px;
-    width: 80%;
-}
+/* ========================================
+   Hero Section - Next Show
+   ======================================== */
 
-.show-date-li {
-    margin: 10px;
-    padding: 5px;
+.hero-show {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 60px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto 60px;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(30, 30, 30, 0.4) 100%);
+    border-radius: 12px;
+    border: 1px solid var(--color-border-subtle);
+    position: relative;
+    overflow: hidden;
 }
 
-.show-flyer {
-    height: 300px;
-    width: 235px;
-    margin: 30px;
-}
-.show-flyer-0 {
-    height: auto;
-    width: 235px;
-    margin: 30px;
-}
-
-.show-description {
-    margin: 30px;
-    width: 350px;
+.hero-show::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-tertiary));
 }
 
-.venue-map-link {
+.hero-flyer-container {
+    flex-shrink: 0;
+}
+
+.hero-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.hero-label {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.hero-date {
+    font-size: 42px;
+    font-weight: bold;
+    margin: 0;
+    color: var(--color-text-primary);
+    text-shadow: var(--shadow-text);
+}
+
+.hero-venue {
+    font-size: 28px;
+    margin: 0;
+    color: var(--color-text-secondary);
+}
+
+.hero-bands {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.hero-band {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    border: 1px solid var(--color-border-subtle);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: bold;
     text-decoration: none;
-    color: var(--color-text-link);
+    border-radius: 6px;
+    transition: all var(--animation-duration) ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-btn-directions {
+    background: var(--color-primary);
+    color: #000;
+}
+
+.hero-btn-directions:hover {
+    background: var(--color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+}
+
+.hero-btn-calendar {
+    background: transparent;
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.hero-btn-calendar:hover {
+    background: var(--color-primary);
+    color: #000;
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   Section Headers
+   ======================================== */
+
+.section-header {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin: 40px 0 30px;
+    color: var(--color-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* ========================================
+   Poster Wall - Grid Layout
+   ======================================== */
+
+.upcoming-section,
+.past-section {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.poster-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 40px;
+    padding: 20px;
+    justify-items: center;
+}
+
+.poster-card {
+    position: relative;
+    transform: rotate(var(--rotation, 0deg));
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+/* Tape effect */
+.poster-card::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(var(--rotation, 0deg));
+    width: 70px;
+    height: 24px;
+    background: linear-gradient(
+        135deg,
+        rgba(210, 190, 160, 0.85) 0%,
+        rgba(180, 160, 130, 0.75) 50%,
+        rgba(200, 180, 150, 0.8) 100%
+    );
+    border-radius: 2px;
+    z-index: 10;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.poster-card:hover {
+    transform: rotate(0deg) scale(1.05) translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+}
+
+.poster-card:hover::before {
+    transform: translateX(-50%) rotate(0deg);
+}
+
+/* Past shows - greyscale and smaller */
+.poster-wall-past {
+    opacity: 0.85;
+}
+
+.poster-card-past {
+    transform: rotate(var(--rotation, 0deg)) scale(0.9);
+}
+
+.poster-card-past:hover {
+    transform: rotate(0deg) scale(0.95) translateY(-8px);
+}
+
+/* ========================================
+   Past Shows - Collapsible Section
+   ======================================== */
+
+.past-section {
+    margin-top: 60px;
+    border-top: 1px solid var(--color-border-subtle);
+    padding-top: 20px;
+}
+
+.past-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
     transition: color var(--animation-duration) ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-.venue-map-link:visited {
-    text-decoration: none;
-    color: var(--color-text-link);
+.past-header:hover {
+    color: var(--color-text-primary);
 }
-.venue-map-link:hover {
+
+.past-header.expanded {
     color: var(--color-primary);
 }
 
-/* Lovecraftian shows page: subtle glow on flyers */
-[data-theme="lovecraftian"] .show-flyer,
-[data-theme="lovecraftian"] .show-flyer-0 {
-    transition: filter var(--animation-duration) ease;
+.past-toggle-arrow {
+    font-size: 18px;
+    transition: transform var(--animation-duration) ease;
 }
 
-[data-theme="lovecraftian"] .show-flyer:hover,
-[data-theme="lovecraftian"] .show-flyer-0:hover {
-    filter: drop-shadow(0 0 15px rgba(61, 122, 122, 0.4));
+.past-header.expanded .past-toggle-arrow {
+    transform: rotate(180deg);
+}
+
+/* ========================================
+   No Shows Message
+   ======================================== */
+
+.no-shows-message {
+    font-size: 28px;
+    color: var(--color-text-secondary);
+    text-align: center;
+    margin: 80px 0;
+}
+
+/* ========================================
+   Theme: Default - Neon Glow
+   ======================================== */
+
+.poster-card:hover {
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(0, 255, 255, 0.2);
+}
+
+/* ========================================
+   Theme: Lovecraftian
+   ======================================== */
+
+[data-theme="lovecraftian"] .hero-show {
+    background: linear-gradient(135deg, rgba(10, 10, 18, 0.8) 0%, rgba(26, 26, 37, 0.6) 100%);
+    border-color: var(--color-border);
+}
+
+[data-theme="lovecraftian"] .poster-card::before {
+    background: linear-gradient(
+        135deg,
+        rgba(140, 130, 110, 0.7) 0%,
+        rgba(100, 90, 70, 0.6) 50%,
+        rgba(120, 110, 90, 0.65) 100%
+    );
+}
+
+[data-theme="lovecraftian"] .poster-card:hover {
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.6),
+        0 0 25px rgba(61, 122, 122, 0.3);
+}
+
+[data-theme="lovecraftian"] .hero-btn-directions {
+    background: var(--color-primary);
+    color: var(--color-bg-primary);
+}
+
+[data-theme="lovecraftian"] .hero-btn-calendar {
+    border-color: var(--color-primary);
+    color: var(--color-text-primary);
+}
+
+/* ========================================
+   Theme: Alien
+   ======================================== */
+
+[data-theme="alien"] .hero-show {
+    background: linear-gradient(135deg, rgba(2, 8, 8, 0.9) 0%, rgba(10, 31, 24, 0.7) 100%);
+    border-color: var(--color-primary);
+    box-shadow: inset 0 0 30px rgba(57, 255, 20, 0.05);
+}
+
+[data-theme="alien"] .hero-show::before {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-tertiary), var(--color-primary));
+    animation: alien-gradient-shift 3s linear infinite;
+}
+
+@keyframes alien-gradient-shift {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+[data-theme="alien"] .poster-card::before {
+    background: linear-gradient(
+        135deg,
+        rgba(57, 255, 20, 0.15) 0%,
+        rgba(0, 255, 204, 0.1) 50%,
+        rgba(57, 255, 20, 0.12) 100%
+    );
+    border: 1px solid rgba(57, 255, 20, 0.3);
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+}
+
+[data-theme="alien"] .poster-card:hover {
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.6),
+        0 0 35px rgba(57, 255, 20, 0.4),
+        0 0 60px rgba(57, 255, 20, 0.2);
+}
+
+[data-theme="alien"] .hero-btn-directions {
+    background: var(--color-primary);
+    color: #000;
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+}
+
+[data-theme="alien"] .hero-btn-directions:hover {
+    box-shadow: 0 0 25px rgba(57, 255, 20, 0.6), 0 4px 20px rgba(57, 255, 20, 0.4);
+}
+
+[data-theme="alien"] .hero-btn-calendar {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+}
+
+[data-theme="alien"] .hero-btn-calendar:hover {
+    background: var(--color-primary);
+    color: #000;
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+}
+
+[data-theme="alien"] .past-header {
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+/* ========================================
+   Mobile Responsive (≤430px)
+   ======================================== */
+
+@media screen and (max-width: 430px) {
+    .hero-show {
+        flex-direction: column;
+        gap: 30px;
+        padding: 25px 20px;
+        margin: 20px auto 40px;
+        width: 95%;
+    }
+
+    .hero-details {
+        text-align: center;
+        align-items: center;
+    }
+
+    .hero-date {
+        font-size: 28px;
+    }
+
+    .hero-venue {
+        font-size: 20px;
+    }
+
+    .hero-bands {
+        justify-content: center;
+    }
+
+    .hero-band {
+        font-size: 14px;
+        padding: 3px 8px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .hero-btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .section-header {
+        font-size: 24px;
+        margin: 30px 0 20px;
+    }
+
+    .poster-wall {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .poster-card {
+        transform: rotate(calc(var(--rotation, 0deg) * 0.5));
+    }
+
+    .poster-card::before {
+        width: 50px;
+        height: 18px;
+        top: -8px;
+    }
+
+    .past-header {
+        font-size: 18px;
+        padding: 15px;
+    }
+
+    .past-toggle-arrow {
+        font-size: 14px;
+    }
+
+    .no-shows-message {
+        font-size: 20px;
+        margin: 50px 20px;
+    }
+}
+
+/* Extra small screens */
+@media screen and (max-width: 360px) {
+    .poster-wall {
+        grid-template-columns: 1fr;
+    }
 }

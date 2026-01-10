@@ -1,29 +1,221 @@
+/* ========================================
+   Modal Styles (shared)
+   ======================================== */
+
 .flyer-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .flyer-modal {
-  max-width: 100vw;
-  max-height: 100vh;
-  outline: none;
-  z-index: 1001;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    max-width: 100vw;
+    max-height: 100vh;
+    outline: none;
+    z-index: 1001;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-flyer-image {
-  width: 100vw;
-  height: 100vh;
-  object-fit: contain;
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+/* ========================================
+   Hero Mode - Featured Show Flyer
+   ======================================== */
+
+.hero-flyer-image {
+    height: 420px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    transition: transform var(--animation-duration) ease, box-shadow var(--animation-duration) ease;
+}
+
+.hero-flyer-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================
+   Poster Mode - Poster Wall Card
+   ======================================== */
+
+.poster-show {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.poster-flyer-image {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    object-fit: contain;
+    cursor: pointer;
+    border-radius: 2px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: box-shadow var(--animation-duration) ease;
+}
+
+.poster-flyer-image:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Info overlay */
+.poster-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.poster-date {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+.poster-venue {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.poster-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.poster-btn {
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-subtle);
+    transition: all var(--animation-duration) ease;
+}
+
+.poster-btn:hover {
+    background: var(--color-primary);
+    color: #000;
+    border-color: var(--color-primary);
+}
+
+/* Past shows - greyscale effect */
+.poster-show-past .poster-flyer-image {
+    filter: grayscale(60%) brightness(0.8);
+    transition: filter var(--animation-duration) ease;
+}
+
+.poster-show-past:hover .poster-flyer-image {
+    filter: grayscale(30%) brightness(0.9);
+}
+
+.poster-show-past .poster-date,
+.poster-show-past .poster-venue {
+    opacity: 0.7;
+}
+
+/* ========================================
+   Theme: Lovecraftian
+   ======================================== */
+
+[data-theme="lovecraftian"] .hero-flyer-image {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(61, 122, 122, 0.1);
+}
+
+[data-theme="lovecraftian"] .hero-flyer-image:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(61, 122, 122, 0.2);
+}
+
+[data-theme="lovecraftian"] .poster-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-bg-primary);
+}
+
+/* ========================================
+   Theme: Alien
+   ======================================== */
+
+[data-theme="alien"] .hero-flyer-image {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(57, 255, 20, 0.15);
+}
+
+[data-theme="alien"] .hero-flyer-image:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 35px rgba(57, 255, 20, 0.25);
+}
+
+[data-theme="alien"] .poster-btn {
+    border-color: rgba(57, 255, 20, 0.3);
+    box-shadow: 0 0 5px rgba(57, 255, 20, 0.1);
+}
+
+[data-theme="alien"] .poster-btn:hover {
+    background: var(--color-primary);
+    color: #000;
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+}
+
+/* ========================================
+   Mobile Responsive
+   ======================================== */
+
+@media screen and (max-width: 430px) {
+    .hero-flyer-image {
+        height: auto;
+        max-height: 350px;
+        width: 100%;
+    }
+
+    .poster-flyer-image {
+        max-width: 100%;
+    }
+
+    .poster-info {
+        margin-top: 10px;
+    }
+
+    .poster-date {
+        font-size: 12px;
+    }
+
+    .poster-venue {
+        font-size: 11px;
+    }
+
+    .poster-actions {
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    .poster-btn {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
 }

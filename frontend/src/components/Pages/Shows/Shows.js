@@ -24,6 +24,7 @@ import sept4th_2025 from './Flyers/sept4_haltomTheater.jpeg';
 import oct11th_2025 from './Flyers/oct_11-DW.jpg';
 import nov8th_renos from './Flyers/nov8_renos.jpg';
 import nov9th_2025_dustys from './Flyers/nov9th_2025_dustys.png';
+import jan31st_2026 from './Flyers/jan31-2026_Sunshine.png';
 import april3rd_2026_renos from './Flyers/april3rd_2026_renos.png';
 
 export default function Shows() {
@@ -52,6 +53,7 @@ export default function Shows() {
         { flyer: '.' + oct11th_2025, alt: 'oct_11th_DoubleWide', date: 'October 11th, 2025', venue: 'DoubleWide', address: '3510 Commerce St, Dallas, TX', bands: ['Tencher', 'Sadistic Force', 'Accuser', 'Narcissist'] },
         { flyer: '.' + nov8th_renos, alt: 'nov_8th_RenosChopShop', date: 'November 8th, 2025', venue: 'Reno\'s Chop Shop', address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Evil Army', 'Silver Tongue Devil', 'Accuser', 'Odious'] },
         { flyer: '.' + nov9th_2025_dustys, alt: 'nov_9th_Dustys', date: 'November 9th, 2025', venue: 'Dusty\'s', address: '2613 Elm St, Dallas, TX 75226', bands: ['Satanik Heavy Drinker', 'Chemical Spell', 'Carnist'] },
+        { flyer: '.' + jan31st_2026, alt: 'jan_31st_2026_SunshineBar', date: 'January 31st, 2026', venue: 'Sunshine Bar', address: '902 W Division St, Arlington, TX 76012', bands: ['GRIND VS METAL', 'Real Life Ugly', 'Bladda', 'S.H.🗡️.V.'] },
         { flyer: '.' + april3rd_2026_renos, alt: 'april_3rd_2026_RenosChopShop', date: 'April 3rd, 2026', venue: 'Reno\'s Chop Shop', address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Void', 'Phantom', 'Accuser'] },
     ];
 

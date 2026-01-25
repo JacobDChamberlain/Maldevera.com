@@ -15,6 +15,7 @@ import nov8th_renos from './Flyers/nov8_renos.jpg';
 import nov9th_2025_dustys from './Flyers/nov9th_2025_dustys.png';
 import jan31st_2026 from './Flyers/jan31-2026_Sunshine.png';
 import april3rd_2026_renos from './Flyers/april3rd_2026_renos.png';
+import sep12th_2026_haltom from './Flyers/sept12_2026_haltom_mortician.jpg';
 
 // Flyer imports - Past shows
 import may28th from './Flyers/may28thDWshow.jpg';
@@ -68,6 +69,7 @@ export default function Shows() {
         // 2026 Shows
         { flyer: '.' + jan31st_2026, alt: 'jan_31st_2026_SunshineBar', date: 'January 31st, 2026', venue: 'Sunshine Bar', address: '902 W Division St, Arlington, TX 76012', bands: ['Real Life Ugly', 'Bladda', 'S.H.I.V.'] },
         { flyer: '.' + april3rd_2026_renos, alt: 'april_3rd_2026_RenosChopShop', date: 'April 3rd, 2026', venue: "Reno's Chop Shop", address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Void', 'Phantom', 'Accuser'] },
+        { flyer: '.' + sep12th_2026_haltom, alt: 'sep_12th_2026_HaltomTheater', date: 'September 12th, 2026', venue: 'Haltom Theater', address: '5601 E Belknap St, Haltom City, TX 76117', bands: ['Sanity Slip', 'Voracious Contempt', 'Dysmorphia', 'Primal Tyrant', 'Distain', 'Brain Matter', 'Gator', '(side stage to Mortician'] },
     ];
 
     // Parse dates and separate upcoming vs past

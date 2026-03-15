@@ -16,6 +16,7 @@ import nov9th_2025_dustys from './Flyers/nov9th_2025_dustys.png';
 import jan31st_2026 from './Flyers/jan31-2026_Sunshine.png';
 import mar28_2026_rubbergloves from './Flyers/mar28_rubbergloves_2026_update.jpg';
 import april3rd_2026_renos from './Flyers/april3rd_2026_renos.png';
+import april30_2026_renos from './Flyers/april30_2026_renos.jpg';
 import sep12th_2026_haltom from './Flyers/sept12_2026_haltom_mortician.jpg';
 
 // Flyer imports - Past shows
@@ -69,8 +70,11 @@ export default function Shows() {
         { flyer: '.' + nov9th_2025_dustys, alt: 'nov_9th_Dustys', date: 'November 9th, 2025', venue: "Dusty's", address: '2613 Elm St, Dallas, TX 75226', bands: ['Satanik Heavy Drinker', 'Chemical Spell', 'Carnist'] },
         // 2026 Shows
         { flyer: '.' + jan31st_2026, alt: 'jan_31st_2026_SunshineBar', date: 'January 31st, 2026', venue: 'Sunshine Bar', address: '902 W Division St, Arlington, TX 76012', bands: ['Real Life Ugly', 'Bladda', 'S.H.I.V.'] },
+        { flyer: '.' + fm2m, alt: 'march_27th_2026_HouseParty', date: 'March 27th, 2026', venue: 'House Show', address: '10826 Joaquin Dr, Dallas, TX 75228', bands: ['DJHOTSAUCE', 'Pastel Sky', 'We Decree', 'Sallyworld', 'fixtionr.', '$OLUMDOLOR', 'WYNTER', 'ILLUSIONLUNA', 'SERPENT PRIEST'] },
         { flyer: '.' + mar28_2026_rubbergloves, alt: 'march_28th_2026_RubberGloves', date: 'March 28th, 2026', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Myth Carver', 'Primal Tyrant', 'Terminal Nation', 'Morbid Visionz', 'Turn Cold', 'Kombat', 'Defense Wound', 'Ritual Fog', 'Nemesis', 'Ignominious', 'Ritual Abuse', 'Morta', 'Distain', 'Unadorned', 'Cynical'] },
         { flyer: '.' + april3rd_2026_renos, alt: 'april_3rd_2026_RenosChopShop', date: 'April 3rd, 2026', venue: "Reno's Chop Shop", address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Void', 'Phantom', 'Accuser'] },
+        { flyer: '.' + april30_2026_renos, alt: 'april_30th_2026_RenosChopShop', date: 'April 30th, 2026', venue: "Reno's Chop Shop", address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Lord Velvet', 'Kamru', 'Diavola'] },
+        { flyer: '.' + fm2m, alt: 'may_5th_2026_RubberGloves', date: 'May 5th, 2026', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Gammacide', 'Silver Tongue Devil', 'Chemicaust'] },
         { flyer: '.' + sep12th_2026_haltom, alt: 'sep_12th_2026_HaltomTheater', date: 'September 12th, 2026', venue: 'Haltom Theater', address: '5601 E Belknap St, Haltom City, TX 76117', bands: ['Sanity Slip', 'Voracious Contempt', 'Dysmorphia', 'Primal Tyrant', 'Distain', 'Brain Matter', 'Gator', '(side stage to Mortician'] },
     ];
 

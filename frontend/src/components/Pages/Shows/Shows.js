@@ -75,7 +75,7 @@ export default function Shows() {
         { flyer: '.' + mar28_2026_rubbergloves, alt: 'march_28th_2026_RubberGloves', date: 'March 28th, 2026', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Myth Carver', 'Primal Tyrant', 'Terminal Nation', 'Morbid Visionz', 'Turn Cold', 'Kombat', 'Defense Wound', 'Ritual Fog', 'Nemesis', 'Ignominious', 'Ritual Abuse', 'Morta', 'Distain', 'Unadorned', 'Cynical'] },
         { flyer: '.' + april3rd_2026_renos, alt: 'april_3rd_2026_RenosChopShop', date: 'April 3rd, 2026', venue: "Reno's Chop Shop", address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Void', 'Phantom', 'Accuser'] },
         { flyer: '.' + april30_2026_renos, alt: 'april_30th_2026_RenosChopShop', date: 'April 30th, 2026', venue: "Reno's Chop Shop", address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Lord Velvet', 'Kamru', 'Diavola'] },
-        { flyer: '.' + fm2m, alt: 'may_5th_2026_RubberGloves', date: 'May 5th, 2026', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Gammacide', 'Silver Tongue Devil', 'Chemicaust'] },
+        { flyer: '.' + fm2m, alt: 'may_31st_2026_RubberGloves', date: 'May 31st, 2026', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Gammacide', 'Silver Tongue Devil', 'Chemicaust'] },
         { flyer: '.' + sep12th_2026_haltom, alt: 'sep_12th_2026_HaltomTheater', date: 'September 12th, 2026', venue: 'Haltom Theater', address: '5601 E Belknap St, Haltom City, TX 76117', bands: ['Sanity Slip', 'Voracious Contempt', 'Dysmorphia', 'Primal Tyrant', 'Distain', 'Brain Matter', 'Gator', '(side stage to Mortician'] },
     ];
 

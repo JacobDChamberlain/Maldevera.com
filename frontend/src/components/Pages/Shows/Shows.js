@@ -85,7 +85,7 @@ export default function Shows() {
         { flyer: '.' + may31_2026_rubbergloves, alt: 'may_31st_2026_RubberGloves', date: 'May 31st, 2026', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Gammacide', 'Silver Tongue Devil', 'Chemicaust'] },
         { flyer: '.' + june11_2026_metrobaltimore, alt: 'june_11th_2026_MetroBaltimore', date: 'June 11th, 2026', venue: 'Metro Baltimore', address: '1700 N Charles St, Baltimore, MD 21201', bands: ['Nuclear Tomb', 'Eyecatcher'] },
         { flyer: '.' + june16_2026_greenlantern, alt: 'june_16th_2026_GreenLanternBar', date: 'June 16th, 2026', venue: 'Green Lantern Bar', address: '497 W 3rd St, Lexington, KY 40508', bands: ['Kontusion', 'Neglect'] },
-        { flyer: '.' + sep12th_2026_haltom, alt: 'sep_12th_2026_HaltomTheater', date: 'September 12th, 2026', venue: 'Haltom Theater', address: '5601 E Belknap St, Haltom City, TX 76117', bands: ['Sanity Slip', 'Voracious Contempt', 'Dysmorphia', 'Primal Tyrant', 'Distain', 'Brain Matter', 'Gator', '(side stage to Mortician'] },
+        { flyer: '.' + sep12th_2026_haltom, alt: 'sep_12th_2026_HaltomTheater', date: 'September 12th, 2026', venue: 'Haltom Theater', address: '5601 E Belknap St, Haltom City, TX 76117', bands: ['Sanity Slip', 'Voracious Contempt', 'Dysmorphia', 'Primal Tyrant', 'Distain', 'Brain Matter', 'Gator', '(side stage to Mortician)'] },
     ];
 
     // Parse dates and separate upcoming vs past

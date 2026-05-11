@@ -19,6 +19,10 @@ import mar28_2026_rubbergloves from './Flyers/mar28_rubbergloves_2026_update.jpg
 import april3rd_2026_renos from './Flyers/april3rd_2026_renos.png';
 import april30_2026_renos from './Flyers/april30_2026_renos.jpg';
 import may31_2026_rubbergloves from './Flyers/may31_2026_rubbergloves.jpg';
+import may15_2026_doublewide from './Flyers/May5_2026_DoubleWide_Meldamor.png';
+import may22_2026_rubbergloves from './Flyers/May22_2026_RubberGloves_OxygenDestroyer.png';
+import june11_2026_metrobaltimore from './Flyers/June11_2026_MetroBaltimore_NuclearTomb_TOUR.png';
+import june16_2026_greenlantern from './Flyers/June16_2026_GreenLanternBar_Kontusion_TOUR.jpeg';
 import sep12th_2026_haltom from './Flyers/sept12_2026_haltom_mortician.jpg';
 
 // Flyer imports - Past shows
@@ -76,7 +80,11 @@ export default function Shows() {
         { flyer: '.' + mar28_2026_rubbergloves, alt: 'march_28th_2026_RubberGloves', date: 'March 28th, 2026', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Myth Carver', 'Primal Tyrant', 'Terminal Nation', 'Morbid Visionz', 'Turn Cold', 'Kombat', 'Defense Wound', 'Ritual Fog', 'Nemesis', 'Ignominious', 'Ritual Abuse', 'Morta', 'Distain', 'Unadorned', 'Cynical'] },
         { flyer: '.' + april3rd_2026_renos, alt: 'april_3rd_2026_RenosChopShop', date: 'April 3rd, 2026', venue: "Reno's Chop Shop", address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Void', 'Phantom', 'Accuser'] },
         { flyer: '.' + april30_2026_renos, alt: 'april_30th_2026_RenosChopShop', date: 'April 30th, 2026', venue: "Reno's Chop Shop", address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Lord Velvet', 'Kamru', 'Diavola'] },
+        { flyer: '.' + may15_2026_doublewide, alt: 'may_15th_2026_DoubleWide', date: 'May 15th, 2026', venue: 'DoubleWide', address: '3510 Commerce St, Dallas, TX', bands: ['Meldamor', 'Sucio', 'Special Agent', 'La Bruja (DJ)', 'Llora (DJ)'] },
+        { flyer: '.' + may22_2026_rubbergloves, alt: 'may_22nd_2026_RubberGloves', date: 'May 22nd, 2026', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Oxygen Destroyer', 'Drawn and Quartered', 'Nocturnal Spawn'] },
         { flyer: '.' + may31_2026_rubbergloves, alt: 'may_31st_2026_RubberGloves', date: 'May 31st, 2026', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Gammacide', 'Silver Tongue Devil', 'Chemicaust'] },
+        { flyer: '.' + june11_2026_metrobaltimore, alt: 'june_11th_2026_MetroBaltimore', date: 'June 11th, 2026', venue: 'Metro Baltimore', address: '1700 N Charles St, Baltimore, MD 21201', bands: ['Nuclear Tomb', 'Eyecatcher'] },
+        { flyer: '.' + june16_2026_greenlantern, alt: 'june_16th_2026_GreenLanternBar', date: 'June 16th, 2026', venue: 'Green Lantern Bar', address: '497 W 3rd St, Lexington, KY 40508', bands: ['Kontusion', 'Neglect'] },
         { flyer: '.' + sep12th_2026_haltom, alt: 'sep_12th_2026_HaltomTheater', date: 'September 12th, 2026', venue: 'Haltom Theater', address: '5601 E Belknap St, Haltom City, TX 76117', bands: ['Sanity Slip', 'Voracious Contempt', 'Dysmorphia', 'Primal Tyrant', 'Distain', 'Brain Matter', 'Gator', '(side stage to Mortician'] },
     ];
 

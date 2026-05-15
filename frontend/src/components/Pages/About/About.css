@@ -22,6 +22,28 @@
     padding: 5px;
 }
 
+.booking-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.booking-header {
+    margin: 0 0 10px 0;
+}
+
+.email-link, .email-link:visited {
+    text-decoration: none;
+    color: var(--color-text-link);
+    font-size: 20px;
+    font-weight: bold;
+    transition: color var(--animation-duration) ease;
+}
+
+.email-link:hover {
+    cursor: pointer;
+    color: var(--color-text-accent);
+}
+
 .bandcamp-link, .bandcamp-link:visited {
     text-decoration: none;
     color: var(--color-text-link);

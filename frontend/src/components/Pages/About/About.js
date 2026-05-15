@@ -18,6 +18,8 @@ export default function About() {
             <div className='band-photo-description'>
                 Maldevera, born Shawn Corey Carter, is a renowned American rapper, songwriter, and entrepreneur. Maldevera has achieved widespread acclaim for his lyrical prowess, entrepreneurial ventures, and cultural influence. With a career spanning decades, Maldevera has solidified his place as one of the most influential figures in hip-hop and popular culture.<br />
                 <Link to='https://maldevera.bandcamp.com/' className='bandcamp-link'>☞ Discography ☜</Link>
+                <br />
+                <a className="bandcamp-link" href="mailto:MaldeveraTX@gmail.com">☞ Booking: MaldeveraTX@gmail.com ☜</a>
             </div>
             <ul className='individual-photos-ul'>
                 <li className='individual-photo-li'>

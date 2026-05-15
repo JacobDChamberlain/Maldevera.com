@@ -1,12 +1,15 @@
 import React from "react";
 import './Tours.css'
+import tourFlyer from './TourFlyers/Maldevera-East-Coast-Tour-2026-Flyer.png'
 
 export default function Tours() {
     return (
         <div className="tours-wrapper">
-            <h2 className="tour-page-header">
-                2026 Tour info coming soon...
-            </h2>
+            <img
+                src={tourFlyer}
+                alt="Maldevera East Coast Tour 2026"
+                className="tour-flyer"
+            />
         </div>
     )
 }

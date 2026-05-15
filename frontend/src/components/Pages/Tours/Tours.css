@@ -8,7 +8,7 @@
   font-weight: bold;
   padding: 20px;
   padding-bottom: 110px; /* add room for audio player */
-  height: 70vh;
+  min-height: 70vh;
 }
 
 .tour-page-header {

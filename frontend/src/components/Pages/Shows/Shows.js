@@ -24,6 +24,9 @@ import may22_2026_rubbergloves from './Flyers/May22_2026_RubberGloves_OxygenDest
 import june11_2026_metrobaltimore from './Flyers/June11_2026_MetroBaltimore_NuclearTomb_TOUR.png';
 import june16_2026_greenlantern from './Flyers/June16_2026_GreenLanternBar_Kontusion_TOUR.jpeg';
 import june4th_2026_houston from './Flyers/June4th_2026_Houston.PNG';
+import june6th_2026_birmingham from './Flyers/june6th_2026_birmingham.png';
+import june9th_2026_northcarolina from './Flyers/june9th_2026_NorthCarolina.png';
+import june12th_2026_newyorkcity from './Flyers/june12th_2026_NewYorkCity.png';
 import june7th_2026_atlanta from './Flyers/June7th_2026_Atlanta.jpg';
 import june10th_2026_richmond from './Flyers/June10th_2026_Richmond.PNG';
 import sep12th_2026_haltom from './Flyers/sept12_2026_haltom_mortician.jpg';
@@ -87,8 +90,11 @@ export default function Shows() {
         { flyer: '.' + may22_2026_rubbergloves, alt: 'may_22nd_2026_RubberGloves', date: 'May 22nd, 2026', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Oxygen Destroyer', 'Drawn and Quartered', 'Nocturnal Spawn'] },
         { flyer: '.' + may31_2026_rubbergloves, alt: 'may_31st_2026_RubberGloves', date: 'May 31st, 2026', venue: 'Rubber Gloves', address: '411 E Sycamore St, Denton, TX 76205', bands: ['Gammacide', 'Silver Tongue Devil', 'Chemicaust'] },
         { flyer: '.' + june4th_2026_houston, alt: 'june_4th_2026_BlackMagicSocialClub', date: 'June 4th, 2026', venue: 'Black Magic Social Club', address: '7036 Harrisburg Blvd, Houston, TX 77011', bands: ['Lethal Agent', 'Galactic Zombies', 'Metallize'] },
+        { flyer: '.' + june6th_2026_birmingham, alt: 'june_6th_2026_TrueStoryBrewing', date: 'June 6th, 2026', venue: 'True Story Brewing Co.', address: '5510 Crestwood Blvd, Birmingham, AL 35242', bands: ['Ramtha', 'Ectovoid', 'The Crimson Mask'] },
         { flyer: '.' + june7th_2026_atlanta, alt: 'june_7th_2026_BoggsSocialAndSupply', date: 'June 7th, 2026', venue: 'Boggs Social & Supply', address: '1310 White St SW, Atlanta, GA 30310', bands: ['Spew', 'Dungeon Filth', 'tubefed'] },
-        { flyer: '.' + june10th_2026_richmond, alt: 'june_10th_2026_CobraCabana', date: 'June 10th, 2026', venue: 'Cobra Cabana', address: '901 W Marshall St, Richmond, VA 23220', bands: ['Deceptor', 'Fravant', 'Bonewatch'] },
+        { flyer: '.' + june9th_2026_northcarolina, alt: 'june_9th_2026_Kings', date: 'June 9th, 2026', venue: 'Kings', address: '14 West Martin Street, Raleigh, NC 27601', bands: ['Zero Tolerance', 'Deceptor', 'Crooked Cult'] },
+        { flyer: '.' + june10th_2026_richmond, alt: 'june_10th_2026_CobraCabana', date: 'June 10th, 2026', venue: 'Cobra Cabana', address: '901 W Marshall St, Richmond, VA 23220', bands: ['Deceptor', 'Eradicant', 'Bonewretch'] },
+        { flyer: '.' + june12th_2026_newyorkcity, alt: 'june_12th_2026_TheAttic', date: 'June 12th, 2026', venue: 'The Attic', address: '20 Meadow St, Brooklyn, NY 11206', bands: ['Lord Humongous', 'Flesh Mass', 'Mordant Rhed', 'Syn'] },
         { flyer: '.' + june11_2026_metrobaltimore, alt: 'june_11th_2026_MetroBaltimore', date: 'June 11th, 2026', venue: 'Metro Baltimore', address: '1700 N Charles St, Baltimore, MD 21201', bands: ['Nuclear Tomb', 'Eyecatcher', 'Obliviator'] },
         { flyer: '.' + june16_2026_greenlantern, alt: 'june_16th_2026_GreenLanternBar', date: 'June 16th, 2026', venue: 'Green Lantern Bar', address: '497 W 3rd St, Lexington, KY 40508', bands: ['Kontusion', 'Neglect', 'Sinistrum', 'Dungeon'] },
         { flyer: '.' + sep12th_2026_haltom, alt: 'sep_12th_2026_HaltomTheater', date: 'September 12th, 2026', venue: 'Haltom Theater', address: '5601 E Belknap St, Haltom City, TX 76117', bands: ['Sanity Slip', 'Voracious Contempt', 'Dysmorphia', 'Primal Tyrant', 'Distain', 'Brain Matter', 'Gator', '(side stage to Mortician)'] },

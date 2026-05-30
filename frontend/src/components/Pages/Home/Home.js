@@ -8,7 +8,7 @@ export default function Home() {
         <div className="home-wrapper">
             <div className='bandcamp-embed-wrapper'>
                 <iframe
-                    style={{ border: 0, width: '350px', height: '522px' }}
+                    style={{ border: 0, width: '350px', height: '522px', display: 'block' }}
                     src="https://bandcamp.com/EmbeddedPlayer/album=2627076239/size=large/bgcol=333333/linkcol=9a64ff/transparent=true/"
                     seamless
                     title="Guts / Winter Palace by Maldevera"

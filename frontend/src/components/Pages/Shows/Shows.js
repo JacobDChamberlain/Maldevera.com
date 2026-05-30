@@ -198,6 +198,7 @@ export default function Shows() {
                                 key={idx}
                                 className="poster-card"
                                 style={{ '--rotation': `${getRandomRotation(idx)}deg` }}
+                                data-tape={`${show.address.split(',')[1]?.trim()}, ${show.address.split(',')[2]?.trim().split(' ')[0]}`}
                             >
                                 <Show
                                     show={show}
@@ -230,6 +231,7 @@ export default function Shows() {
                                     key={idx}
                                     className="poster-card poster-card-past"
                                     style={{ '--rotation': `${getRandomRotation(idx + 100)}deg` }}
+                                    data-tape={`${show.address.split(',')[1]?.trim()}, ${show.address.split(',')[2]?.trim().split(' ')[0]}`}
                                 >
                                     <Show show={show} mode="poster" isPast={true} />
                                 </div>

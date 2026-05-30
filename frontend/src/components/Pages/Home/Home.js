@@ -6,6 +6,16 @@ export default function Home() {
 
     return (
         <div className="home-wrapper">
+            <div className='bandcamp-embed-wrapper'>
+                <iframe
+                    style={{ border: 0, width: '350px', height: '522px' }}
+                    src="https://bandcamp.com/EmbeddedPlayer/album=2627076239/size=large/bgcol=333333/linkcol=9a64ff/transparent=true/"
+                    seamless
+                    title="Guts / Winter Palace by Maldevera"
+                >
+                    <a href="https://maldevera.bandcamp.com/album/guts-winter-palace">Guts / Winter Palace by Maldevera</a>
+                </iframe>
+            </div>
             <div className='yt-embed-wrapper'>
                 <YouTubeEmbed className='music-video-youtube-embed' embedId='Lq7NMF8ZXJg?si=EMYYbxr63aFeqDZ6' />
                 <YouTubeEmbed className='music-video-youtube-embed' embedId='4ED07rhu3jg?si=Ft4T8YRWoER6YBW8' />

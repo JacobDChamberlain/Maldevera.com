@@ -88,7 +88,7 @@ function Chat() {
                         <div
                             key={index}
                             className="chat-message"
-                            style={{ background: getUserColor(username) }}
+                            style={{ background: getUserColor(username), color: '#000' }}
                         >
                             <strong>{username}:</strong> {msg}
                         </div>

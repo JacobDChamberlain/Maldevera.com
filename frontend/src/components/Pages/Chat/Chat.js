@@ -31,7 +31,7 @@ function Chat() {
 
         socket.on('message', ({ username, msg }) => {
             if (typeof msg === 'string') {
-                setMessages((prevMessages) => [...prevMessages, { username, msg }]);
+                setMessages((prevMessages) => [...prevMessages, { username, msg, time: new Date() }]);
             } else {
                 console.warn('Invalid message format received:', msg);
             }
@@ -86,6 +86,7 @@ function Chat() {
                     type="text"
                     value={usernameInput}
                     onChange={(e) => setUsernameInput(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && setUsernameHandler()}
                     placeholder="Enter your username"
                     className="username-input"
                 />
@@ -104,13 +105,18 @@ function Chat() {
                     Users online: <strong>{onlineUsers}</strong>
                 </p>
                 <div className="chat-messages">
-                    {messages.map(({ username, msg }, index) => (
+                    {messages.map(({ username, msg, time }, index) => (
                         <div
                             key={index}
                             className="chat-message"
                             style={{ background: getUserColor(username), color: '#000' }}
                         >
-                            <strong>{username}:</strong> {msg}
+                            <div className="chat-message-body">
+                                <strong>{username}:</strong> {msg}
+                            </div>
+                            <div className="chat-message-time">
+                                {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </div>
                         </div>
                     ))}
                     <div ref={messagesEndRef} />
@@ -120,6 +126,7 @@ function Chat() {
                         type="text"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                         placeholder="Type your message..."
                         className="chat-input"
                     />

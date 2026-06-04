@@ -48,6 +48,22 @@
     padding: 10px;
     border-radius: 8px;
     color: #000;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.chat-message-body {
+    flex: 1;
+    word-break: break-word;
+    text-align: left;
+}
+
+.chat-message-time {
+    font-size: 0.72em;
+    opacity: 0.55;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .chat-input-wrapper {

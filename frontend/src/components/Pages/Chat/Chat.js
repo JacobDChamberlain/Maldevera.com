@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { io } from 'socket.io-client';
 import './Chat.css';
 
-const socket = io(process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001');
-
 function Chat() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
@@ -11,16 +9,26 @@ function Chat() {
     const [usernameInput, setUsernameInput] = useState('');
     const [onlineUsers, setOnlineUsers] = useState(0);
     const userColors = useRef({});
+    const socketRef = useRef(null);
+    const usernameRef = useRef(null);
+    const messagesEndRef = useRef(null);
 
-    const getUserColor = (username) => {
-        if (!userColors.current[username]) {
-            const hue = Math.floor(Math.random() * 360);
-            userColors.current[username] = `hsl(${hue}, 70%, 80%)`;
-        }
-        return userColors.current[username];
-    };
+    // Keep ref in sync so the connect handler always sees the latest username
+    useEffect(() => {
+        usernameRef.current = username;
+    }, [username]);
 
     useEffect(() => {
+        const socket = io(process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001');
+        socketRef.current = socket;
+
+        // Re-register username after any reconnect so the server doesn't drop messages
+        socket.on('connect', () => {
+            if (usernameRef.current) {
+                socket.emit('setUsername', usernameRef.current, () => {});
+            }
+        });
+
         socket.on('message', ({ username, msg }) => {
             if (typeof msg === 'string') {
                 setMessages((prevMessages) => [...prevMessages, { username, msg }]);
@@ -34,14 +42,26 @@ function Chat() {
         });
 
         return () => {
-            socket.off('message');
-            socket.off('onlineUsers');
+            socket.disconnect();
         };
     }, []);
 
+    // Scroll to the latest message whenever messages update
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+
+    const getUserColor = (username) => {
+        if (!userColors.current[username]) {
+            const hue = Math.floor(Math.random() * 360);
+            userColors.current[username] = `hsl(${hue}, 70%, 80%)`;
+        }
+        return userColors.current[username];
+    };
+
     const setUsernameHandler = () => {
         if (usernameInput.trim()) {
-            socket.emit('setUsername', usernameInput, (response) => {
+            socketRef.current.emit('setUsername', usernameInput, (response) => {
                 if (response.success) {
                     setUsername(usernameInput.trim());
                 } else {
@@ -53,7 +73,7 @@ function Chat() {
 
     const sendMessage = () => {
         if (input.trim() && username) {
-            socket.emit('message', input);
+            socketRef.current.emit('message', input);
             setInput('');
         }
     };
@@ -93,6 +113,7 @@ function Chat() {
                             <strong>{username}:</strong> {msg}
                         </div>
                     ))}
+                    <div ref={messagesEndRef} />
                 </div>
                 <div className="chat-input-wrapper">
                     <input

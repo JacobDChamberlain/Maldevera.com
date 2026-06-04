@@ -29,6 +29,19 @@ The count goes up as soon as anyone connects a socket, even before they set a us
 
 ## Features
 
+### AI Shit-Talker Bot
+Integrate an AI (e.g. Claude) that periodically fires off trash talk messages in the chat. The bot should roast people based on their usernames, react to what's being said in the chat, and generally keep the vibe chaotic. Key decisions:
+
+- **Trigger logic** — Fire on a timer (e.g. every few minutes of activity), after N messages, or when specific keywords/events happen (someone joins, someone says something begging to be roasted).
+- **Context window** — Feed the AI the last N messages + active usernames so the roasts feel targeted and relevant, not generic.
+- **Persona** — Give the bot a username like "ShitTalker" or "TheJudge" and a system prompt that tells it to be savage, clever, and specific. Avoid slurs; keep it spicy but not actually harmful.
+- **Rate limiting** — Don't let it spam. One roast per trigger window max, and maybe silence it if chat is quiet.
+- **Backend placement** — Runs server-side (socket.io server), calls the AI API with recent chat context, emits the response as a bot message.
+
+**Effort estimate:** ~1-2 hours. Hook into the existing `message` event in `server.js`, buffer recent messages, call the AI, emit the roast. No new routes or data models needed.
+**Cost estimate:** Dirt cheap. Use Claude Haiku (~$0.25/M input tokens). 500 token context × 100 fires/day ≈ $0.01/day. Sonnet would be ~10x wittier and still pennies.
+**Best trigger:** Message-count based (every N messages of activity) so it doesn't fire into an empty room.
+
 ### Image uploads
 Three options, roughly in order of complexity:
 

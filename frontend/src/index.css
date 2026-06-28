@@ -165,6 +165,12 @@
    Global Styles
    ======================================== */
 
+/* Reserve the scrollbar gutter so toggling body overflow (e.g. the splash
+   intro's scroll-lock) never reflows the page. No-op with overlay scrollbars. */
+html {
+    scrollbar-gutter: stable;
+}
+
 body {
     margin: 0;
     font-family: var(--font-primary);

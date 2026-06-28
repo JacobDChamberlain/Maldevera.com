@@ -17,3 +17,6 @@ backend/dist/
 dist
 build
 .env
+
+# Full-res logo master (kept locally; optimized webp is served instead)
+design-assets/

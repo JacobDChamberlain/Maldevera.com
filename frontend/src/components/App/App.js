@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 
 import NavBar from '../NavBar/NavBar';
 import Header from '../Header/Header';
@@ -25,6 +25,7 @@ import FailedPurchase from '../Pages/Checkout/Cancel/CheckoutCancel';
 import CurrentStock from '../Pages/CurrentStock/CurrentStock';
 import Chat from '../Pages/Chat/Chat';
 import FancyBorderPreview from '../Templates/FancyBorder';
+import SplashIntro from '../SplashIntro/SplashIntro';
 
 function RainOverlay() {
   const { logoCycling } = useTheme();
@@ -44,9 +45,35 @@ function RainOverlay() {
   );
 }
 
+// Crossfades the routed page on each navigation. Keying on pathname replays
+// the fade-in keyframe; reduced-motion users get an instant swap (see CSS).
+function AnimatedRoutes() {
+  const location = useLocation();
+  return (
+    <div className="route-fade" key={location.pathname}>
+      <Routes>
+        <Route path='/' Component={ Home } />
+        <Route path='/merch' Component={ Merch } />
+        <Route path='/about' Component={ About } />
+        <Route path='/shows' Component={ Shows } />
+        <Route path='/tour' Component={ Tours } />
+        <Route path='/tours' Component={ Tours } />
+        <Route path='/checkout' Component={ Purchase } />
+        <Route path='/successful-purchase' Component={ SuccessfulPurchase } />
+        <Route path='/sad-yeet' Component={ FailedPurchase } />
+        <Route path='/sup' Component={ Chat } />
+        <Route path='/stock' Component={ CurrentStock } />
+        <Route path='/preview/fancy-border' Component={ FancyBorderPreview } />
+        <Route path='*' Component={ NotFound } />
+      </Routes>
+    </div>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider>
+    <SplashIntro />
     <RainOverlay />
     <div className="App">
       <ThemeToggle />
@@ -101,21 +128,7 @@ function App() {
             <NavBar />
             <Header />
             <SocialMediaBar />
-              <Routes>
-                <Route path='/' Component={ Home } />
-                <Route path='/merch' Component={ Merch } />
-                <Route path='/about' Component={ About } />
-                <Route path='/shows' Component={ Shows } />
-                <Route path='/tour' Component={ Tours } />
-                <Route path='/tours' Component={ Tours } />
-                <Route path='/checkout' Component={ Purchase } />
-                <Route path='/successful-purchase' Component={ SuccessfulPurchase } />
-                <Route path='/sad-yeet' Component={ FailedPurchase } />
-                <Route path='/sup' Component={ Chat } />
-                <Route path='/stock' Component={ CurrentStock } />
-                <Route path='/preview/fancy-border' Component={ FancyBorderPreview } />
-                <Route path='*' Component={ NotFound } />
-              </Routes>
+              <AnimatedRoutes />
           </BrowserRouter>
           <FloatingCartButton />
         </MerchCartProvider>

@@ -142,7 +142,7 @@ export default function SplashIntro() {
                     draggable="false"
                 />
             </div>
-            <span className="splash-skip">click to enter</span>
+            <span className="splash-skip">taste the corners of your mind</span>
         </div>
     );
 }

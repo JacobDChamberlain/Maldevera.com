@@ -31,7 +31,7 @@ import june7th_2026_atlanta from './Flyers/June7th_2026_Atlanta.jpg';
 import june10th_2026_richmond from './Flyers/June10th_2026_Richmond.PNG';
 import july26th_2026_peticolas from './Flyers/july26_2026-Peticolas.webp';
 import aug2nd_2026_doublewide from './Flyers/aug2_2026-Doublewide.png';
-import sep12th_2026_haltom from './Flyers/sept12_2026_haltom_mortician.jpg';
+import sep12th_2026_haltom from './Flyers/september_haltom.png';
 
 // Flyer imports - Past shows
 import may28th from './Flyers/may28thDWshow.jpg';

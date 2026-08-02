@@ -55,21 +55,6 @@
 
 
 
-.swiper-boi {
-    width: 100%;
-}
-
-
-.swiper-slide {
-    display: flex;
-}
-
-.swiper-slide:hover {
-    cursor: pointer;
-}
-
-
-
 .merch-loading {
     height: 70vh;
 }

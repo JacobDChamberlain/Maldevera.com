@@ -12,11 +12,10 @@
         "react-dom": "^18.2.0",
         "react-h5-audio-player": "^3.9.3",
         "react-modal": "^3.16.1",
-        "react-router-dom": "^6.18.0",
+        "react-router-dom": "^6.30.4",
         "react-scripts": "5.0.1",
         "react-zoom-pan-pinch": "^3.6.1",
-        "socket.io-client": "^4.8.1",
-        "swiper": "^11.0.5",
+        "socket.io-client": "^4.8.3",
         "web-vitals": "^2.1.4"
     },
     "devDependencies": {

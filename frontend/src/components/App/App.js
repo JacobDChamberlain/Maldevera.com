@@ -80,7 +80,7 @@ function App() {
     <div className="App">
       <ThemeToggle />
 
-      <ul class="lightrope">
+      <ul className="lightrope">
         <li></li>
         <li></li>
         <li></li>
@@ -126,7 +126,7 @@ function App() {
       </ul>
       <InventoryProvider>
         <MerchCartProvider>
-          <BrowserRouter>
+          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <NavBar />
             <Header />
             <SocialMediaBar />

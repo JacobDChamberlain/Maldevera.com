@@ -1,31 +1,65 @@
+/* Everything is scoped under .login-container so these rules never leak onto
+   the rest of the app's Bootstrap cards/buttons/inputs (they used to), and it
+   all reads from the site's theme variables so it follows the active theme. */
+
 .login-container {
-    /* background: linear-gradient(135deg, #4c8cfa, #6f42c1); */
-    color: #fff;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
     padding: 20px;
 }
 
-.card {
-    border: none;
+.login-container .card {
+    border: 1px solid var(--color-border);
     border-radius: 12px;
-    background-color: #fff;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    box-shadow: 0 0 24px var(--color-bg-overlay);
 }
 
-.card h2 {
-    color: #4c8cfa;
+.login-container .card h2 {
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
     font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
-.form-control {
+.login-container .form-label {
+    color: var(--color-text-secondary);
+}
+
+.login-container .form-control {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-subtle);
     border-radius: 6px;
 }
 
-.btn-primary {
-    background: #4c8cfa;
-    border: none;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
+.login-container .form-control::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.6;
 }
 
-.btn-primary:hover {
-    background: #357ae8;
+.login-container .form-control:focus {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem var(--color-bg-overlay);
+}
+
+.login-container .btn-primary {
+    background-color: var(--color-button-bg);
+    color: var(--color-button-text);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login-container .btn-primary:hover,
+.login-container .btn-primary:focus {
+    background-color: var(--color-hover);
+    color: var(--color-button-text);
+    border-color: var(--color-border);
 }

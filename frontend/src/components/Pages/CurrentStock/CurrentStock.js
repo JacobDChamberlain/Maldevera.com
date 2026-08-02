@@ -117,6 +117,9 @@ const CurrentStock = () => {
     !isLoggedIn ? <Login setIsLoggedIn={setIsLoggedIn} /> :
     <div className="container py-4 current-stock-container">
       <h1 className="text-center mb-4">Current Stock</h1>
+      <div className="text-center mb-3">
+        <a href="/manage">→ Full product manager (add / edit / hide items)</a>
+      </div>
       <div className="text-end mb-3">
         {isEditing ? (
           <>

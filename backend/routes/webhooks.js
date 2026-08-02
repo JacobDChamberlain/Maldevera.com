@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize, Item } = require('../models');
+const { sequelize, Variant, Product } = require('../models');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const router = express.Router();
 
@@ -44,14 +44,14 @@ router.post('/', async (req, res) => {
             // Update stock in a transaction
             await sequelize.transaction(async (t) => {
                 for (const { id, quantity } of purchasedItems) {
-                    const item = await Item.findByPk(id, { transaction: t });
+                    const variant = await Variant.findByPk(id, { transaction: t });
 
-                    if (!item) {
-                        throw new Error(`Item with ID ${id} not found`);
+                    if (!variant) {
+                        throw new Error(`Variant with ID ${id} not found`);
                     }
 
-                    item.stock -= quantity;
-                    await item.save({ transaction: t });
+                    variant.stock -= quantity;
+                    await variant.save({ transaction: t });
                 }
             });
 
@@ -67,20 +67,25 @@ router.post('/', async (req, res) => {
 
                 const itemDetails = await Promise.all(
                     purchasedItems.map(async ({ id, quantity }) => {
-                        const item = await Item.findByPk(id);
+                        const variant = await Variant.findByPk(id, { include: [{ model: Product, as: 'product' }] });
 
-                        if (!item) {
-                            throw new Error(`Item with ID ${id} not found`);
+                        if (!variant) {
+                            throw new Error(`Variant with ID ${id} not found`);
                         }
 
-                        const itemTotal = parseFloat(item.price) * quantity;
+                        const displayName = variant.size
+                            ? `${variant.product.name} - ${variant.size}`
+                            : variant.product.name;
+                        const image = (variant.product.images && variant.product.images[0]) || "https://via.placeholder.com/100";
+
+                        const itemTotal = parseFloat(variant.price) * quantity;
                         totalPrice += itemTotal;
 
                         return `
                             <tr>
-                                <td style='padding: 10px;'>${item.name}</td>
-                                <td style='padding: 10px;'><img src='${item.images[0] || "https://via.placeholder.com/100"}' alt='${item.name}' width='100' /></td>
-                                <td style='padding: 10px;'>$${parseFloat(item.price).toFixed(2)}</td>
+                                <td style='padding: 10px;'>${displayName}</td>
+                                <td style='padding: 10px;'><img src='${image}' alt='${displayName}' width='100' /></td>
+                                <td style='padding: 10px;'>$${parseFloat(variant.price).toFixed(2)}</td>
                                 <td style='padding: 10px;'>${quantity}</td>
                             </tr>
                         `;

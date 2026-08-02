@@ -10,6 +10,7 @@ require('dotenv').config();
 
 const inventoryRoutes = require('./routes/inventory');
 const productsRoutes = require('./routes/products');
+const adminRoutes = require('./routes/admin');
 const checkoutRoutes = require('./routes/checkout');
 const webhookRoutes = require('./routes/webhooks');
 const loginRoutes = require('./routes/login');
@@ -24,6 +25,7 @@ app.use('/api/webhooks', express.raw({ type: 'application/json' }), webhookRoute
 app.use(express.json());
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/products', productsRoutes);
+app.use('/api/admin', adminRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/login', loginRoutes);
 

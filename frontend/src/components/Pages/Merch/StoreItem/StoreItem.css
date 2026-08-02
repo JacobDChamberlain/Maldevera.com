@@ -30,6 +30,18 @@
     padding: 5px;
 }
 
+.store-item-soldout {
+    align-self: center;
+    margin: 8px 0;
+    padding: 3px 12px;
+    border: 1px solid currentColor;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #c0392b;
+}
+
 .store-item-purchase-button {
     width: 110px;
     align-self: center;

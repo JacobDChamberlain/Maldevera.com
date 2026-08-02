@@ -20,10 +20,15 @@ export default function StoreItem({ item, inventory }) {
         : [];
     const availableSizes = hasSizes
         ? relatedItems.reduce((sizes, currentItem) => {
-              sizes[currentItem.size] = currentItem.quantity;
+              sizes[currentItem.size] = currentItem.stock;
               return sizes;
           }, {})
         : {};
+
+    // Whole product is sold out when every size (or the item itself) has no stock
+    const isSoldOut = hasSizes
+        ? relatedItems.every(i => i.stock === 0)
+        : item.stock === 0;
 
     // Handle size selection
     const handleSizeChange = (event) => {
@@ -85,8 +90,10 @@ export default function StoreItem({ item, inventory }) {
                 <div className="store-item-name">{item.name.split(' - ')[0].toUpperCase()}</div>
                 <div className="store-item-price">{formatCurrency(item.price)}</div>
 
-                {/* Size selection dropdown (only if the item has sizes) */}
-                {hasSizes && (
+                {isSoldOut && <div className="store-item-soldout">Sold Out</div>}
+
+                {/* Size selection dropdown (only if the item has sizes and stock remains) */}
+                {hasSizes && !isSoldOut && (
                     <div className="store-item-sizes">
                         <select
                             id={`size-select-${item.id}`}
@@ -109,14 +116,14 @@ export default function StoreItem({ item, inventory }) {
                     style={{
                         border: "none",
                         borderRadius: "20px",
-                        cursor: "pointer",
+                        cursor: isSoldOut ? "not-allowed" : "pointer",
                         backgroundColor: itemAdded ? "lightgreen" : "white",
                         animation: itemAdded ? "bounce 0.3s ease" : "none"
                     }}
                     onClick={handleAddToCart}
-                    disabled={itemAdded}
+                    disabled={itemAdded || isSoldOut}
                 >
-                    {itemAdded ? "Item Added!" : "+ Add To Cart"}
+                    {isSoldOut ? "Sold Out" : itemAdded ? "Item Added!" : "+ Add To Cart"}
                 </button>
             </div>
 

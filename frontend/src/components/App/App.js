@@ -23,6 +23,7 @@ import { InventoryProvider } from '../../context/InventoryContext';
 import SuccessfulPurchase from '../Pages/Checkout/Success/CheckoutSuccess';
 import FailedPurchase from '../Pages/Checkout/Cancel/CheckoutCancel';
 import CurrentStock from '../Pages/CurrentStock/CurrentStock';
+import ManageStore from '../Pages/ManageStore/ManageStore';
 import Chat from '../Pages/Chat/Chat';
 import FancyBorderPreview from '../Templates/FancyBorder';
 import SplashIntro from '../SplashIntro/SplashIntro';
@@ -63,6 +64,7 @@ function AnimatedRoutes() {
         <Route path='/sad-yeet' Component={ FailedPurchase } />
         <Route path='/sup' Component={ Chat } />
         <Route path='/stock' Component={ CurrentStock } />
+        <Route path='/manage' Component={ ManageStore } />
         <Route path='/preview/fancy-border' Component={ FancyBorderPreview } />
         <Route path='*' Component={ NotFound } />
       </Routes>

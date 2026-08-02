@@ -9,7 +9,7 @@ export function useTheme() {
 
 export function ThemeProvider({ children }) {
     const [theme, setTheme] = useLocalStorage("maldevera-theme", "lovecraftian");
-    const [showLights, setShowLights] = useLocalStorage("maldevera-lights", true);
+    const [showLights, setShowLights] = useLocalStorage("maldevera-lights", false);
     const [flashlightMode, setFlashlightMode] = useState(false);
     const [logoCycling, setLogoCycling] = useLocalStorage("maldevera-logo-cycling", false);
 

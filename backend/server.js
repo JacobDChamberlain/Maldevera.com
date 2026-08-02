@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { sequelize, Item } = require('./models');
+const { sequelize } = require('./models');
 const http = require('http'); // Required to integrate WebSocket
 const { Server } = require('socket.io'); // Socket.io for WebSocket support
 const { v4: uuidv4 } = require('uuid');
@@ -9,6 +9,7 @@ const port = process.env.PORT || 5001;
 require('dotenv').config();
 
 const inventoryRoutes = require('./routes/inventory');
+const productsRoutes = require('./routes/products');
 const checkoutRoutes = require('./routes/checkout');
 const webhookRoutes = require('./routes/webhooks');
 const loginRoutes = require('./routes/login');
@@ -22,6 +23,7 @@ app.use('/api/webhooks', express.raw({ type: 'application/json' }), webhookRoute
 // Other routes use JSON parsing
 app.use(express.json());
 app.use('/api/inventory', inventoryRoutes);
+app.use('/api/products', productsRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/login', loginRoutes);
 

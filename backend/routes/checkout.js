@@ -1,6 +1,6 @@
 const express = require('express');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const { sequelize, Item } = require('../models');
+const { Variant, Product } = require('../models');
 const router = express.Router();
 const frontendBaseURL = process.env.FRONTEND_URL;
 
@@ -16,16 +16,21 @@ router.post('/create-checkout-session', async (req, res) => {
         }
 
         for (const { id, quantity } of items) {
-            const item = await Item.findByPk(id);
+            const variant = await Variant.findByPk(id, { include: [{ model: Product, as: 'product' }] });
 
-            if (!item || item.stock < quantity) {
-                throw new Error(`Requested quantity not available for ${item ? item.name : 'Unknown item'}`);
+            if (!variant || variant.stock < quantity) {
+                const label = variant && variant.product ? variant.product.name : 'Unknown item';
+                throw new Error(`Requested quantity not available for ${label}`);
             }
 
+            const displayName = variant.size
+                ? `${variant.product.name} - ${variant.size}`
+                : variant.product.name;
+
             purchasedItems.push({
-                id: item.id,
-                name: item.name,
-                price: Math.round(item.price * 100), // Convert to cents for Stripe
+                id: variant.id,
+                name: displayName,
+                price: Math.round(variant.price * 100), // Convert to cents for Stripe
                 quantity
             });
         }

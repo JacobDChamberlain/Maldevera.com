@@ -4,69 +4,69 @@ import './StoreItem.css';
 import { useMerchCart } from "../../../../context/MerchCartContext";
 import { Button, Modal } from "react-bootstrap";
 
-export default function StoreItem({ item, inventory }) {
+const SIZE_ORDER = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+
+export default function StoreItem({ product }) {
     const { getItemQuantity, increaseItemQuantity } = useMerchCart();
     const [selectedSize, setSelectedSize] = useState("");
     const [itemAdded, setItemAdded] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
 
-    // Check if the item has sizes
-    const hasSizes = Boolean(item.size);
+    const variants = product.variants || [];
 
-    // Get all sizes for this style (only if the item has sizes)
-    const relatedItems = hasSizes
-        ? inventory.filter(i => i.name.split(' - ')[0] === item.name.split(' - ')[0])
-        : [];
-    const availableSizes = hasSizes
-        ? relatedItems.reduce((sizes, currentItem) => {
-              sizes[currentItem.size] = currentItem.stock;
-              return sizes;
-          }, {})
-        : {};
+    // A product is "sized" when its variants carry sizes. Non-sized products
+    // (CDs, patches, …) have a single size-less variant.
+    const hasSizes = variants.some(v => v.size);
 
-    // Whole product is sold out when every size (or the item itself) has no stock
-    const isSoldOut = hasSizes
-        ? relatedItems.every(i => i.stock === 0)
-        : item.stock === 0;
+    // size -> stock, straight from the variant data (no more name-splitting)
+    const availableSizes = variants.reduce((sizes, v) => {
+        if (v.size) sizes[v.size] = v.stock;
+        return sizes;
+    }, {});
 
-    // Handle size selection
+    const sortedSizes = Object.keys(availableSizes).sort(
+        (a, b) => SIZE_ORDER.indexOf(a) - SIZE_ORDER.indexOf(b)
+    );
+
+    // Whole product is sold out when every variant has no stock.
+    const isSoldOut = variants.length === 0 || variants.every(v => v.stock === 0);
+
+    // Price: single price when all variants agree, otherwise "from $X".
+    const prices = variants.map(v => Number(v.price));
+    const minPrice = prices.length ? Math.min(...prices) : 0;
+    const priceVaries = prices.some(p => p !== minPrice);
+
     const handleSizeChange = (event) => {
         setSelectedSize(event.target.value);
-        setItemAdded(false); // Reset itemAdded state when size changes
+        setItemAdded(false);
     };
 
-    // Handle adding to cart
+    const flashAdded = () => {
+        setItemAdded(true);
+        setTimeout(() => setItemAdded(false), 1000);
+    };
+
     const handleAddToCart = () => {
         if (hasSizes) {
-            if (selectedSize) {
-                const selectedItem = relatedItems.find(i => i.size === selectedSize);
-                if (selectedItem && selectedItem.stock > 0 && getItemQuantity(selectedItem.id, selectedSize) + 1 <= selectedItem.stock) {
-                    increaseItemQuantity(selectedItem.id, selectedSize, availableSizes);
-                    setItemAdded(true);
-
-                    // Reset itemAdded state after a short delay (e.g., 1 second)
-                    setTimeout(() => {
-                        setItemAdded(false);
-                    }, 1000);
-                } else {
-                    setAlertMessage("Selected size is out of stock");
-                    setShowAlert(true);
-                }
-            } else {
+            if (!selectedSize) {
                 setAlertMessage("Please select a size");
+                setShowAlert(true);
+                return;
+            }
+            const variant = variants.find(v => v.size === selectedSize);
+            if (variant && variant.stock > 0 && getItemQuantity(variant.id, selectedSize) + 1 <= variant.stock) {
+                increaseItemQuantity(variant.id, selectedSize);
+                flashAdded();
+            } else {
+                setAlertMessage("Selected size is out of stock");
                 setShowAlert(true);
             }
         } else {
-            // Logic for items without sizes
-            if (item.stock > 0) {
-                increaseItemQuantity(item.id, null, null); // No size info for non-size items
-                setItemAdded(true);
-
-                // Reset itemAdded state after a short delay (e.g., 1 second)
-                setTimeout(() => {
-                    setItemAdded(false);
-                }, 1000);
+            const variant = variants[0];
+            if (variant && variant.stock > 0 && getItemQuantity(variant.id, null) + 1 <= variant.stock) {
+                increaseItemQuantity(variant.id, null);
+                flashAdded();
             } else {
                 setAlertMessage("This item is out of stock");
                 setShowAlert(true);
@@ -74,29 +74,22 @@ export default function StoreItem({ item, inventory }) {
         }
     };
 
-
-    // initially, on purchase, the purchased size would be set to the bottom of the dropdown.
-    // this fixes that.
-    const predefinedOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']; // Define the desired order
-    const sortedSizes = Object.keys(availableSizes).sort(
-        (a, b) => predefinedOrder.indexOf(a) - predefinedOrder.indexOf(b)
-    );
-
-
     return (
         <div className="store-item-wrapper">
-            <img className="store-item-image" src={item.images[0]} alt={`${item.description}`} />
+            <img className="store-item-image" src={product.images[0]} alt={product.name} />
             <div className="store-item-info">
-                <div className="store-item-name">{item.name.split(' - ')[0].toUpperCase()}</div>
-                <div className="store-item-price">{formatCurrency(item.price)}</div>
+                <div className="store-item-name">{product.name.toUpperCase()}</div>
+                <div className="store-item-price">
+                    {priceVaries ? `from ${formatCurrency(minPrice)}` : formatCurrency(minPrice)}
+                </div>
 
                 {isSoldOut && <div className="store-item-soldout">Sold Out</div>}
 
-                {/* Size selection dropdown (only if the item has sizes and stock remains) */}
+                {/* Size selection dropdown (only if the product has sizes and stock remains) */}
                 {hasSizes && !isSoldOut && (
                     <div className="store-item-sizes">
                         <select
-                            id={`size-select-${item.id}`}
+                            id={`size-select-${product.id}`}
                             value={selectedSize}
                             onChange={handleSizeChange}
                             className="size-select"

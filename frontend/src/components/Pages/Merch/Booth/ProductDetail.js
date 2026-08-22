@@ -62,7 +62,7 @@ export default function ProductDetail({ product, onClose }) {
             >
                 <div className="booth-detail-art">
                     {product.images && product.images[0]
-                        ? <img src={product.images[0]} alt={product.name} crossOrigin="anonymous" />
+                        ? <img src={product.images[0]} alt={product.name} />
                         : <div className="booth-detail-noart">{product.name}</div>}
                 </div>
 

@@ -23,10 +23,7 @@ export default function StoreItem({ product }) {
 
     return (
         <div className="store-item-wrapper">
-            {/* crossOrigin so this shares one CORS cache entry with the booth's
-                WebGL textures — otherwise a no-CORS cached copy breaks the 3D
-                textures (grey boxes) after viewing the grid. */}
-            <img className="store-item-image" src={product.images[0]} alt={product.name} crossOrigin="anonymous" />
+            <img className="store-item-image" src={product.images[0]} alt={product.name} />
             <div className="store-item-info">
                 <div className="store-item-name">{product.name.toUpperCase()}</div>
                 <div className="store-item-price">

@@ -41,7 +41,13 @@ export default function BoothItem({
     const swayPhase = useMemo(() => Math.random() * Math.PI * 2, []);
 
     const meta = getProductMeta(product);
-    const { tex, failed } = useImageTexture(product.images && product.images[0]);
+    // WebGL textures need CORS. R2 now serves the CORS header (with Vary: Origin),
+    // but stale pre-CORS copies are cached at the edge — a versioned query escapes
+    // them and fetches a fresh, CORS-enabled response. Plain <img> tags elsewhere
+    // (grid, detail) don't need this since they display without CORS.
+    const rawUrl = product.images && product.images[0];
+    const texUrl = rawUrl ? rawUrl + (rawUrl.includes('?') ? '&' : '?') + 'wtex=1' : rawUrl;
+    const { tex, failed } = useImageTexture(texUrl);
 
     const isRack = placement === 'rack';
     const maxDim = isRack ? 1.7 : 0.95;

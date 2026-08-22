@@ -1,0 +1,283 @@
+/* Booth overlay UI. Colors come from the site's theme variables so it tracks
+   lovecraftian/alien automatically; the 3D scene itself is themed in JS. */
+
+/* In grid view the toggle sits in normal flow, centered. */
+.booth-controls {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0 4px;
+}
+.booth-controls .booth-toggle {
+    position: static;
+    backdrop-filter: none;
+    background: var(--color-bg-tertiary);
+}
+
+/* Floats over the canvas so it stays reachable in the full-screen booth. */
+.booth-toggle {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 5;
+    font-family: var(--font-primary);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    background: var(--color-bg-overlay);
+    border: 1px solid var(--color-border-subtle);
+    padding: 9px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: background var(--animation-duration) ease;
+}
+.booth-toggle:hover { background: var(--color-hover); }
+.booth-toggle:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+.booth-stage {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+}
+
+.booth-hint {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--color-text-secondary);
+    font-family: var(--font-primary);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* walk mode: click-to-explore overlay (also the pointer-lock trigger) */
+.booth-explore {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    background: radial-gradient(60% 60% at 50% 50%, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.6));
+    color: var(--color-text-primary);
+    font-family: var(--font-primary);
+}
+.booth-explore-play {
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--color-text-accent);
+    filter: drop-shadow(0 0 12px var(--color-accent-glow, currentColor));
+}
+.booth-explore-title { font-size: 1.1rem; letter-spacing: 0.22em; text-transform: uppercase; }
+.booth-explore-keys { font-size: 0.72rem; letter-spacing: 0.12em; color: var(--color-text-secondary); text-transform: uppercase; }
+.booth-explore:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -4px; }
+.booth-explore.hidden { opacity: 0; pointer-events: none; }
+
+/* center reticle while walking — a thin + */
+.booth-reticle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 4;
+    opacity: 0.85;
+}
+.booth-reticle::before,
+.booth-reticle::after {
+    content: "";
+    position: absolute;
+    background: var(--color-text-primary);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+}
+.booth-reticle::before { /* vertical bar */
+    top: 0; bottom: 0; left: 50%;
+    width: 1px; margin-left: -0.5px;
+}
+.booth-reticle::after { /* horizontal bar */
+    left: 0; right: 0; top: 50%;
+    height: 1px; margin-top: -0.5px;
+}
+
+/* "press E" label pinned in 3D just below the item the reticle is on */
+.booth-press {
+    color: var(--color-text-primary);
+    background: var(--color-bg-overlay);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 5px 11px;
+    font-family: var(--font-primary);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+}
+
+.booth-loading,
+.booth-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    height: 100dvh;
+    color: var(--color-text-secondary);
+    font-family: var(--font-primary);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+/* tooltips + fallback labels rendered via drei <Html> inside the canvas */
+.booth-tooltip {
+    background: var(--color-bg-overlay);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 7px 12px;
+    white-space: nowrap;
+    font-family: var(--font-primary);
+    transform: translateY(-6px);
+}
+.booth-tooltip-name {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+}
+.booth-tooltip-price {
+    font-size: 0.75rem;
+    color: var(--color-text-accent);
+    font-variant-numeric: tabular-nums;
+}
+.booth-fallback-label {
+    font-family: var(--font-primary);
+    font-size: 0.7rem;
+    text-align: center;
+    color: var(--color-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    width: 120px;
+    pointer-events: none;
+}
+
+/* detail modal */
+.booth-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(3, 3, 7, 0.7);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: booth-fade var(--animation-duration) ease;
+}
+@keyframes booth-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.booth-detail {
+    width: min(680px, 96vw);
+    max-height: 92vh;
+    overflow: auto;
+    background: linear-gradient(180deg, var(--color-bg-secondary), var(--color-bg-primary));
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    animation: booth-rise var(--animation-duration) ease;
+}
+@keyframes booth-rise { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.booth-detail-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 26px;
+    border-right: 1px solid var(--color-border-subtle);
+}
+.booth-detail-art img { width: min(220px, 60vw); height: auto; filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5)); }
+.booth-detail-noart { color: var(--color-text-secondary); text-align: center; padding: 20px; }
+
+.booth-detail-body { padding: 26px 24px; display: flex; flex-direction: column; color: var(--color-text-primary); }
+.booth-detail-cat { color: var(--color-text-secondary); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.booth-detail-name { font-family: var(--font-display); margin: 4px 0; letter-spacing: 0.06em; font-size: 1.35rem; }
+.booth-detail-price { color: var(--color-text-accent); font-size: 1.25rem; margin: 10px 0; font-variant-numeric: tabular-nums; }
+.booth-detail-desc { color: var(--color-text-secondary); font-size: 0.92rem; margin-bottom: 14px; }
+
+.booth-sizes-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 8px; }
+.booth-sizes { display: flex; flex-wrap: wrap; gap: 8px; }
+.booth-size {
+    min-width: 46px;
+    padding: 8px 10px;
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+    transition: all var(--animation-duration) ease;
+}
+.booth-size:hover:not(:disabled) { border-color: var(--color-border); }
+.booth-size.selected { background: var(--color-text-accent); color: var(--color-bg-primary); border-color: var(--color-text-accent); font-weight: 700; }
+.booth-size:disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
+.booth-size:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+.booth-msg { color: var(--color-notification); font-size: 0.82rem; min-height: 20px; margin: 6px 0; }
+
+.booth-actions { margin-top: auto; display: flex; gap: 10px; align-items: center; padding-top: 12px; }
+.booth-add {
+    flex: 1;
+    padding: 14px 18px;
+    background: var(--color-text-accent);
+    color: var(--color-bg-primary);
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: filter var(--animation-duration) ease;
+}
+.booth-add:hover:not(:disabled) { filter: brightness(1.15); }
+.booth-add.added { background: var(--color-tertiary); }
+.booth-add:disabled { background: var(--color-bg-tertiary); color: var(--color-text-secondary); cursor: not-allowed; }
+.booth-add:focus-visible, .booth-close:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+.booth-close {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 10px;
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 620px) {
+    .booth-detail { grid-template-columns: 1fr; }
+    .booth-detail-art { border-right: none; border-bottom: 1px solid var(--color-border-subtle); padding: 22px; }
+    .booth-stage, .booth-loading, .booth-empty { height: 100vh; height: 100dvh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .booth-scrim, .booth-detail { animation: none; }
+}

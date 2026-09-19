@@ -74,6 +74,11 @@
     color: var(--color-text-secondary);
 }
 
+/* Sits on the venue line, inheriting its type - just spaced well clear of it */
+.hero-city {
+    margin-left: 2em;
+}
+
 .hero-bands {
     display: flex;
     flex-wrap: wrap;

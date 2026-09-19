@@ -155,6 +155,13 @@ export default function Shows() {
         return `https://calendar.google.com/calendar/render?${params.toString()}`;
     };
 
+    // "2613 Elm St, Dallas, TX 75226" -> "Dallas, TX"
+    const getCityState = (address) => {
+        const city = address.split(',')[1]?.trim();
+        const state = address.split(',')[2]?.trim().split(' ')[0];
+        return `${city}, ${state}`;
+    };
+
     // Generate Google Maps directions URL
     const generateDirectionsUrl = (address) => {
         return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
@@ -173,6 +180,7 @@ export default function Shows() {
                         <h2 className="hero-date">{nextShow.date}</h2>
                         <h3 className="hero-venue">
                             @ {nextShow.venue}
+                            <span className="hero-city">{getCityState(nextShow.address)}</span>
                         </h3>
                         <div className="hero-bands">
                             {nextShow.bands.map((band, idx) => (
@@ -213,7 +221,7 @@ export default function Shows() {
                                 key={idx}
                                 className="poster-card"
                                 style={{ '--rotation': `${getRandomRotation(idx)}deg` }}
-                                data-tape={`${show.address.split(',')[1]?.trim()}, ${show.address.split(',')[2]?.trim().split(' ')[0]}`}
+                                data-tape={getCityState(show.address)}
                             >
                                 <Show
                                     show={show}
@@ -246,7 +254,7 @@ export default function Shows() {
                                     key={idx}
                                     className="poster-card poster-card-past"
                                     style={{ '--rotation': `${getRandomRotation(idx + 100)}deg` }}
-                                    data-tape={`${show.address.split(',')[1]?.trim()}, ${show.address.split(',')[2]?.trim().split(' ')[0]}`}
+                                    data-tape={getCityState(show.address)}
                                 >
                                     <Show show={show} mode="poster" isPast={true} />
                                 </div>

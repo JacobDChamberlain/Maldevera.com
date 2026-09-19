@@ -3,13 +3,13 @@ import * as boothAudio from './boothAudio';
 
 // Everything the guy at the back of the room says. Edit freely — one string per
 // box; the player advances with E / Enter / click.
-export const NPC_NAME = 'stranger';
+export const NPC_NAME = 'spencer';
 export const NPC_LINES = [
     'you walked all the way back here.',
     'nobody walks all the way back here.',
-    'i used to run the booth. sold two shirts and a cassette, then the lights went out.',
-    'the band never came back for the rest of it.',
-    'go on. take something. i am not going to stop you.',
+    "i've been standing like this since the last set. arms are killing me.",
+    "i'm not going to hit you. i'm just ready. in case.",
+    'go buy a shirt. i\'ll still be here.',
 ];
 
 const CHAR_MS = 28;  // typing speed

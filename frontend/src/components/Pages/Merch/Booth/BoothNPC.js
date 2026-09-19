@@ -4,10 +4,10 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { NPC } from './boothSpace';
 
-// Drop a .glb here (frontend/public/models/) and it replaces the placeholder
-// silhouette — no code change needed. Any scale/orientation works: the model is
-// auto-fitted to NPC.height with its feet on the floor.
-const MODEL_URL = '/models/booth-npc.glb';
+// Spencer: a photogrammetry scan, squared up in a fighting stance. Swapping him
+// out is just a different file here — any scale or orientation works, the model
+// is auto-fitted to NPC.height with its feet on the floor.
+const MODEL_URL = '/models/spencer.glb';
 export const NPC_ID = '__npc__';
 
 // Loads the GLB and normalizes it: scaled to `targetHeight`, centered on its
@@ -92,7 +92,7 @@ export default function BoothNPC({ theme, walkMode, hoveredId, registerMesh, onT
             {/* Invisible box the reticle/pointer actually hits, so the hit area
                 doesn't depend on whatever geometry the GLB happens to have. */}
             <mesh ref={colliderRef} position={[0, NPC.height / 2, 0]} {...pointerProps}>
-                <boxGeometry args={[0.9, NPC.height, 0.9]} />
+                <boxGeometry args={[1.1, NPC.height, 1.1]} />
                 <meshBasicMaterial transparent opacity={0} depthWrite={false} />
             </mesh>
 

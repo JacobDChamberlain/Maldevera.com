@@ -3,6 +3,7 @@ import { useThree, useFrame } from '@react-three/fiber';
 import { PointerLockControls } from '@react-three/drei';
 import * as THREE from 'three';
 import * as boothAudio from './boothAudio';
+import { BOUNDS, NPC } from './boothSpace';
 
 const SPEED = 6.5;         // walk speed (units/sec)
 const STAND_EYE = 2.15;    // standing eye height (above the feet)
@@ -17,19 +18,21 @@ const TABLE = { xHalf: 4.5, zMin: -0.95, zMax: 1.65, top: 1.0 };
 // (walk around the ends), even while standing on the table.
 const RACK_Z = -0.85;
 const RACK_XHALF = 4.7;
-// Outer bounds of the walkable area (lets you get behind the booth for the note).
-const BOUNDS = { xHalf: 11, zMin: -6, zMax: 9 };
-
 const groundAt = (x, z) =>
     (Math.abs(x) < TABLE.xHalf && z > TABLE.zMin && z < TABLE.zMax) ? TABLE.top : 0;
 const inTable = (x, z) =>
     Math.abs(x) < TABLE.xHalf && z > TABLE.zMin && z < TABLE.zMax;
 const crossesRack = (fromZ, toZ, x) =>
     Math.abs(x) < RACK_XHALF && ((fromZ > RACK_Z) !== (toZ > RACK_Z));
+// The stranger is solid too — you stop at him instead of walking through.
+const inNpc = (x, z) => Math.hypot(x - NPC.x, z - NPC.z) < NPC.radius;
 
 // First-person controller: pointer-lock mouse look + WASD/arrow movement, with
 // a center reticle that raycasts for the item you're looking at. Desktop only.
-export default function WalkControls({ meshesRef, onHover, onSelect, onLockChange, paused }) {
+export default function WalkControls({
+    meshesRef, onHover, onSelect, onLockChange, paused,
+    talking, onTalk, onTalkEnd,
+}) {
     const { camera } = useThree();
     const controlsRef = useRef();
     const keys = useRef({});
@@ -70,6 +73,7 @@ export default function WalkControls({ meshesRef, onHover, onSelect, onLockChang
         const activate = (u) => {
             if (!u) return;
             if (u.kind === 'product') onSelect(u.product);
+            else if (u.kind === 'npc') onTalk();
             else if (u.kind === 'link') window.open(u.url, '_blank', 'noopener,noreferrer');
         };
         const down = (e) => {
@@ -78,13 +82,14 @@ export default function WalkControls({ meshesRef, onHover, onSelect, onLockChang
             if (locked.current && ['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
                 e.preventDefault();
             }
-            if (e.code === 'KeyE' && locked.current && !paused) activate(hoveredRef.current);
+            // While a conversation is up, E belongs to the dialogue box.
+            if (e.code === 'KeyE' && locked.current && !paused && !talking) activate(hoveredRef.current);
         };
         const up = (e) => { keys.current[e.code] = false; };
         window.addEventListener('keydown', down);
         window.addEventListener('keyup', up);
         return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); };
-    }, [onSelect, paused]);
+    }, [onSelect, onTalk, paused, talking]);
 
     useEffect(() => {
         const c = controlsRef.current;
@@ -100,13 +105,14 @@ export default function WalkControls({ meshesRef, onHover, onSelect, onLockChang
     useEffect(() => {
         const onClick = () => {
             const u = hoveredRef.current;
-            if (!locked.current || paused || !u) return;
+            if (!locked.current || paused || talking || !u) return;
             if (u.kind === 'product') onSelect(u.product);
+            else if (u.kind === 'npc') onTalk();
             else if (u.kind === 'link') window.open(u.url, '_blank', 'noopener,noreferrer');
         };
         document.addEventListener('click', onClick);
         return () => document.removeEventListener('click', onClick);
-    }, [onSelect, paused]);
+    }, [onSelect, onTalk, paused, talking]);
 
     useFrame((_, delta) => {
         if (!locked.current || paused) return;
@@ -139,10 +145,10 @@ export default function WalkControls({ meshesRef, onHover, onSelect, onLockChang
 
             // On the table you're above its body, so it stops blocking you.
             const onTableLevel = feetY.current >= TABLE.top - 0.1;
-            const tableBlocks = (x, z) => !onTableLevel && inTable(x, z);
+            const blocked = (x, z) => (!onTableLevel && inTable(x, z)) || inNpc(x, z);
 
-            if (!tableBlocks(nx, camera.position.z)) camera.position.x = nx;
-            if (!tableBlocks(camera.position.x, nz) && !crossesRack(camera.position.z, nz, camera.position.x)) {
+            if (!blocked(nx, camera.position.z)) camera.position.x = nx;
+            if (!blocked(camera.position.x, nz) && !crossesRack(camera.position.z, nz, camera.position.x)) {
                 camera.position.z = nz;
             }
 
@@ -166,6 +172,11 @@ export default function WalkControls({ meshesRef, onHover, onSelect, onLockChang
         const targetEye = crouch ? CROUCH_EYE : STAND_EYE;
         eyeOff.current += (targetEye - eyeOff.current) * Math.min(1, delta * 12);
         camera.position.y = feetY.current + eyeOff.current;
+
+        // Walk off and the stranger stops talking.
+        if (talking && Math.hypot(camera.position.x - NPC.x, camera.position.z - NPC.z) > NPC.talkRange) {
+            onTalkEnd();
+        }
 
         // Reticle raycast from screen center.
         raycaster.current.setFromCamera({ x: 0, y: 0 }, camera);

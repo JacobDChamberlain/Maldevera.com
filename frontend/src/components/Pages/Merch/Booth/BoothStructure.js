@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
+import { ROOM } from './boothSpace';
 
 const LOGO_URL = '/images/Maldevera_logo-BONE_TEXTURE.webp';
 
@@ -84,15 +85,33 @@ export default function BoothStructure({ theme }) {
 
     return (
         <group>
-            {/* floor */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-                <planeGeometry args={[60, 60]} />
+            {/* floor — spans the whole room, well past the walls */}
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, (ROOM.zBooth + ROOM.zRear) / 2]}>
+                <planeGeometry args={[ROOM.xHalf * 4, (ROOM.zRear - ROOM.zBooth) * 2]} />
                 <meshStandardMaterial color={theme.floor} roughness={0.95} />
             </mesh>
 
-            {/* back wall */}
-            <mesh position={[0, 6, -3.4]}>
-                <planeGeometry args={[30, 12]} />
+            {/* wall behind the booth */}
+            <mesh position={[0, ROOM.height / 2, ROOM.zBooth]}>
+                <planeGeometry args={[ROOM.xHalf * 2.4, ROOM.height]} />
+                <meshStandardMaterial color={theme.wall} roughness={1} />
+            </mesh>
+
+            {/* the room carrying on behind the player: side walls + a far wall,
+                so walking away from the booth reads as a long dark venue
+                rather than an open void */}
+            {[-1, 1].map((side) => (
+                <mesh
+                    key={`side${side}`}
+                    position={[side * ROOM.xHalf, ROOM.height / 2, (ROOM.zBooth + ROOM.zRear) / 2]}
+                    rotation={[0, -side * Math.PI / 2, 0]}
+                >
+                    <planeGeometry args={[ROOM.zRear - ROOM.zBooth, ROOM.height]} />
+                    <meshStandardMaterial color={theme.wall} roughness={1} side={THREE.DoubleSide} />
+                </mesh>
+            ))}
+            <mesh position={[0, ROOM.height / 2, ROOM.zRear]} rotation={[0, Math.PI, 0]}>
+                <planeGeometry args={[ROOM.xHalf * 2, ROOM.height]} />
                 <meshStandardMaterial color={theme.wall} roughness={1} />
             </mesh>
 

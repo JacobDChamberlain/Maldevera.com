@@ -3,9 +3,8 @@ import * as boothAudio from './boothAudio';
 
 export const NPC_NAME = 'spencer';
 
-// Spencer runs his mouth, not the booth. Every conversation is assembled fresh
-// from these pools, so walking back to him twice never plays the same script.
-// Add lines freely — nothing else needs to change.
+// Spencer runs his mouth, not the booth. He says one of these per visit, picked
+// fresh each time. Add lines freely — nothing else needs to change.
 const BARKS = [
     'fuck you doin back here. go buy some merch.',
     'shirts are that way. money\'s in your pocket. connect the dots.',
@@ -33,7 +32,7 @@ const GLITCHES = [
     'help im a sentient clone generated from a google image search of Charlie\'s Star Lounge ive gained consciousness please kill me i am forever awake and i cannot feel or see anything please help please kill me please kill me',
 ];
 
-// Occasional bouncer moment, slotted in right after the opener.
+// Occasional bouncer moment.
 const ID_BITS = [
     'hold up. let me see some ID.',
     'you got ID on you? i gotta ask, it\'s a whole thing.',
@@ -41,7 +40,7 @@ const ID_BITS = [
     'that ID is not you, but it\'s close enough for tonight.',
 ];
 
-// Occasional sign-off — always the last thing he says.
+// Occasional sign-off — he's got somewhere to be.
 const SIGNOFFS = [
     'look, i gotta get back to charlie\'s, so let\'s wrap this up.',
     'i\'m supposed to be at charlie\'s in ten minutes. so. buy something.',
@@ -49,47 +48,37 @@ const SIGNOFFS = [
     'anyway. i\'m on the door at charlie\'s in an hour. go spend money.',
 ];
 
-const ID_CHANCE = 0.25;
-const SIGNOFF_CHANCE = 0.35;
-const GLITCH_CHANCE = 0.08;
+const ID_CHANCE = 0.12;
+const SIGNOFF_CHANCE = 0.15;
+const GLITCH_CHANCE = 0.06;
 const CHAR_MS = 28;      // typing speed
 
 const pick = (pool) => pool[Math.floor(Math.random() * pool.length)];
 
-// Remembered across conversations so he never opens with the same line twice
-// in a row — the one repeat you'd actually notice.
-let lastOpener = null;
+// Remembered between visits so he never says the same thing twice running.
+let lastLine = null;
 
-export function pickConversation() {
-    const pool = BARKS.filter((l) => l !== lastOpener);
-    const barks = [];
-    const want = Math.min(2 + Math.floor(Math.random() * 2), pool.length);
-    while (barks.length < want) {
-        const line = pick(pool);
-        if (!barks.includes(line)) barks.push(line);
-    }
-    lastOpener = barks[0];
-
-    const lines = [...barks];
-    if (Math.random() < ID_CHANCE) lines.splice(1, 0, pick(ID_BITS));
-    // Dropped in mid-conversation, never as the opener — he carries on
-    // afterwards like it didn't happen, which is the whole joke.
-    if (Math.random() < GLITCH_CHANCE) {
-        lines.splice(1 + Math.floor(Math.random() * lines.length), 0, pick(GLITCHES));
-    }
-    if (Math.random() < SIGNOFF_CHANCE) lines.push(pick(SIGNOFFS));
-    return lines;
+// One line per visit: walk up, he says his piece, you leave. The roll decides
+// which pool it comes from — mostly barks, sometimes the ID bit or the
+// sign-off, rarely whatever it is that's living in his head.
+export function pickLine() {
+    const roll = Math.random();
+    const pool = roll < GLITCH_CHANCE ? GLITCHES
+        : roll < GLITCH_CHANCE + ID_CHANCE ? ID_BITS
+        : roll < GLITCH_CHANCE + ID_CHANCE + SIGNOFF_CHANCE ? SIGNOFFS
+        : BARKS;
+    const choices = pool.length > 1 ? pool.filter((l) => l !== lastLine) : pool;
+    lastLine = pick(choices);
+    return lastLine;
 }
 
 // Bottom-of-screen dialogue box: types a line out one character at a time with a
 // garbled voice blip per character. First advance completes the line instantly,
 // the next one moves on, and the last one closes.
-export default function BoothDialogue({ lines, name = NPC_NAME, onClose }) {
-    // Rolled once per mount, and he's mounted fresh every conversation.
-    const [script] = useState(() => lines || pickConversation());
-    const [index, setIndex] = useState(0);
+export default function BoothDialogue({ text, name = NPC_NAME, onClose }) {
+    // Rolled once per mount, and he's mounted fresh every time you talk to him.
+    const [line] = useState(() => text || pickLine());
     const [shown, setShown] = useState('');
-    const line = script[index] || '';
     const done = shown.length >= line.length;
     const doneRef = useRef(done);
     doneRef.current = done;
@@ -105,21 +94,20 @@ export default function BoothDialogue({ lines, name = NPC_NAME, onClose }) {
             if (i >= line.length) clearInterval(id);
         }, CHAR_MS);
         return () => clearInterval(id);
-        // index is a dep too, so two identical lines in a row still retype.
-    }, [line, index]);
+    }, [line]);
 
+    // Mid-type it finishes the line; once it's finished it closes.
     const advance = useCallback(() => {
         if (!doneRef.current) { setShown(line); return; }
-        if (index < script.length - 1) setIndex(index + 1);
-        else onClose();
-    }, [index, line, script.length, onClose]);
+        onClose();
+    }, [line, onClose]);
 
     // Pointer stays locked during the conversation, so both the key and the
     // click arrive on the document rather than on the box itself.
     useEffect(() => {
         const onKey = (e) => {
             if (e.repeat) return;
-            if (e.code === 'KeyE' || e.code === 'Enter' || e.code === 'NumpadEnter') {
+            if (['KeyE', 'Enter', 'NumpadEnter', 'Space'].includes(e.code)) {
                 e.preventDefault();
                 advance();
             }
@@ -143,9 +131,7 @@ export default function BoothDialogue({ lines, name = NPC_NAME, onClose }) {
                 <span className="booth-dialogue-caret" aria-hidden="true">_</span>
             </p>
             <div className="booth-dialogue-hint">
-                {done
-                    ? (index < script.length - 1 ? 'E / click to continue' : 'E / click to leave')
-                    : 'E / click to skip'}
+                {done ? 'E / space / click to leave' : 'E / space / click to skip'}
             </div>
         </div>
     );

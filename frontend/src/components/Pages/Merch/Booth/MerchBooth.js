@@ -57,6 +57,12 @@ export default function MerchBooth() {
     const closeProduct = () => { boothAudio.putdown(); setSelectedProduct(null); };
     const startTalking = useCallback(() => { boothAudio.resume(); setTalking(true); }, []);
     const stopTalking = useCallback(() => setTalking(false), []);
+    // Esc releases the mouse, and hitting Esc to get out of a conversation is
+    // the natural move — so losing the lock ends it too.
+    const handleLockChange = useCallback((isLocked) => {
+        setLocked(isLocked);
+        if (!isLocked) setTalking(false);
+    }, []);
 
     if (loading) return <div className="merch-loading">Loading...</div>;
 
@@ -91,7 +97,7 @@ export default function MerchBooth() {
                                 onSelect={openProduct}
                                 walkMode={walkMode}
                                 paused={!!selectedProduct}
-                                onLockChange={setLocked}
+                                onLockChange={handleLockChange}
                                 talking={talking}
                                 onTalk={startTalking}
                                 onTalkEnd={stopTalking}

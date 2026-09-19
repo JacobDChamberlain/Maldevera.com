@@ -1,10 +1,11 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import { useInventory } from '../../../../context/InventoryContext';
 import { useTheme } from '../../../../context/ThemeContext';
 import { getBoothTheme } from './boothTheme';
 import hasWebGL from '../../../../utilities/hasWebGL';
 import MerchGrid from '../MerchGrid';
 import ProductDetail from './ProductDetail';
+import BoothDialogue from './BoothDialogue';
 import * as boothAudio from './boothAudio';
 import './booth.css';
 
@@ -43,9 +44,25 @@ export default function MerchBooth() {
 
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [locked, setLocked] = useState(false);
+    // Talking to the figure at the back of the room. Unlike a product panel this
+    // doesn't pause the game — you stay locked in and can walk off mid-sentence.
+    const [talking, setTalking] = useState(false);
 
-    const openProduct = (p) => { boothAudio.resume(); boothAudio.pickup(); setSelectedProduct(p); };
+    const openProduct = (p) => {
+        boothAudio.resume();
+        boothAudio.pickup();
+        setTalking(false);
+        setSelectedProduct(p);
+    };
     const closeProduct = () => { boothAudio.putdown(); setSelectedProduct(null); };
+    const startTalking = useCallback(() => { boothAudio.resume(); setTalking(true); }, []);
+    const stopTalking = useCallback(() => setTalking(false), []);
+    // Esc releases the mouse, and hitting Esc to get out of a conversation is
+    // the natural move — so losing the lock ends it too.
+    const handleLockChange = useCallback((isLocked) => {
+        setLocked(isLocked);
+        if (!isLocked) setTalking(false);
+    }, []);
 
     if (loading) return <div className="merch-loading">Loading...</div>;
 
@@ -80,7 +97,10 @@ export default function MerchBooth() {
                                 onSelect={openProduct}
                                 walkMode={walkMode}
                                 paused={!!selectedProduct}
-                                onLockChange={setLocked}
+                                onLockChange={handleLockChange}
+                                talking={talking}
+                                onTalk={startTalking}
+                                onTalkEnd={stopTalking}
                             />
                         </Suspense>
 
@@ -97,11 +117,13 @@ export default function MerchBooth() {
                                     <span className="booth-explore-title">Enter the booth</span>
                                     <span className="booth-explore-keys">WASD / arrows to walk · mouse to look · Esc to release</span>
                                 </button>
-                                {locked && <div className="booth-reticle" aria-hidden="true" />}
+                                {locked && !talking && <div className="booth-reticle" aria-hidden="true" />}
                             </>
                         ) : (
                             <div className="booth-hint">drag to orbit · scroll to zoom · drag sideways to pan · tap an item</div>
                         )}
+
+                        {talking && <BoothDialogue onClose={stopTalking} />}
                     </div>
                 )
             ) : (

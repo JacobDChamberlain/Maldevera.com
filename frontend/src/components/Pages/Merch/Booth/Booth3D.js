@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import BoothStructure from './BoothStructure';
 import BoothItem from './BoothItem';
 import BoothNote from './BoothNote';
+import BoothNPC from './BoothNPC';
 import WalkControls from './WalkControls';
 import useBoothLayout from './useBoothLayout';
 
@@ -13,6 +14,7 @@ import useBoothLayout from './useBoothLayout';
 export default function Booth3D({
     products, theme, reducedMotion, isMobile, onSelect,
     walkMode, paused, onLockChange,
+    talking, onTalk, onTalkEnd,
 }) {
     const { rackItems, tableItems } = useBoothLayout(products);
 
@@ -35,10 +37,18 @@ export default function Booth3D({
             onCreated={({ gl }) => gl.setClearColor(new THREE.Color(theme.bg), 1)}
         >
             <color attach="background" args={[theme.bg]} />
-            <fog attach="fog" args={[theme.fog, 14, 30]} />
+            {/* the far end of the room fades into the dark rather than ending */}
+            <fog attach="fog" args={[theme.fog, 16, 44]} />
 
             <BoothStructure theme={theme} />
             <BoothNote theme={theme} walkMode={walkMode} hoveredId={hoveredId} registerMesh={registerMesh} />
+            <BoothNPC
+                theme={theme}
+                walkMode={walkMode}
+                hoveredId={hoveredId}
+                registerMesh={registerMesh}
+                onTalk={onTalk}
+            />
 
             {rackItems.map(({ product, position }) => (
                 <BoothItem key={product.id} product={product} position={position} placement="rack" {...itemProps('rack')} />
@@ -54,6 +64,9 @@ export default function Booth3D({
                     onSelect={onSelect}
                     onLockChange={onLockChange}
                     paused={paused}
+                    talking={talking}
+                    onTalk={onTalk}
+                    onTalkEnd={onTalkEnd}
                 />
             ) : (
                 <OrbitControls

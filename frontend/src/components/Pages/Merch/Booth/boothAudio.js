@@ -61,3 +61,27 @@ function blip(f1, f2, dur, vol) {
 
 export function pickup() { blip(440, 880, 0.12, 0.18); }   // rising — "grab"
 export function putdown() { blip(660, 300, 0.14, 0.16); }  // falling — "set back"
+
+// One garbled syllable — a short, randomly-pitched square blip through a
+// lowpass, fired per character while dialogue types out. Cheap "voice".
+export function garble() {
+    const c = getCtx();
+    if (!c || c.state !== 'running') return;
+    const t = c.currentTime;
+    const dur = 0.05;
+    const o = c.createOscillator();
+    o.type = 'square';
+    const f = 180 + Math.random() * 260;
+    o.frequency.setValueAtTime(f, t);
+    o.frequency.linearRampToValueAtTime(f * (0.85 + Math.random() * 0.4), t + dur);
+    const lp = c.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.value = 900;
+    const g = c.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.06, t + 0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(lp).connect(g).connect(c.destination);
+    o.start(t);
+    o.stop(t + dur + 0.02);
+}

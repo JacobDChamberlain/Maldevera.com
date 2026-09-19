@@ -33,7 +33,7 @@ import july26th_2026_peticolas from './Flyers/july26_2026-Peticolas.webp';
 import aug2nd_2026_doublewide from './Flyers/aug2_2026-Doublewide.png';
 import sept5th_2026_renos from './Flyers/sept5_renos_2026.png';
 import sep12th_2026_haltom from './Flyers/september_haltom.png';
-import oct29th_2026_dustys from './Flyers/mortalizer-dustys-october29-2026.png';
+import oct29th_2026_dustys from './Flyers/mortalizer-dustys-october29-2026.webp';
 
 // Flyer imports - Past shows
 import may28th from './Flyers/may28thDWshow.jpg';

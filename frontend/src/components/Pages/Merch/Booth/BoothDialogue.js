@@ -25,6 +25,12 @@ const BARKS = [
     'don\'t make it weird. buy something and don\'t make it weird.',
     'you been standing there a while. that\'s on you.',
     'i\'ve seen this set eleven times. eleven. buy a shirt.',
+    'you did WHAT with a Minotaur? Nah dude, that\'s gross. Get out of here.',
+];
+
+// Rare. Something else is briefly using his mouth.
+const GLITCHES = [
+    'help im a sentient clone generated from a google image search of Charlie\'s Star Lounge ive gained consciousness please kill me i am forever awake and i cannot feel or see anything please help please kill me please kill me',
 ];
 
 // Occasional bouncer moment, slotted in right after the opener.
@@ -40,11 +46,12 @@ const SIGNOFFS = [
     'look, i gotta get back to charlie\'s, so let\'s wrap this up.',
     'i\'m supposed to be at charlie\'s in ten minutes. so. buy something.',
     'charlie\'s got a thing tonight and i\'m already late. we\'re done here.',
-    'anyway. charlie\'s waiting on me. go spend money.',
+    'anyway. i\'m on the door at charlie\'s in an hour. go spend money.',
 ];
 
 const ID_CHANCE = 0.25;
 const SIGNOFF_CHANCE = 0.35;
+const GLITCH_CHANCE = 0.08;
 const CHAR_MS = 28;      // typing speed
 
 const pick = (pool) => pool[Math.floor(Math.random() * pool.length)];
@@ -65,6 +72,11 @@ export function pickConversation() {
 
     const lines = [...barks];
     if (Math.random() < ID_CHANCE) lines.splice(1, 0, pick(ID_BITS));
+    // Dropped in mid-conversation, never as the opener — he carries on
+    // afterwards like it didn't happen, which is the whole joke.
+    if (Math.random() < GLITCH_CHANCE) {
+        lines.splice(1 + Math.floor(Math.random() * lines.length), 0, pick(GLITCHES));
+    }
     if (Math.random() < SIGNOFF_CHANCE) lines.push(pick(SIGNOFFS));
     return lines;
 }

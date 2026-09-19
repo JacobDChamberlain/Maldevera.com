@@ -33,6 +33,7 @@ import july26th_2026_peticolas from './Flyers/july26_2026-Peticolas.webp';
 import aug2nd_2026_doublewide from './Flyers/aug2_2026-Doublewide.png';
 import sept5th_2026_renos from './Flyers/sept5_renos_2026.png';
 import sep12th_2026_haltom from './Flyers/september_haltom.png';
+import oct29th_2026_dustys from './Flyers/mortalizer-dustys-october29-2026.png';
 
 // Flyer imports - Past shows
 import may28th from './Flyers/may28thDWshow.jpg';
@@ -104,6 +105,7 @@ export default function Shows() {
         { flyer: '.' + aug2nd_2026_doublewide, alt: 'august_2nd_2026_DoubleWide', date: 'August 2nd, 2026', venue: 'DoubleWide', address: '3510 Commerce St, Dallas, TX', bands: ['Eternal', 'Brain Matter', 'Prisoner of War'] },
         { flyer: '.' + sept5th_2026_renos, alt: 'sept_5th_2026_RenosChopShop', date: 'September 5th, 2026', venue: "Reno's Chop Shop", address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Smoking Nuns', 'Blindlace'] },
         { flyer: '.' + sep12th_2026_haltom, alt: 'sep_12th_2026_HaltomTheater', date: 'September 12th, 2026', venue: 'Haltom Theater', address: '5601 E Belknap St, Haltom City, TX 76117', bands: ['Sanity Slip', 'Voracious Contempt', 'Dysmorphia', 'Primal Tyrant', 'Distain', 'Brain Matter', 'Gator', '(side stage to Mortician)'] },
+        { flyer: '.' + oct29th_2026_dustys, alt: 'oct_29th_2026_Dustys', date: 'October 29th, 2026', venue: "Dusty's", address: '2613 Elm St, Dallas, TX 75226', bands: ['Mortalizer', 'Duskseeker'] },
     ];
 
     // Parse dates and separate upcoming vs past

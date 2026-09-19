@@ -43,6 +43,8 @@ export default function Show({ show, mode = "poster", calendarUrl, directionsUrl
                 className="poster-flyer-image"
                 src={show.flyer}
                 alt={show.alt}
+                loading="lazy"
+                decoding="async"
                 onClick={toggleModal}
             />
             <div className="poster-info">

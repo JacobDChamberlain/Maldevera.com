@@ -1,5 +1,6 @@
 const express = require('express');
 const { Product, Variant } = require('../models');
+const { sizeRank } = require('../utils/sizeRank');
 const { requireAuth } = require('../middleware/auth');
 const router = express.Router();
 
@@ -32,6 +33,14 @@ function parsePrice(value) {
     const n = Number(value);
     if (!Number.isFinite(n) || n < 0) return null;
     return n;
+}
+
+// A variant's sort_order defaults to its size's position (XS -> 5XL) rather
+// than 0, so a size added later slots in where it belongs instead of jumping
+// to the front of the list. An explicit sort_order from the caller still wins.
+function resolveSortOrder(sort_order, size) {
+    if (Number.isInteger(sort_order)) return sort_order;
+    return size ? sizeRank(size) : 0;
 }
 
 // --- List all products (incl. inactive) with all variants, for the admin ---
@@ -89,7 +98,7 @@ router.post('/products', async (req, res) => {
                     price,
                     stock: Number.isInteger(v.stock) ? v.stock : 0,
                     active: v.active !== undefined ? !!v.active : true,
-                    sort_order: Number.isInteger(v.sort_order) ? v.sort_order : 0
+                    sort_order: resolveSortOrder(v.sort_order, v.size)
                 });
             }
         }
@@ -175,7 +184,7 @@ router.post('/products/:id/variants', async (req, res) => {
             price: parsedPrice,
             stock: Number.isInteger(stock) ? stock : 0,
             active: active !== undefined ? !!active : true,
-            sort_order: Number.isInteger(sort_order) ? sort_order : 0
+            sort_order: resolveSortOrder(sort_order, size)
         });
 
         res.status(201).json(variant);
@@ -202,7 +211,12 @@ router.put('/variants/:id', async (req, res) => {
             }
             variant.price = parsedPrice;
         }
-        if (size !== undefined) variant.size = size || null;
+        if (size !== undefined) {
+            variant.size = size || null;
+            // Re-slot the variant when its size changes (unless the caller
+            // pinned an explicit sort_order below).
+            variant.sort_order = variant.size ? sizeRank(variant.size) : 0;
+        }
         if (stock !== undefined && Number.isInteger(stock)) variant.stock = stock;
         if (active !== undefined) variant.active = !!active;
         if (sort_order !== undefined && Number.isInteger(sort_order)) variant.sort_order = sort_order;

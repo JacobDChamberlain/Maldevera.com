@@ -119,18 +119,15 @@
     <noscript>Your mom needs to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 
-    <!-- ANALYTICS - Cloudflare Web Analytics (free, no cookies, no consent banner).
-         TO TURN ON:
-           1. dash.cloudflare.com -> Analytics & Logs -> Web Analytics
-           2. "Add a site" -> maldevera.com -> choose the JS-snippet option
-           3. Copy the token out of the snippet it shows you
-           4. Paste it below in place of PASTE_TOKEN_HERE, delete these comment
-              markers, commit, deploy. Data appears within about a minute.
-         Note: if you instead pick Cloudflare's "automatic setup", it injects this
-         script for you at the edge and you can leave the block commented out.
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon='{"token": "PASTE_TOKEN_HERE"}'></script>
-    -->
+    <!-- Cloudflare Web Analytics. No cookies, no consent banner, no page-load cost.
+         Read it at dash.cloudflare.com -> Analytics & Logs -> Web Analytics
+         (account level, NOT inside the maldevera.com zone).
+         The site token is public by design - it ships in this page to every visitor.
+         NOTE: the dashboard also offers "Auto Install", which injects this same
+         script at the edge. Leave that OFF while this tag is here, or every page
+         view gets counted twice. -->
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "d45d3699576a4812b7103a770e88f279"}'></script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

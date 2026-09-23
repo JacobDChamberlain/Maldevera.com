@@ -1,3 +1,13 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Store admin and internal views - no reason to index these.
+Disallow: /manage
+Disallow: /stock
+Disallow: /checkout
+Disallow: /successful-purchase
+Disallow: /sad-yeet
+Disallow: /preview/
+
+Sitemap: https://maldevera.com/sitemap.xml

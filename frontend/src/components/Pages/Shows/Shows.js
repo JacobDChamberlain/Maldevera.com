@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import Show from './Show/Show';
+import ShowsJsonLd from './ShowsJsonLd';
 import './Shows.css';
 
 // Flyer imports - Current/Upcoming
@@ -201,6 +202,9 @@ export default function Shows() {
 
     return (
         <div className="shows-wrapper">
+            {/* Search-engine structured data for the upcoming dates. Renders no UI. */}
+            <ShowsJsonLd upcoming={upcoming} parseShowDate={parseShowDate} />
+
             {/* Hero Section - Next Show */}
             {nextShow && (
                 <section className="hero-show">

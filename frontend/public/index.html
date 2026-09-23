@@ -5,10 +5,30 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0,user-scalable=0" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Sick-Nasty DeathThrash Groove Metal Riff Gods"
-    />
+    <meta name="description" content="Death/thrash metal from Dallas–Fort Worth. Est. 2011. Tour dates, records, and merch. Taste the corners of your mind." />
+    <link rel="canonical" href="https://maldevera.com/" />
+
+    <!-- Link previews: what a shared maldevera.com link renders as in texts,
+         Discord, Instagram DMs, Facebook events, Slack. Absolute URLs required —
+         crawlers do not resolve relative paths and do not run our JavaScript. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Maldevera" />
+    <meta property="og:url" content="https://maldevera.com/" />
+    <meta property="og:title" content="Maldevera — Death/Thrash Metal | Dallas, TX" />
+    <meta property="og:description" content="Death/thrash metal from Dallas–Fort Worth. Est. 2011. Tour dates, records, and merch." />
+    <meta property="og:image" content="https://maldevera.com/images/og-maldevera.jpg" />
+    <meta property="og:image:secure_url" content="https://maldevera.com/images/og-maldevera.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Maldevera — the four members shot from below against a white building" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Maldevera — Death/Thrash Metal | Dallas, TX" />
+    <meta name="twitter:description" content="Death/thrash metal from Dallas–Fort Worth. Est. 2011. Tour dates, records, and merch." />
+    <meta name="twitter:image" content="https://maldevera.com/images/og-maldevera.jpg" />
+    <meta name="twitter:image:alt" content="Maldevera — the four members shot from below against a white building" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -28,11 +48,89 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Maldevera</title>
+    <!-- Structured data: tells search engines this is a band, where it's from,
+         and which profiles are the same act. Shows have their own on /shows. -->
+    <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "MusicGroup",
+      "name": "Maldevera",
+      "url": "https://maldevera.com/",
+      "genre": [
+        "Death metal",
+        "Thrash metal",
+        "Groove metal"
+      ],
+      "foundingDate": "2011",
+      "foundingLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Dallas",
+          "addressRegion": "TX",
+          "addressCountry": "US"
+        }
+      },
+      "logo": "https://maldevera.com/images/Maldevera_logo-BONE_TEXTURE.webp",
+      "image": "https://maldevera.com/images/og-maldevera.jpg",
+      "email": "MaldeveraTX@gmail.com",
+      "description": "Death/thrash metal from Dallas-Fort Worth and New Orleans. Est. 2011.",
+      "member": [
+        {
+          "@type": "Person",
+          "name": "Parker Turney"
+        },
+        {
+          "@type": "Person",
+          "name": "Jacob Chamberlain"
+        },
+        {
+          "@type": "Person",
+          "name": "Shannon Paine-Jesam"
+        },
+        {
+          "@type": "Person",
+          "name": "Keith Brown"
+        }
+      ],
+      "album": {
+        "@type": "MusicAlbum",
+        "name": "Guts / Winter Palace",
+        "url": "https://maldevera.bandcamp.com/album/guts-winter-palace",
+        "byArtist": {
+          "@type": "MusicGroup",
+          "name": "Maldevera"
+        }
+      },
+      "sameAs": [
+        "https://maldevera.bandcamp.com/",
+        "https://open.spotify.com/artist/0CP5nqR6lT3g3StExsINGG",
+        "https://music.apple.com/us/artist/maldevera/546342013",
+        "https://www.youtube.com/@MALDEVERA",
+        "https://www.instagram.com/maldevera",
+        "https://www.facebook.com/Maldevera",
+        "https://twitter.com/maldevera"
+      ]
+    }
+    </script>
+    <title>Maldevera — Death/Thrash Metal | Dallas, TX</title>
   </head>
   <body>
     <noscript>Your mom needs to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
+    <!-- ANALYTICS - Cloudflare Web Analytics (free, no cookies, no consent banner).
+         TO TURN ON:
+           1. dash.cloudflare.com -> Analytics & Logs -> Web Analytics
+           2. "Add a site" -> maldevera.com -> choose the JS-snippet option
+           3. Copy the token out of the snippet it shows you
+           4. Paste it below in place of PASTE_TOKEN_HERE, delete these comment
+              markers, commit, deploy. Data appears within about a minute.
+         Note: if you instead pick Cloudflare's "automatic setup", it injects this
+         script for you at the edge and you can leave the block commented out.
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "PASTE_TOKEN_HERE"}'></script>
+    -->
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

@@ -1,0 +1,145 @@
+/* Press kit: built to be skimmed and copied from, not admired. Plain type,
+   generous spacing, everything selectable. Uses the shared theme variables so
+   it follows the theme toggle like every other page. */
+
+.press-wrapper {
+    max-width: 760px;
+    margin: 0 auto 130px;
+    padding: 36px 32px 44px;
+    color: var(--color-text-primary);
+    /* A solid panel, not a transparent overlay: this page sits on top of the
+       site's background art, and a promoter skimming it needs to actually read
+       it. Uses the theme variable so it follows the theme toggle. */
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 6px;
+    /* Body copy reads left-aligned; the site centers text globally. */
+    text-align: left;
+}
+
+.press-title {
+    margin: 0 0 6px 0;
+    text-align: left;
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+}
+
+.press-subtitle {
+    margin: 0 0 32px 0;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+.press-section {
+    margin-bottom: 34px;
+}
+
+.press-heading {
+    margin: 0 0 12px 0;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-accent);
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding-bottom: 6px;
+}
+
+/* Bio blocks read as quotable copy - that's the whole point of the page. */
+.press-bio {
+    margin: 0 0 14px 0;
+    padding: 14px 16px;
+    background-color: var(--color-bg-secondary);
+    border-left: 3px solid var(--color-text-accent);
+    line-height: 1.65;
+    font-size: 1rem;
+    white-space: pre-wrap;
+}
+
+.press-facts {
+    margin: 0;
+}
+
+.press-fact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.press-fact-row dt {
+    flex: 0 0 150px;
+    font-weight: bold;
+    color: var(--color-text-secondary);
+}
+
+.press-fact-row dd {
+    margin: 0;
+    flex: 1 1 260px;
+}
+
+.press-members {
+    margin: 0;
+    line-height: 1.8;
+}
+
+.press-note {
+    margin: 10px 0 0 0;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.press-links-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+}
+
+.press-link,
+.press-link:visited {
+    color: var(--color-text-link);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color var(--animation-duration) ease,
+                border-color var(--animation-duration) ease;
+}
+
+.press-link:hover {
+    color: var(--color-text-link-hover);
+    border-bottom-color: currentColor;
+    cursor: pointer;
+}
+
+.press-email,
+.press-email:visited {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-text-link);
+    text-decoration: none;
+    transition: color var(--animation-duration) ease;
+}
+
+.press-email:hover {
+    color: var(--color-text-accent);
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .press-wrapper {
+        padding: 24px 18px 34px;
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+    }
+
+    .press-fact-row dt {
+        flex-basis: 100%;
+    }
+
+    .press-title {
+        font-size: 1.6rem;
+    }
+}

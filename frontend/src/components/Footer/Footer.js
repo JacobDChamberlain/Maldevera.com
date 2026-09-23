@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Player from '../Player/Player';
 import './Footer.css';
 
-import Guts from './audio/1Guts.wav';
-import SusDigoCity from './audio/2SusDigoCity.wav';
-import MouthfulOfConcrete from './audio/3MouthfulOfConcrete.wav';
-import HydraulicInjectionInjury from './audio/4HydraulicInjectionInjury.wav';
-import Jukai from './audio/5Jukai.wav';
-import IconOfSin from './audio/6IconOfSin.wav';
-import WinterPalace from './audio/7WinterPalace.wav';
+// MP3 (~6 MB each), not the WAV masters (~70 MB each) that used to ship here:
+// the player pulled one on every page load. Masters are still in audio/*.wav.
+import Guts from './audio/1Guts.mp3';
+import SusDigoCity from './audio/2SusDigoCity.mp3';
+import MouthfulOfConcrete from './audio/3MouthfulOfConcrete.mp3';
+import HydraulicInjectionInjury from './audio/4HydraulicInjectionInjury.mp3';
+import Jukai from './audio/5Jukai.mp3';
+import IconOfSin from './audio/6IconOfSin.mp3';
+import WinterPalace from './audio/7WinterPalace.mp3';
 import MoMurda from './audio/8gangstapat-momurda.mp3';
 import ChristmasInHollis from './audio/ChristmasInHollis.mp3';
 import IAmSantaClaus from './audio/IAmSantaClaus.mp3';

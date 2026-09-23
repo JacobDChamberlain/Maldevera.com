@@ -139,3 +139,20 @@
 .photo-flip-container:active .photo-back {
     transform: rotateY(0deg);
 }
+
+/* Real bio copy - readable body text, unlike the italic-bold tagline block. */
+.band-bio {
+    width: min(600px, 90vw);
+    color: var(--color-text-primary);
+    font-size: 17px;
+    line-height: 1.6;
+    padding: 5px 5px 15px;
+}
+
+.band-bio p {
+    margin: 0 0 14px 0;
+}
+
+.band-bio p:last-child {
+    margin-bottom: 0;
+}

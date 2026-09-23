@@ -36,6 +36,8 @@ rather than "build a thing."
 
 ## 1. Grid becomes the default
 
+**Done** — e563ab1/687434b.
+
 Flip the default so `/merch` opens as the familiar shop and the booth is
 something you choose.
 
@@ -48,6 +50,8 @@ something you choose.
   page, probably near the top with a line of copy about what it is.
 
 ## 2. Clearer controls and directions
+
+**Done** — 687434b.
 
 The controls we actually support are ahead of what we tell people.
 
@@ -129,8 +133,10 @@ A Meshy asset with real animation, working the booth.
 *behind the counter*, i.e. the merch guy, around z ≈ -2 (between the rack at
 z=-0.85 and the back wall at z=-3.4), facing the player. That also fits
 Spencer's whole bit — he literally says *"i'm not the merch guy. i just stand
-here."* So Spencer stays at the back of the venue at z=24 and Jeff runs the
-table. Say the word if you meant somewhere else.
+here."* So Spencer stays where he is at z=24 and Jeff runs the table.
+
+**Confirmed:** Spencer stays awkwardly off in the background, found only by
+people who wander back there. He's not to be made easier to find.
 
 - **Animations: idle, excited (on add-to-cart), talking.** This is new
   machinery — `useNpcModel` currently discards `gltf.animations` entirely. Needs
@@ -185,6 +191,8 @@ Budget worth agreeing on up front: Jeff plus the cabinet should land under
 
 ## 9. Fix the "merch booth" sign under the band logo
 
+**Done** — e563ab1.
+
 It blinks, mostly doesn't show on desktop, is a bit better on mobile, and is
 covered by the band logo. All of that is one bug with two halves, and the
 numbers say it plainly.
@@ -237,4 +245,3 @@ differently from mobile orbit (target y=2.5).
 - Music source: one of the seven footer mp3s, or a dedicated loop?
 - Jeff behind the counter (assumed), or somewhere else?
 - Galaga cabinet: set dressing, or interactive later?
-- Does Spencer stay at the back of the venue once Jeff exists? (Assuming yes.)

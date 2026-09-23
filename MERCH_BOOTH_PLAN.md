@@ -156,6 +156,37 @@ people who wander back there. He's not to be made easier to find.
   voice — he's the one who wants you to buy something, where Spencer just wants
   you to go away.
 
+### Making room for him
+
+He goes behind the counter, in front of the sign and the shirt wall. There is
+currently **no gap to stand in**: the table spans z -0.95→1.65 and the grid-wall
+rack is at z=-0.85, i.e. the rack sits inside the table's own depth. Two moves
+open it up.
+
+**Scoot the table forward.** Move it +1.6 in z (center 0.35 → 1.95, spanning
+0.65→3.25) while the rack, sign and logo stay put. That leaves a 1.5-deep
+standing gap between the rack and the back of the table. Jeff stands around
+z=-0.15 facing +z: at a ~0.6 radius he spans -0.75→0.45, clear of the rack
+behind him and the table in front. The player spawns at z=7, so there's still
+plenty of approach room.
+
+**Split the shirts outward.** He'd be standing behind a solid wall of hanging
+shirts otherwise — the rack row is at y=1.95 and he's ~2.4 tall, so they'd cross
+him right at the chest. `useBoothLayout` currently spreads the rack across one
+centered span; it needs a left/right split with a center gap of ~3.4 (x ±1.7)
+for him to read against the sign. Second-row wrapping has to respect the gap
+too.
+
+Note the side gaps between the table ends (x ±4.5) and the walls stay walkable,
+so players can wander behind the counter and bump into him. That's fine — he
+needs a collider anyway, and it's funnier that way.
+
+**Watch out: the table is hardcoded in two files.** `BoothStructure.js` draws it
+from literal `boxGeometry` args and `WalkControls.js` re-declares the same
+numbers as `TABLE`/`RACK_Z`/`RACK_XHALF` for collision. Move the booth in one
+and not the other and you get an invisible wall in open floor. These should move
+into `boothSpace.js` as shared constants *before* anything gets scooted.
+
 ## 8. Galaga cabinet
 
 A Meshy arcade cabinet to the player's right of the booth.
@@ -167,9 +198,15 @@ A Meshy arcade cabinet to the player's right of the booth.
   walk straight through it.
 - Its own accent light; the venue is dark out there and a dead cabinet in shadow
   reads as a crate.
-- Open question: is it set dressing with a glowing animated screen, or does it
-  do something when you interact? Set dressing first — the interaction is a
-  whole other project.
+**Decided: inactive first, interactive later.** Ships as set dressing with a
+glowing attract-mode screen, then becomes playable in its own phase.
+
+- The game is a **Galaga clone** — canvas-rendered, drawn to a `CanvasTexture`
+  on the cabinet screen, the same trick the "merch booth" banner already uses.
+- Parked alternative: Galaga but the ship is Jacob's face, switching to a
+  mouth-open frame when it fires. Funnier, weirder, and not the first version.
+- Playing it means a camera lock to the cabinet plus its own input handling,
+  which is why it's last.
 
 ---
 
@@ -243,5 +280,3 @@ differently from mobile orbit (target y=2.5).
 ## Open questions
 
 - Music source: one of the seven footer mp3s, or a dedicated loop?
-- Jeff behind the counter (assumed), or somewhere else?
-- Galaga cabinet: set dressing, or interactive later?

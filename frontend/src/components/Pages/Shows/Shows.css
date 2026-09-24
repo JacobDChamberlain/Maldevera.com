@@ -95,6 +95,38 @@
     border: 1px solid var(--color-border-subtle);
 }
 
+/* Doors / show / price - the at-a-glance line ticket sites lead with */
+.hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin: 4px 0 0;
+    padding: 14px 0;
+    border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hero-meta-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-text-secondary);
+    opacity: 0.75;
+}
+
+.hero-meta-value {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
 .hero-actions {
     display: flex;
     gap: 16px;
@@ -430,6 +462,20 @@
     .hero-band {
         font-size: 14px;
         padding: 3px 8px;
+    }
+
+    .hero-meta {
+        justify-content: center;
+        gap: 24px;
+        width: 100%;
+    }
+
+    .hero-meta-item {
+        align-items: center;
+    }
+
+    .hero-meta-value {
+        font-size: 17px;
     }
 
     .hero-actions {

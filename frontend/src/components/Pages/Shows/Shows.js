@@ -34,6 +34,7 @@ import aug2nd_2026_doublewide from './Flyers/aug2_2026-Doublewide.webp';
 import sept5th_2026_renos from './Flyers/sept5_renos_2026.png';
 import sep12th_2026_haltom from './Flyers/september_haltom.png';
 import oct29th_2026_dustys from './Flyers/mortalizer-dustys-october29-2026.webp';
+import nov28th_2026_growl from './Flyers/nov28Growl2026.jpg';
 
 // Flyer imports - Past shows
 import may28th from './Flyers/may28thDWshow.webp';
@@ -58,6 +59,7 @@ export default function Shows() {
         return new Date(cleaned);
     };
 
+    // price, doors and showTime are optional - the hero renders whichever are present
     const shows = [
         // 2024 Shows (Past)
         { flyer: '.' + may28th, alt: 'may_28th_2024_DoubleWide', date: 'May 28th, 2024', venue: 'DoubleWide', address: '3510 Commerce St, Dallas, TX', bands: ['Ascended Dead', 'Cognizant', 'Psychiatric Regurgitation'] },
@@ -67,10 +69,10 @@ export default function Shows() {
         { flyer: '.' + june27th, alt: 'june_27th_2024_HaltomTheater', date: 'June 27th, 2024', venue: 'Haltom Theater', address: '5601 E Belknap St, Haltom City, TX 76117', bands: ['Distain', 'Void', 'Odius', 'Kudu'] },
         { flyer: '.' + june30th, alt: 'june_30th_2024_CharliesStarLounge', date: 'June 30th, 2024', venue: "Charlie's Star Lounge", address: '4319 Main St, Dallas, TX 75226', bands: ['Festival'] },
         { flyer: '.' + august16th, alt: 'august_16th_2024_DoubleWide', date: 'August 16th, 2024', venue: 'DoubleWide', address: '3510 Commerce St, Dallas, TX', bands: ['Oxygen Destroyer', 'Morgue Meat'] },
-        { flyer: '.' + sept14th, alt: 'sept_14th_2024_GrowlRecords', date: 'September 14th, 2024', venue: 'Growl Records', address: '09 E Abram St, Arlington, TX 76010', bands: ['Festival'] },
+        { flyer: '.' + sept14th, alt: 'sept_14th_2024_GrowlRecords', date: 'September 14th, 2024', venue: 'Growl Records', address: '509 E Abram St, Arlington, TX 76010', bands: ['Festival'] },
         { flyer: '.' + sept27th, alt: 'sept_27th_2024_ZoundsBSide', date: 'September 27th, 2024', venue: 'Zounds B-Side', address: '10050 Shoreview Rd, Dallas, TX 75238', bands: ['AKA', 'Solly'] },
         { flyer: '.' + oct4, alt: 'october_4th_2024_Renos', date: 'October 4th, 2024', venue: 'Renos', address: '210 N Crowdus St, Dallas, TX 75226', bands: ['In Human Form', 'Mouth of Cronus', 'Norman Invasion'] },
-        { flyer: '.' + oct13, alt: 'october_13th_2024_GrowlRecords', date: 'October 13th, 2024', venue: 'Growl Records', address: '09 E Abram St, Arlington, TX 76010', bands: ['Civil Serpents', 'Negative Influence', 'Bliss Fields'] },
+        { flyer: '.' + oct13, alt: 'october_13th_2024_GrowlRecords', date: 'October 13th, 2024', venue: 'Growl Records', address: '509 E Abram St, Arlington, TX 76010', bands: ['Civil Serpents', 'Negative Influence', 'Bliss Fields'] },
         { flyer: '.' + fm2m, alt: 'october_25th_2024_CheapSteaks', date: 'October 25th, 2024', venue: 'Cheap Steaks', address: '2613 Elm St, Dallas, TX 75226', bands: ['Festival'] },
         { flyer: '.' + fm2m, alt: 'december_7th_2024_RenosChopShop', date: 'December 7th, 2024', venue: "Reno's Chop Shop", address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Festival'] },
         // 2025 Shows
@@ -105,9 +107,9 @@ export default function Shows() {
         { flyer: '.' + aug2nd_2026_doublewide, alt: 'august_2nd_2026_DoubleWide', date: 'August 2nd, 2026', venue: 'DoubleWide', address: '3510 Commerce St, Dallas, TX', bands: ['Eternal', 'Brain Matter', 'Prisoner of War'] },
         { flyer: '.' + sept5th_2026_renos, alt: 'sept_5th_2026_RenosChopShop', date: 'September 5th, 2026', venue: "Reno's Chop Shop", address: '210 N Crowdus St, Dallas, TX 75226', bands: ['Smoking Nuns', 'Blindlace'] },
         { flyer: '.' + sep12th_2026_haltom, alt: 'sep_12th_2026_HaltomTheater', date: 'September 12th, 2026', venue: 'Haltom Theater', address: '5601 E Belknap St, Haltom City, TX 76117', bands: ['Sanity Slip', 'Voracious Contempt', 'Dysmorphia', 'Primal Tyrant', 'Distain', 'Brain Matter', 'Gator', '(side stage to Mortician)'] },
-        { flyer: '.' + oct29th_2026_dustys, alt: 'oct_29th_2026_Dustys', date: 'October 29th, 2026', venue: "Dusty's", address: '2613 Elm St, Dallas, TX 75226', bands: ['Mortalizer', 'Duskseeker'] },
+        { flyer: '.' + oct29th_2026_dustys, alt: 'oct_29th_2026_Dustys', date: 'October 29th, 2026', venue: "Dusty's", address: '2613 Elm St, Dallas, TX 75226', bands: ['Mortalizer', 'Duskseeker'], price: '$15', doors: '7:00 PM', showTime: '8:00 PM' },
         { flyer: '.' + fm2m, alt: 'nov_7th_2026_TheLostWell', date: 'November 7th, 2026', venue: 'The Lost Well', address: '1141 1/2 Airport Blvd, Austin, TX 78702', bands: ['TBD'] },
-        { flyer: '.' + fm2m, alt: 'nov_28th_2026_GrowlRecords', date: 'November 28th, 2026', venue: 'Growl Records', address: '09 E Abram St, Arlington, TX 76010', bands: ['Carnist', 'Expat'] },
+        { flyer: '.' + nov28th_2026_growl, alt: 'nov_28th_2026_GrowlRecords', date: 'November 28th, 2026', venue: 'Growl Records', address: '509 E Abram St, Arlington, TX 76010', bands: ['Insurgency', 'Carnist', 'Expat', 'Largactyl', 'No-Fun'], price: '$10', doors: '5:00 PM', showTime: '6:00 PM' },
         { flyer: '.' + fm2m, alt: 'feb_4th_2027_TheLostWell', date: 'February 4th, 2027', venue: 'The Lost Well', address: '1141 1/2 Airport Blvd, Austin, TX 78702', bands: ['Saint Breaker'] },
     ];
 
@@ -137,21 +139,49 @@ export default function Shows() {
         return ((seed % 7) - 3); // Range: -3 to 3 degrees
     };
 
+    // "8:00 PM" / "8 PM" / "10:30pm" -> { hours, minutes }, or null if unparseable.
+    // A bare time is read as PM below 12, since these are all evening shows.
+    const parseTimeOfDay = (timeStr) => {
+        const match = /^(\d{1,2})(?::(\d{2}))?\s*(am|pm)?$/i.exec(timeStr.trim());
+        if (!match) return null;
+
+        let hours = parseInt(match[1], 10);
+        const minutes = match[2] ? parseInt(match[2], 10) : 0;
+        const meridiem = match[3] && match[3].toLowerCase();
+        if (hours > 23 || minutes > 59) return null;
+
+        if (meridiem === 'pm' && hours < 12) hours += 12;
+        else if (meridiem === 'am' && hours === 12) hours = 0;
+        else if (!meridiem && hours < 12) hours += 12;
+
+        return { hours, minutes };
+    };
+
     // Generate Google Calendar URL
     const generateCalendarUrl = (show) => {
         const date = parseShowDate(show.date);
-        date.setHours(20, 0, 0, 0);
+        const start = parseTimeOfDay(show.showTime || '') || { hours: 20, minutes: 0 };
+        date.setHours(start.hours, start.minutes, 0, 0);
+        // Same 3-hour block the hardcoded 8-11pm used to assume
         const endDate = new Date(date);
-        endDate.setHours(23, 0, 0, 0);
+        endDate.setHours(endDate.getHours() + 3);
 
         const formatDate = (d) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+
+        // showTime is already the event's start, so only doors and price need saying
+        const details = [`Maldevera live at ${show.venue}`, '', `With: ${show.bands.join(', ')}`];
+        if (show.doors || show.price) {
+            details.push('');
+            if (show.doors) details.push(`Doors: ${show.doors}`);
+            if (show.price) details.push(`Price: ${show.price}`);
+        }
 
         const params = new URLSearchParams({
             action: 'TEMPLATE',
             text: `Maldevera @ ${show.venue}`,
             dates: `${formatDate(date)}/${formatDate(endDate)}`,
             location: show.address,
-            details: `Maldevera live at ${show.venue}\n\nWith: ${show.bands.join(', ')}`
+            details: details.join('\n')
         });
 
         return `https://calendar.google.com/calendar/render?${params.toString()}`;
@@ -191,6 +221,28 @@ export default function Shows() {
                                 </span>
                             ))}
                         </div>
+                        {(nextShow.doors || nextShow.showTime || nextShow.price) && (
+                            <dl className="hero-meta">
+                                {nextShow.doors && (
+                                    <div className="hero-meta-item">
+                                        <dt className="hero-meta-label">Doors</dt>
+                                        <dd className="hero-meta-value">{nextShow.doors}</dd>
+                                    </div>
+                                )}
+                                {nextShow.showTime && (
+                                    <div className="hero-meta-item">
+                                        <dt className="hero-meta-label">Show</dt>
+                                        <dd className="hero-meta-value">{nextShow.showTime}</dd>
+                                    </div>
+                                )}
+                                {nextShow.price && (
+                                    <div className="hero-meta-item">
+                                        <dt className="hero-meta-label">Price</dt>
+                                        <dd className="hero-meta-value">{nextShow.price}</dd>
+                                    </div>
+                                )}
+                            </dl>
+                        )}
                         <div className="hero-actions">
                             <a
                                 href={generateDirectionsUrl(nextShow.address)}

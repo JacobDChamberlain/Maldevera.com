@@ -39,16 +39,63 @@ function toIsoDate(date) {
     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
+// '8:00 PM' -> '20:00'. Returns null on anything it doesn't recognise, so a
+// malformed time degrades to a date-only event rather than a wrong one.
+function to24Hour(time) {
+    const m = /^\s*(\d{1,2}):(\d{2})\s*([AaPp])\.?[Mm]\.?\s*$/.exec(String(time || ''));
+    if (!m) return null;
+
+    let hour = parseInt(m[1], 10);
+    const minute = m[2];
+    if (hour < 1 || hour > 12) return null;
+
+    const isPm = m[3].toLowerCase() === 'p';
+    if (isPm && hour !== 12) hour += 12;
+    if (!isPm && hour === 12) hour = 0;
+
+    return `${String(hour).padStart(2, '0')}:${minute}`;
+}
+
+// Deliberately no timezone offset. These shows run from Texas to New York, and
+// a fixed offset would be wrong for half of them; schema.org reads a local
+// datetime as local to the venue, which is exactly what's meant.
+function dateTime(isoDate, time) {
+    const hhmm = to24Hour(time);
+    return hhmm ? `${isoDate}T${hhmm}` : null;
+}
+
+// '$15' -> '15'. Free shows say so; anything unparseable is left out entirely.
+function toPrice(price) {
+    const m = /(\d+(?:\.\d{1,2})?)/.exec(String(price || ''));
+    if (m) return m[1];
+    return /free/i.test(String(price || '')) ? '0' : null;
+}
+
 export function buildShowsJsonLd(upcoming, parseShowDate) {
     return upcoming.map(show => {
         const others = (show.bands || [])
             .filter(b => typeof b === 'string' && !NOT_A_BAND.test(b) && !IS_A_NOTE.test(b));
 
+        const isoDate = toIsoDate(parseShowDate(show.date));
+        const startDate = dateTime(isoDate, show.showTime) || isoDate;
+        const doorTime = dateTime(isoDate, show.doors);
+        const price = toPrice(show.price);
+
         return {
             '@context': 'https://schema.org',
             '@type': 'MusicEvent',
             name: `Maldevera at ${show.venue}`,
-            startDate: toIsoDate(parseShowDate(show.date)),
+            startDate,
+            ...(doorTime ? { doorTime } : {}),
+            ...(price !== null ? {
+                offers: {
+                    '@type': 'Offer',
+                    price,
+                    priceCurrency: 'USD',
+                    availability: 'https://schema.org/InStock',
+                    url: `${SITE}/shows`
+                }
+            } : {}),
             eventStatus: 'https://schema.org/EventScheduled',
             eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
             url: `${SITE}/shows`,

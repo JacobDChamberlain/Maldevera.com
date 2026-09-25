@@ -83,19 +83,19 @@ export default function About() {
                 <li className='individual-photo-li'>
                     <img className='individual-photo' src={ pPhoto } alt='Parker Turney'></img>
                     <div className='indivitual-photo-description'>Parker Turney</div>
-                    <div className='member-role'>Guitars / Vox</div>
+                    <div className='member-role'>Guitars / Vocals</div>
                 </li>
                 <li className='individual-photo-li'>
                     <img className='individual-photo' src={ jPhoto } alt='Jacob Chamberlain'></img>
                     <div className='indivitual-photo-description'>Jacob Chamberlain</div>
-                    <div className='member-role'>Guitars / Vox</div>
+                    <div className='member-role'>Guitars / Vocals</div>
                 </li>
                 <li className='individual-photo-li'>
                     <div className='photo-flip-container'>
-                        <img className='individual-photo photo-front' src={ sPhoto } alt='Shannon Paine-Jesam'></img>
-                        <img className='individual-photo photo-back' src={ stephanPhoto } alt='Stephan'></img>
+                        <img className='individual-photo photo-front' src={ stephanPhoto } alt='Stephan Cohen'></img>
+                        <img className='individual-photo photo-back' src={ sPhoto } alt='Shannon Paine-Jesam'></img>
                     </div>
-                    <div className='indivitual-photo-description'>Shannon Paine-Jesam</div>
+                    <div className='indivitual-photo-description'>Stephan Cohen</div>
                     <div className='member-role'>Drums</div>
                 </li>
                 <li className='individual-photo-li'>

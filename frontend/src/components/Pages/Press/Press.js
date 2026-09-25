@@ -5,20 +5,36 @@ import './Press.css';
 // Same content, laid out to read on a phone and to be copied from - a promoter
 // or zine shouldn't have to open a 65 MB PDF to get a paragraph and a photo.
 // Text here is transcribed from that EPK; if the PDF changes, change this too.
-// One deliberate divergence: the PDF says "Forged in 2010", corrected to 2011
-// per Jacob. The PDF itself still says 2010 and should be updated at the source.
+// Three deliberate divergences from the PDF. It says "Forged in 2010",
+// corrected to 2011 per Jacob; it lists no members at all, so the lineup below
+// is added here rather than transcribed; and it calls the band Dallas and New
+// Orleans, which stopped being true when the drummer who lived there left. The
+// PDF still says 2010, names nobody and claims both cities - fix it at source.
 
-const BIO = `Maldevera is a blistering death thrash metal band based out of Dallas, Texas and New Orleans, Louisiana. Forged in 2011, the band established itself early on as a force to be reckoned with by combining elements of thrash and groove metal. After several EPs and demos, more mature avenues were explored within the technical arenas of the genre. Old school death metal, grindcore and progressive metal found their way into Maldevera's arsenal of inspirations.
+const BIO = `Maldevera is a blistering death thrash metal band based out of Dallas, Texas. Forged in 2011, the band established itself early on as a force to be reckoned with by combining elements of thrash and groove metal. After several EPs and demos, more mature avenues were explored within the technical arenas of the genre. Old school death metal, grindcore and progressive metal found their way into Maldevera's arsenal of inspirations.
 
 Their music formula became recognizable upon the release of the band's full length debut album "From Man to Mist" in April of 2023. It was finally time for Maldevera to grow its audience outside of the local Dallas scene. In October of 2023 the band embarked on their first multi state tour, playing to several responsive crowds in eight different states. This grass roots approach solidified Maldevera's status as a band willing to take things to the next level.`;
 
 const REVIEW = `I will not play the suspense any longer, MALDEVERA put a big skullcap on me, and made me travel inside for thirty minutes. A journey to a not so lost youth, spent scouring magazines to find bands of the caliber of CORONER, ATHEIST, NOCTURNUS, MORBID ANGEL, WATCHTOWER and other SADUS.`;
 
+const MEMBERS = [
+    ['Parker Turney', 'Guitars / Vocals'],
+    ['Jacob Chamberlain', 'Guitars / Vocals'],
+    ['Keith Brown', 'Bass'],
+    ['Stephan Cohen', 'Drums']
+];
+
+// A credit, not a farewell: dates and the recordings, stated the way a liner
+// note would. Long enough to be accurate about eleven years, short enough that
+// the lineup above stays the thing a promoter reads.
+const DRUM_CREDIT = 'Shannon Paine-Jesam played drums from 2014 to 2025 and appears on every Maldevera recording to date.';
+
 const SHARED_BILLS = [
     'Vektor', 'Spineshank (Grammy nominated)', 'Hellwitch', 'PLF',
     'Steel Bearing Hand', 'Tolar', 'Weaponizer', 'Putridity', 'Desolus',
     'Spiter', 'Oxygen Destroyer', 'Nuclear Remains', 'Evil Army', 'Void',
-    'Katagory V', 'Black Horse of Famine', 'Ascended Dead'
+    'Katagory V', 'Black Horse of Famine', 'Ascended Dead', 'Kontusion',
+    'Nuclear Tomb'
 ];
 
 const LIVE_SHOTS = [
@@ -54,7 +70,7 @@ export default function Press() {
         <div className="press-wrapper">
             <h1 className="press-title">Press Kit</h1>
             <p className="press-subtitle">
-                Death thrash metal &middot; Dallas, TX &amp; New Orleans, LA. Copy anything here freely.
+                Death thrash metal &middot; Dallas, TX. Copy anything here freely.
             </p>
 
             <ul className="press-shots">
@@ -70,6 +86,18 @@ export default function Press() {
                 { BIO.split('\n\n').map((para, i) => (
                     <blockquote className="press-bio" key={ i }>{ para }</blockquote>
                 )) }
+            </section>
+
+            <section className="press-section">
+                <h2 className="press-heading">Lineup</h2>
+                <ul className="press-lineup">
+                    { MEMBERS.map(([name, role]) => (
+                        <li key={ name }>
+                            { name }<span className="press-meta"> — { role }</span>
+                        </li>
+                    )) }
+                </ul>
+                <p className="press-note">{ DRUM_CREDIT }</p>
             </section>
 
             <section className="press-section">

@@ -98,7 +98,8 @@
     font-family: var(--font-primary);
 }
 
-/* Easter egg: Shannon/Stephan photo flip */
+/* Stephan drums now; Shannon is on every record to date. Front is the current
+   drummer, back is the one on the recordings. */
 .photo-flip-container {
     position: relative;
     width: 170px;

@@ -28,6 +28,18 @@ This file is the short version so it's findable from the repo.
   channel instead of one video, links open in a new tab.
 - **Analytics**: Cloudflare Web Analytics beacon, live with the real token.
 
+## Shipped 2026-09-24 — PR #125
+
+- **Lineup corrected to the current band.** Stephan Cohen is the drummer;
+  Shannon Paine-Jesam played 2014-2025. `/press` gained a Lineup section with a
+  credit line for Shannon, `/about`'s flip card inverted so Stephan is the face
+  and Shannon is behind him, and the `MusicGroup` JSON-LD `member` array was
+  corrected — it still listed Shannon.
+- **New Orleans removed from `/press`** (subtitle, bio, JSON-LD description).
+  It was Shannon's city.
+- Vox → Vocals; Kontusion and Nuclear Tomb added to the shared-stage list;
+  JSON-LD `album` now lists both releases instead of only the singles.
+
 ---
 
 ## Next up
@@ -38,13 +50,22 @@ This file is the short version so it's findable from the repo.
 2. **Homepage hook line.** One sentence — genre, city, a reason to stay — above
    the embeds. The homepage is still the weakest page for a stranger landing
    cold. ~1 hour.
-3. **Members back on `/press`** with instruments: Parker and Jacob guitars/vox,
-   Keith bass, Shannon drums. They came off when the page was rebuilt from the
-   EPK, which lists no members. ~10 min.
+3. **Put *From Man To Mist: Remisted* on Bandcamp.** It's on every other
+   platform but not there — which is the one both `/about` and `/press` link to
+   as "Discography," and the best-margin place a metal fan can buy it. The
+   `/about` copy names a record with no findable home until this is done.
+   Do it before pointing any press at the catalog.
 4. **Fix the EPK PDF at source** (`design-assets/maldeveraEPK.pdf`, gitignored).
-   It says "Forged in 2010" (it's 2011) and prints "6.9 ASHVILLE, NC" for what
-   was actually Raleigh. The web page corrects both; the downloadable PDF
-   doesn't.
+   Four things now diverge from it. It says "Forged in 2010" (it's 2011), prints
+   "6.9 ASHVILLE, NC" for what was actually Raleigh, lists no members at all,
+   and calls the band Dallas *and* New Orleans, which stopped being true when
+   Shannon left. The web page corrects all four; the downloadable PDF doesn't.
+5. **New band photos.** Blocks the album rollout, not just the site. Stephan's
+   card on `/about` is a phone snapshot standing in, `/press` has no lineup
+   photo at all, and the About header shot is the old lineup. Every outlet,
+   promoter and playlist curator asks for a current press photo as the first
+   thing, and pitching starts months before release. One shoot fixes the About
+   header, all four member cards, the EPK and the press assets.
 
 ## Parked by choice
 

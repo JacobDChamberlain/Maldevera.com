@@ -6,6 +6,14 @@ export default function Home() {
 
     return (
         <div className="home-wrapper">
+            {/* The page had no text at all - a stranger landing cold got three
+                media players and no way to know who the band is without
+                pressing play. Genre and city first, then the tagline off the
+                about page, which was doing nothing where it sat. */}
+            <h1 className='home-hook'>
+                Death Thrash from Dallas, Texas.
+                <span className='home-hook-tagline'>Taste the corners of your mind.</span>
+            </h1>
             <div className='bandcamp-embed-wrapper'>
                 <iframe
                     style={{ border: 0, width: '350px', height: '522px', display: 'block' }}

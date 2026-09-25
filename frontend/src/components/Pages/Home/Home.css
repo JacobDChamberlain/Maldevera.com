@@ -11,6 +11,40 @@
     padding-bottom: 155px;
 }
 
+/* The first thing on the site with words on it. Sized down from the wrapper's
+   30px bold - this is a line to read, not a headline to shout, and the embeds
+   below are the loud part. The tagline drops to its own line on every width so
+   the genre-and-city half can be taken in on its own. */
+.home-hook {
+    width: min(620px, 90vw);
+    margin: 34px 0 6px;
+    font-size: 1.35rem;
+    font-weight: bold;
+    line-height: 1.4;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.home-hook-tagline {
+    display: block;
+    margin-top: 6px;
+    font-size: 1.1rem;
+    font-style: italic;
+    font-weight: normal;
+    opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+    .home-hook {
+        font-size: 1.15rem;
+        margin-top: 24px;
+    }
+
+    .home-hook-tagline {
+        font-size: 1rem;
+    }
+}
+
 .video-responsive {
     margin: 20px;
 }

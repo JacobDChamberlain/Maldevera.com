@@ -27,6 +27,11 @@ This file is the short version so it's findable from the repo.
 - **Social bar**: Bandcamp added (was missing entirely), YouTube pointed at the
   channel instead of one video, links open in a new tab.
 - **Analytics**: Cloudflare Web Analytics beacon, live with the real token.
+- **Sitemap submitted** to Google Search Console (2026-09-24). The domain was
+  already verified from some earlier round; only the sitemap was outstanding.
+  Coverage lands in Search Console → Sitemaps, and tells you which pages got
+  indexed. At submission `site:maldevera.com` returned `/`, `/about`, `/merch`
+  and `/shows` — `/press` and `/tours` had not been crawled yet.
 
 ## Shipped 2026-09-24 — PR #125
 
@@ -44,23 +49,20 @@ This file is the short version so it's findable from the repo.
 
 ## Next up
 
-1. **Submit the sitemap to Google Search Console.** ~15 min. Verify the domain,
-   submit `https://maldevera.com/sitemap.xml`. None of the search work above
-   pays off until Google is actually looking.
-2. **Homepage hook line.** One sentence — genre, city, a reason to stay — above
+1. **Homepage hook line.** One sentence — genre, city, a reason to stay — above
    the embeds. The homepage is still the weakest page for a stranger landing
    cold. ~1 hour.
-3. **Put *From Man To Mist: Remisted* on Bandcamp.** It's on every other
+2. **Put *From Man To Mist: Remisted* on Bandcamp.** It's on every other
    platform but not there — which is the one both `/about` and `/press` link to
    as "Discography," and the best-margin place a metal fan can buy it. The
    `/about` copy names a record with no findable home until this is done.
    Do it before pointing any press at the catalog.
-4. **Fix the EPK PDF at source** (`design-assets/maldeveraEPK.pdf`, gitignored).
+3. **Fix the EPK PDF at source** (`design-assets/maldeveraEPK.pdf`, gitignored).
    Four things now diverge from it. It says "Forged in 2010" (it's 2011), prints
    "6.9 ASHVILLE, NC" for what was actually Raleigh, lists no members at all,
    and calls the band Dallas *and* New Orleans, which stopped being true when
    Shannon left. The web page corrects all four; the downloadable PDF doesn't.
-5. **New band photos.** Blocks the album rollout, not just the site. Stephan's
+4. **New band photos.** Blocks the album rollout, not just the site. Stephan's
    card on `/about` is a phone snapshot standing in, `/press` has no lineup
    photo at all, and the About header shot is the old lineup. Every outlet,
    promoter and playlist curator asks for a current press photo as the first

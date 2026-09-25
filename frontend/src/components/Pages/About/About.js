@@ -48,15 +48,15 @@ export default function About() {
                             <li>Birmingham</li>
                             <li>Atlanta</li>
                             <li>Richmond</li>
-                            <li>Lexington</li>
                             <li>Baltimore</li>
-                            <li>Cincinnati</li>
                             <li>New York</li>
+                            <li>Cincinnati</li>
+                            <li>Lexington</li>
                         </ul>
                     </section>
                     <section className='tour-column'>
                         <h3 className='tour-heading'>West Coast</h3>
-                        <p className='tour-year'>Summer 2023</p>
+                        <p className='tour-year'>Fall 2023</p>
                         <ul className='tour-cities'>
                             <li>Wichita</li>
                             <li>Denver</li>
@@ -82,10 +82,12 @@ export default function About() {
                 <li className='individual-photo-li'>
                     <img className='individual-photo' src={ pPhoto } alt='Parker Turney'></img>
                     <div className='indivitual-photo-description'>Parker Turney</div>
+                    <div className='member-role'>Guitars / Vox</div>
                 </li>
                 <li className='individual-photo-li'>
                     <img className='individual-photo' src={ jPhoto } alt='Jacob Chamberlain'></img>
                     <div className='indivitual-photo-description'>Jacob Chamberlain</div>
+                    <div className='member-role'>Guitars / Vox</div>
                 </li>
                 <li className='individual-photo-li'>
                     <div className='photo-flip-container'>
@@ -93,10 +95,12 @@ export default function About() {
                         <img className='individual-photo photo-back' src={ stephanPhoto } alt='Stephan'></img>
                     </div>
                     <div className='indivitual-photo-description'>Shannon Paine-Jesam</div>
+                    <div className='member-role'>Drums</div>
                 </li>
                 <li className='individual-photo-li'>
                     <img className='individual-photo' src={ kPhoto } alt='Keith Brown'></img>
                     <div className='indivitual-photo-description'>Keith Brown</div>
+                    <div className='member-role'>Bass</div>
                 </li>
             </ul>
         </div>

@@ -200,3 +200,16 @@
         gap: 22px;
     }
 }
+
+/* Instrument under each member's name. The flex parent shrinks this box to
+   well under the text width, so "Guitars / Vox" broke across two lines -
+   nowrap keeps it on one, and there's room to spare in the cell. */
+.member-role {
+    white-space: nowrap;
+    margin-top: 2px;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    opacity: 0.75;
+}

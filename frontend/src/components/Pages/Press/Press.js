@@ -1,43 +1,50 @@
 import React from 'react';
 import './Press.css';
 
-// The page you send when someone asks for a press kit: a promoter booking the
-// room, a band offering a tour swap, a zine writing a blurb, a curator deciding
-// whether to bother. Everything they need, in one link, nothing to dig for.
+// The web version of the band's actual EPK (design-assets/maldeveraEPK.pdf).
+// Same content, laid out to read on a phone and to be copied from - a promoter
+// or zine shouldn't have to open a 65 MB PDF to get a paragraph and a photo.
+// Text here is transcribed from that EPK; if the PDF changes, change this too.
 
-const SHORT_BIO = `Maldevera is a four-piece death-thrash band out of Dallas–Fort Worth and New Orleans, playing since 2011. Groove, blunt force, and titles like "Mouthful of Concrete" that tell you most of what you need to know.`;
+const BIO = `Maldevera is a blistering death thrash metal band based out of Dallas, Texas and New Orleans, Louisiana. Forged in 2010, the band established itself early on as a force to be reckoned with by combining elements of thrash and groove metal. After several EPs and demos, more mature avenues were explored within the technical arenas of the genre. Old school death metal, grindcore and progressive metal found their way into Maldevera's arsenal of inspirations.
 
-const LONG_BIO = `Maldevera has been playing death-thrash in Dallas–Fort Worth since 2011. The songs run on groove and blunt force — riffs that move, tempos that refuse to sit still, and a sense of humor buried somewhere under the weight of it.
+Their music formula became recognizable upon the release of the band's full length debut album "From Man to Mist" in April of 2023. It was finally time for Maldevera to grow its audience outside of the local Dallas scene. In October of 2023 the band embarked on their first multi state tour, playing to several responsive crowds in eight different states. This grass roots approach solidified Maldevera's status as a band willing to take things to the next level.`;
 
-The current record is Guts / Winter Palace, with music videos for "Jukai," "Icon of Sin," and "From Man to Mist." Since 2024 the band has played more than forty shows across Texas and the South, sharing bills with Terminal Nation, Evil Army, Ascended Dead, Oxygen Destroyer, Volcandra and Sadistic Force, and ran the East Coast in June 2026 through Houston, Birmingham, Atlanta, Richmond, Baltimore and New York.
+const REVIEW = `I will not play the suspense any longer, MALDEVERA put a big skullcap on me, and made me travel inside for thirty minutes. A journey to a not so lost youth, spent scouring magazines to find bands of the caliber of CORONER, ATHEIST, NOCTURNUS, MORBID ANGEL, WATCHTOWER and other SADUS.`;
 
-Taste the corners of your mind.`;
-
-const MEMBERS = ['Parker Turney', 'Jacob Chamberlain', 'Shannon Paine-Jesam', 'Keith Brown'];
-
-const FACTS = [
-    ['Formed', '2011'],
-    ['Based', 'Dallas–Fort Worth, TX / New Orleans, LA'],
-    ['Genre', 'Death metal / thrash / groove'],
-    ['Latest release', 'Guts / Winter Palace'],
-    ['For fans of', 'Terminal Nation, Evil Army, Oxygen Destroyer'],
-    ['Booking', 'MaldeveraTX@gmail.com']
+const SHARED_BILLS = [
+    'Vektor', 'Spineshank (Grammy nominated)', 'Hellwitch', 'PLF',
+    'Steel Bearing Hand', 'Tolar', 'Weaponizer', 'Putridity', 'Desolus',
+    'Spiter', 'Oxygen Destroyer', 'Nuclear Remains', 'Evil Army', 'Void',
+    'Katagory V', 'Black Horse of Famine', 'Ascended Dead'
 ];
 
-const LISTEN = [
+const LIVE_SHOTS = [
+    ['/press-assets/epk-live-1.jpg', 'Maldevera live - guitarist mid-riff'],
+    ['/press-assets/epk-live-2.jpg', 'Maldevera live - vocalist and guitarist onstage'],
+    ['/press-assets/epk-live-3.jpg', 'Maldevera live - bassist onstage'],
+    ['/press-assets/epk-live-4.jpg', 'Maldevera live - drummer behind the kit']
+];
+
+const VIDEOS = [
+    ['Icon of Sin', 'https://www.youtube.com/watch?v=4ED07rhu3jg'],
+    ['Jukai', 'https://www.youtube.com/watch?v=Lq7NMF8ZXJg']
+];
+
+const LINKS = [
     ['Bandcamp', 'https://maldevera.bandcamp.com/'],
-    ['Spotify', 'https://open.spotify.com/artist/0CP5nqR6lT3g3StExsINGG'],
-    ['Apple Music', 'https://music.apple.com/us/artist/maldevera/546342013'],
     ['YouTube', 'https://www.youtube.com/@MALDEVERA'],
     ['Instagram', 'https://www.instagram.com/maldevera'],
-    ['Facebook', 'https://www.facebook.com/Maldevera']
+    ['Facebook', 'https://www.facebook.com/Maldevera'],
+    ['Spotify', 'https://open.spotify.com/artist/0CP5nqR6lT3g3StExsINGG'],
+    ['Apple Music', 'https://music.apple.com/us/artist/maldevera/546342013']
 ];
 
-// Named because promoters and other bands read these as credentials.
-const SHARED_BILLS = [
-    'Terminal Nation', 'Evil Army', 'Ascended Dead', 'Oxygen Destroyer',
-    'Volcandra', 'Sadistic Force', 'Saidan', 'In Human Form', 'Tencher',
-    'Satanik Heavy Drinker', 'Viogression', 'Accuser'
+const DOWNLOADS = [
+    ['/press-assets/maldevera-epk.pdf', 'Full EPK', 'PDF'],
+    ['/press-assets/maldevera-band-photo.jpg', 'Band photo', '3130 × 2075 JPG'],
+    ['/press-assets/maldevera-logo.png', 'Logo', '2400 × 1055 PNG'],
+    ['/press-assets/epk-spread.jpg', 'EPK spread', 'JPG']
 ];
 
 export default function Press() {
@@ -45,54 +52,54 @@ export default function Press() {
         <div className="press-wrapper">
             <h1 className="press-title">Press Kit</h1>
             <p className="press-subtitle">
-                Everything a promoter, zine or booking agent needs. Copy anything here freely.
+                Death thrash metal &middot; Dallas, TX &amp; New Orleans, LA. Copy anything here freely.
             </p>
 
-            <section className="press-section">
-                <h2 className="press-heading">The short version</h2>
-                <blockquote className="press-bio">{ SHORT_BIO }</blockquote>
-            </section>
+            <ul className="press-shots">
+                { LIVE_SHOTS.map(([src, alt]) => (
+                    <li key={ src }>
+                        <img className="press-shot" src={ src } alt={ alt } loading="lazy" />
+                    </li>
+                )) }
+            </ul>
 
             <section className="press-section">
-                <h2 className="press-heading">The long version</h2>
-                { LONG_BIO.split('\n\n').map((para, i) => (
+                <h2 className="press-heading">Biography</h2>
+                { BIO.split('\n\n').map((para, i) => (
                     <blockquote className="press-bio" key={ i }>{ para }</blockquote>
                 )) }
             </section>
 
             <section className="press-section">
-                <h2 className="press-heading">Facts</h2>
-                <dl className="press-facts">
-                    { FACTS.map(([label, value]) => (
-                        <div className="press-fact-row" key={ label }>
-                            <dt>{ label }</dt>
-                            <dd>
-                                { label === 'Booking'
-                                    ? <a className="press-link" href={ `mailto:${value}` }>{ value }</a>
-                                    : value }
-                            </dd>
-                        </div>
-                    )) }
-                </dl>
-            </section>
-
-            <section className="press-section">
-                <h2 className="press-heading">Members</h2>
-                <p className="press-members">{ MEMBERS.join(' · ') }</p>
+                <h2 className="press-heading">Album review</h2>
+                <div className="press-review">
+                    <img
+                        className="press-cover"
+                        src="/press-assets/epk-album-cover.jpg"
+                        alt="From Man to Mist album cover"
+                        loading="lazy"
+                    />
+                    <div className="press-review-text">
+                        <blockquote className="press-quote">&ldquo;{ REVIEW }&rdquo;</blockquote>
+                        <p className="press-note">
+                            &mdash; Metal News (translated from French), on <em>From Man to Mist</em>
+                        </p>
+                    </div>
+                </div>
             </section>
 
             <section className="press-section">
                 <h2 className="press-heading">Shared stages with</h2>
                 <p className="press-members">{ SHARED_BILLS.join(' · ') }</p>
                 <p className="press-note">
-                    Full show history, back to 2024, on the <a className="press-link" href="/shows">shows page</a>.
+                    Full show history on the <a className="press-link" href="/shows">shows page</a>.
                 </p>
             </section>
 
             <section className="press-section">
-                <h2 className="press-heading">Listen</h2>
+                <h2 className="press-heading">Music videos</h2>
                 <ul className="press-links-ul">
-                    { LISTEN.map(([name, url]) => (
+                    { VIDEOS.map(([name, url]) => (
                         <li key={ name }>
                             <a className="press-link" href={ url } target="_blank" rel="noopener noreferrer">
                                 { name }
@@ -103,25 +110,39 @@ export default function Press() {
             </section>
 
             <section className="press-section">
-                <h2 className="press-heading">Photos &amp; logo</h2>
-                <p className="press-note">Right-click to save, or open and download. Free to use in listings and articles.</p>
+                <h2 className="press-heading">Listen &amp; follow</h2>
                 <ul className="press-links-ul">
-                    <li>
-                        <a className="press-link" href="/press-assets/maldevera-band-photo.jpg" target="_blank" rel="noopener noreferrer">
-                            Band photo — 3130 × 2075 JPG
-                        </a>
-                    </li>
-                    <li>
-                        <a className="press-link" href="/press-assets/maldevera-logo.png" target="_blank" rel="noopener noreferrer">
-                            Logo — 2400 × 1055 PNG
-                        </a>
-                    </li>
+                    { LINKS.map(([name, url]) => (
+                        <li key={ name }>
+                            <a className="press-link" href={ url } target="_blank" rel="noopener noreferrer">
+                                { name }
+                            </a>
+                        </li>
+                    )) }
+                </ul>
+            </section>
+
+            <section className="press-section">
+                <h2 className="press-heading">Downloads</h2>
+                <p className="press-note">Free to use in listings and articles.</p>
+                <ul className="press-downloads">
+                    { DOWNLOADS.map(([href, label, meta]) => (
+                        <li key={ href }>
+                            <a className="press-link" href={ href } target="_blank" rel="noopener noreferrer">
+                                { label }
+                            </a>
+                            <span className="press-meta"> — { meta }</span>
+                        </li>
+                    )) }
                 </ul>
             </section>
 
             <section className="press-section">
                 <h2 className="press-heading">Booking</h2>
-                <a className="press-email" href="mailto:MaldeveraTX@gmail.com">MaldeveraTX@gmail.com</a>
+                <a className="press-email" href="mailto:maldeveratx@gmail.com">maldeveratx@gmail.com</a>
+                <p className="press-note">
+                    or call <a className="press-link" href="tel:+14694066340">(469) 406-6340</a>
+                </p>
             </section>
         </div>
     );

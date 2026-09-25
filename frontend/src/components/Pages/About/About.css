@@ -156,3 +156,47 @@
 .band-bio p:last-child {
     margin-bottom: 0;
 }
+
+/* Tours: two columns on desktop, stacked on phones. Most recent first - a
+   visitor cares what the band is doing now, and the shows page already reads
+   newest-first, so the page stays internally consistent. */
+.tour-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 40px;
+    width: min(600px, 90vw);
+    padding: 4px 5px 0;
+    color: var(--color-text-primary);
+}
+
+.tour-heading {
+    margin: 0;
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.tour-year {
+    margin: 2px 0 10px;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    /* Not --color-text-secondary: this sits directly on the background art,
+       where the muted tone drops below readable. */
+    color: var(--color-text-primary);
+    opacity: 0.8;
+}
+
+.tour-cities {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 1.75;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+    .tour-columns {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+    }
+}

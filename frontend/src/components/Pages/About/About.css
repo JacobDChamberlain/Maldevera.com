@@ -83,7 +83,11 @@
     display: flex;
     flex-direction: column;
     padding:  10px 10%;
-    height: 320px;
+    /* min-height, not height: adding the instrument line pushed the content
+       past a fixed 320px, and the flip container - the only shrinkable item -
+       absorbed the overflow, leaving Shannon's photo 8px shorter than the
+       others. Let the cell grow instead. */
+    min-height: 320px;
     width: 215px;
     align-items: center;
 }
@@ -98,7 +102,10 @@
 .photo-flip-container {
     position: relative;
     width: 170px;
-    height: 255px;
+    /* 256px matches what the plain <img> siblings render at: every band photo
+       is 2075x3130, which is 256px tall at 170px wide. */
+    height: 256px;
+    flex: 0 0 auto;
     perspective: 1000px;
 }
 

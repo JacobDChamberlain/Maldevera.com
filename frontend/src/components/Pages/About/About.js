@@ -47,6 +47,7 @@ export default function About() {
                             <li>New Orleans</li>
                             <li>Birmingham</li>
                             <li>Atlanta</li>
+                            <li>Asheville</li>
                             <li>Richmond</li>
                             <li>Baltimore</li>
                             <li>New York</li>

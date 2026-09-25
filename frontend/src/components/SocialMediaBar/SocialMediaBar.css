@@ -5,6 +5,17 @@
     justify-content: center;
     list-style-type: none;
     margin: 0;
+    /* Seven icons now (Bandcamp joined) - wrap rather than overflow on phones. */
+    flex-wrap: wrap;
+}
+
+.social-media-lonks-li {
+    display: flex;
+}
+
+.social-media-lonks-li a {
+    display: flex;
+    line-height: 0;
 }
 
 .social-media-icoon {

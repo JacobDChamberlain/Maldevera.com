@@ -83,7 +83,11 @@
     display: flex;
     flex-direction: column;
     padding:  10px 10%;
-    height: 320px;
+    /* min-height, not height: adding the instrument line pushed the content
+       past a fixed 320px, and the flip container - the only shrinkable item -
+       absorbed the overflow, leaving Shannon's photo 8px shorter than the
+       others. Let the cell grow instead. */
+    min-height: 320px;
     width: 215px;
     align-items: center;
 }
@@ -98,7 +102,10 @@
 .photo-flip-container {
     position: relative;
     width: 170px;
-    height: 255px;
+    /* 256px matches what the plain <img> siblings render at: every band photo
+       is 2075x3130, which is 256px tall at 170px wide. */
+    height: 256px;
+    flex: 0 0 auto;
     perspective: 1000px;
 }
 
@@ -138,4 +145,78 @@
 
 .photo-flip-container:active .photo-back {
     transform: rotateY(0deg);
+}
+
+/* Real bio copy - readable body text, unlike the italic-bold tagline block. */
+.band-bio {
+    width: min(600px, 90vw);
+    color: var(--color-text-primary);
+    font-size: 17px;
+    line-height: 1.6;
+    padding: 5px 5px 15px;
+}
+
+.band-bio p {
+    margin: 0 0 14px 0;
+}
+
+.band-bio p:last-child {
+    margin-bottom: 0;
+}
+
+/* Tours: two columns on desktop, stacked on phones. Most recent first - a
+   visitor cares what the band is doing now, and the shows page already reads
+   newest-first, so the page stays internally consistent. */
+.tour-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 40px;
+    width: min(600px, 90vw);
+    padding: 4px 5px 0;
+    color: var(--color-text-primary);
+}
+
+.tour-heading {
+    margin: 0;
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.tour-year {
+    margin: 2px 0 10px;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    /* Not --color-text-secondary: this sits directly on the background art,
+       where the muted tone drops below readable. */
+    color: var(--color-text-primary);
+    opacity: 0.8;
+}
+
+.tour-cities {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 1.75;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+    .tour-columns {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+    }
+}
+
+/* Instrument under each member's name. The flex parent shrinks this box to
+   well under the text width, so "Guitars / Vox" broke across two lines -
+   nowrap keeps it on one, and there's room to spare in the cell. */
+.member-role {
+    white-space: nowrap;
+    margin-top: 2px;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    opacity: 0.75;
 }

@@ -8,7 +8,10 @@ import 'react-h5-audio-player/lib/styles.css';
 export default function Player({ track }) {
     return (
         <AudioPlayer
-            autoPlay
+            // preload="none" is load-bearing: the library defaults to "auto",
+            // which downloaded the whole track before anyone pressed play.
+            // Dropdown selection still starts playback (autoPlayAfterSrcChange).
+            preload="none"
             src={ track }
             className="maldevera-player"
         />

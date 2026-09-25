@@ -25,6 +25,7 @@ import FailedPurchase from '../Pages/Checkout/Cancel/CheckoutCancel';
 import CurrentStock from '../Pages/CurrentStock/CurrentStock';
 import ManageStore from '../Pages/ManageStore/ManageStore';
 import Chat from '../Pages/Chat/Chat';
+import Press from '../Pages/Press/Press';
 import FancyBorderPreview from '../Templates/FancyBorder';
 import SplashIntro from '../SplashIntro/SplashIntro';
 
@@ -56,6 +57,7 @@ function AnimatedRoutes() {
         <Route path='/' Component={ Home } />
         <Route path='/merch' Component={ Merch } />
         <Route path='/about' Component={ About } />
+        <Route path='/press' Component={ Press } />
         <Route path='/shows' Component={ Shows } />
         <Route path='/tour' Component={ Tours } />
         <Route path='/tours' Component={ Tours } />

@@ -41,7 +41,7 @@ export default function About() {
                 <div className='tour-columns'>
                     <section className='tour-column'>
                         <h3 className='tour-heading'>East Coast</h3>
-                        <p className='tour-year'>June 2026</p>
+                        <p className='tour-year'>Summer 2026</p>
                         <ul className='tour-cities'>
                             <li>Houston</li>
                             <li>New Orleans</li>
@@ -56,7 +56,7 @@ export default function About() {
                     </section>
                     <section className='tour-column'>
                         <h3 className='tour-heading'>West Coast</h3>
-                        <p className='tour-year'>2023</p>
+                        <p className='tour-year'>Summer 2023</p>
                         <ul className='tour-cities'>
                             <li>Wichita</li>
                             <li>Denver</li>

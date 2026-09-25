@@ -5,8 +5,10 @@ import './Press.css';
 // Same content, laid out to read on a phone and to be copied from - a promoter
 // or zine shouldn't have to open a 65 MB PDF to get a paragraph and a photo.
 // Text here is transcribed from that EPK; if the PDF changes, change this too.
+// One deliberate divergence: the PDF says "Forged in 2010", corrected to 2011
+// per Jacob. The PDF itself still says 2010 and should be updated at the source.
 
-const BIO = `Maldevera is a blistering death thrash metal band based out of Dallas, Texas and New Orleans, Louisiana. Forged in 2010, the band established itself early on as a force to be reckoned with by combining elements of thrash and groove metal. After several EPs and demos, more mature avenues were explored within the technical arenas of the genre. Old school death metal, grindcore and progressive metal found their way into Maldevera's arsenal of inspirations.
+const BIO = `Maldevera is a blistering death thrash metal band based out of Dallas, Texas and New Orleans, Louisiana. Forged in 2011, the band established itself early on as a force to be reckoned with by combining elements of thrash and groove metal. After several EPs and demos, more mature avenues were explored within the technical arenas of the genre. Old school death metal, grindcore and progressive metal found their way into Maldevera's arsenal of inspirations.
 
 Their music formula became recognizable upon the release of the band's full length debut album "From Man to Mist" in April of 2023. It was finally time for Maldevera to grow its audience outside of the local Dallas scene. In October of 2023 the band embarked on their first multi state tour, playing to several responsive crowds in eight different states. This grass roots approach solidified Maldevera's status as a band willing to take things to the next level.`;
 

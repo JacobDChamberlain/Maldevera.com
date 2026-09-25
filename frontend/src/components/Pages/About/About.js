@@ -25,7 +25,7 @@ export default function About() {
                     Pulling influence from all over, the undulating rhythms, intricate but catchy riffs, demonic vocal harmonies, and memorable solos all come together to create the sonic gestalt that is Maldevera.
                 </p>
                 <p>
-                    FFO: Atheist, Death, Decapitated, Lamb of God, Exodus, Testament, Vovoid, Old Metallica, Demolition Hammer, Pantera, Necrophagist, Morbid Angel, Frozen Soul, 200 Stab Wounds, Distain, Steel Bearing Hand, Void
+                    FFO: Atheist, Death, Decapitated, Lamb of God, Exodus, Testament, Vovoid, Old Metallica, Demolition Hammer, Pantera, Necrophagist, Morbid Angel, Frozen Soul, 200 Stab Wounds, Steel Bearing Hand, Void
                 </p>
                 <p>
                     In 2026, we released <em>From Man To Mist: Remisted</em>, our first album

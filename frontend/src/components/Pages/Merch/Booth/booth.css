@@ -56,7 +56,9 @@
     pointer-events: none;
 }
 
-/* walk mode: click-to-explore overlay (also the pointer-lock trigger) */
+/* walk mode: click-to-explore overlay (also the pointer-lock trigger).
+   Solid black with drifting smoke until you click in — the scene stays
+   hidden behind it rather than showing through. */
 .booth-explore {
     position: absolute;
     inset: 0;
@@ -65,52 +67,88 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 14px;
     width: 100%;
     border: none;
     cursor: pointer;
-    background: radial-gradient(60% 60% at 50% 50%, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.6));
+    overflow: hidden;
+    background: #000;
     color: var(--color-text-primary);
     font-family: var(--font-primary);
 }
+/* two smoke layers drifting against each other; oversized so the edges
+   never come into view while they move */
+.booth-explore::before,
+.booth-explore::after {
+    content: '';
+    position: absolute;
+    inset: -30%;
+    pointer-events: none;
+    filter: blur(28px);
+}
+.booth-explore::before {
+    background:
+        radial-gradient(38% 26% at 28% 62%, rgba(150, 150, 160, 0.16), transparent 70%),
+        radial-gradient(30% 22% at 70% 40%, rgba(130, 130, 140, 0.12), transparent 70%),
+        radial-gradient(45% 30% at 55% 85%, rgba(110, 110, 120, 0.14), transparent 70%);
+    animation: booth-smoke-a 2.3s ease-in-out infinite alternate;
+}
+.booth-explore::after {
+    background:
+        radial-gradient(34% 24% at 72% 70%, rgba(140, 140, 150, 0.12), transparent 70%),
+        radial-gradient(40% 28% at 22% 30%, rgba(120, 120, 130, 0.1), transparent 70%);
+    animation: booth-smoke-b 3s ease-in-out infinite alternate;
+}
+@keyframes booth-smoke-a {
+    from { transform: translate3d(-14%, 8%, 0) scale(1); }
+    to   { transform: translate3d(14%, -9%, 0) scale(1.15); }
+}
+@keyframes booth-smoke-b {
+    from { transform: translate3d(13%, -7%, 0) scale(1.1); }
+    to   { transform: translate3d(-13%, 9%, 0) scale(1); }
+}
+/* keep the text above the smoke */
+.booth-explore > * { position: relative; z-index: 1; }
 .booth-explore-play {
-    font-size: 2.4rem;
+    font-size: 3.4rem;
     line-height: 1;
     color: var(--color-text-accent);
     filter: drop-shadow(0 0 12px var(--color-accent-glow, currentColor));
 }
-.booth-explore-title { font-size: 1.1rem; letter-spacing: 0.22em; text-transform: uppercase; }
-.booth-explore-sub { font-size: 0.78rem; letter-spacing: 0.14em; color: var(--color-text-secondary); text-transform: uppercase; }
+.booth-explore-title { font-size: 1.7rem; letter-spacing: 0.22em; text-transform: uppercase; }
+.booth-explore-sub { font-size: 1.05rem; letter-spacing: 0.14em; color: var(--color-text-secondary); text-transform: uppercase; }
 .booth-explore:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -4px; }
 .booth-explore.hidden { opacity: 0; pointer-events: none; }
+.booth-explore.hidden::before,
+.booth-explore.hidden::after { animation-play-state: paused; }
 
 /* the control list, shared by the entry card and the in-game legend */
 .booth-control {
     display: flex;
     align-items: baseline;
-    gap: 8px;
+    gap: 12px;
 }
 .booth-control dt {
     flex: 0 0 auto;
-    min-width: 7.5em;
+    min-width: 8em;
     text-align: right;
     color: var(--color-text-primary);
-    font-size: 0.72rem;
+    font-size: 1rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 .booth-control dd {
     margin: 0;
     color: var(--color-text-secondary);
-    font-size: 0.72rem;
+    font-size: 1rem;
     letter-spacing: 0.08em;
 }
 
 /* on the entry card: centered under the title */
 .booth-controls-list {
-    margin: 6px 0 0;
+    margin: 10px 0 0;
     display: grid;
-    gap: 4px;
+    gap: 7px;
 }
 
 /* while you're in the booth: out of the way in the bottom-left corner */
@@ -120,16 +158,16 @@
     left: 16px;
     margin: 0;
     display: grid;
-    gap: 3px;
-    padding: 10px 14px 10px 10px;
+    gap: 4px;
+    padding: 12px 16px 12px 12px;
     border-radius: 6px;
-    background: rgba(0, 0, 0, 0.38);
+    background: rgba(0, 0, 0, 0.45);
     font-family: var(--font-primary);
     pointer-events: none;
-    opacity: 0.72;
+    opacity: 0.8;
 }
-.booth-legend dt { min-width: 6.5em; }
-.booth-legend dt, .booth-legend dd { font-size: 0.66rem; }
+.booth-legend dt { min-width: 7.5em; }
+.booth-legend dt, .booth-legend dd { font-size: 0.85rem; }
 
 /* center reticle while walking — a thin + */
 .booth-reticle {
@@ -366,8 +404,11 @@
 
 @media (max-width: 620px) {
     .booth-legend { bottom: 10px; left: 10px; padding: 8px 10px 8px 8px; opacity: 0.6; }
-    .booth-legend dt { min-width: 6em; }
-    .booth-legend dt, .booth-legend dd { font-size: 0.6rem; }
+    .booth-legend dt { min-width: 6.5em; }
+    .booth-legend dt, .booth-legend dd { font-size: 0.75rem; }
+    .booth-explore-title { font-size: 1.35rem; }
+    .booth-explore-sub { font-size: 0.9rem; }
+    .booth-controls-list dt, .booth-controls-list dd { font-size: 0.88rem; }
     .booth-detail { grid-template-columns: 1fr; }
     .booth-detail-art { border-right: none; border-bottom: 1px solid var(--color-border-subtle); padding: 22px; }
     .booth-stage, .booth-loading, .booth-empty { height: 100vh; height: 100dvh; }
@@ -376,4 +417,5 @@
 @media (prefers-reduced-motion: reduce) {
     .booth-scrim, .booth-detail { animation: none; }
     .booth-dialogue-caret { animation: none; }
+    .booth-explore::before, .booth-explore::after { animation: none; }
 }

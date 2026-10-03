@@ -20,7 +20,7 @@ const WALK_CONTROLS = [
     ['E or click', 'pick up / talk'],
     ['space', 'jump'],
     ['shift', 'crouch'],
-    ['esc', 'release the mouse'],
+    ['esc', 'exit'],
 ];
 const ORBIT_CONTROLS = [
     ['drag', 'look around'],

@@ -4,6 +4,22 @@ import { ROOM } from './boothSpace';
 
 const LOGO_URL = '/images/Maldevera_logo-BONE_TEXTURE.webp';
 
+// The "merch booth" sign, in the clear band between the rack top (y=4.1) and
+// the logo above it.
+const SIGN = { w: 3.8, h: 0.95, y: 4.65, z: -0.88 };
+const SIGN_TOP = SIGN.y + SIGN.h / 2;
+const LOGO_GAP = 0.3;   // breathing room between the sign and the logo's bottom
+
+// Both backdrop planes are transparent, and transparent draw order is sorted by
+// distance to the camera — which for these two flips depending on where you
+// stand, because the logo is much higher up than the sign. Whichever drew first
+// wrote depth at its own z and punched the other one out, so the sign blinked in
+// and out as you walked. Fixed order + no depth writes settles it: these are a
+// flat backdrop, they never need to occlude anything. Negative so they land
+// behind the hanging product art (z=-0.7), which sorts at the default 0.
+const SIGN_ORDER = -2;
+const LOGO_ORDER = -1;
+
 // Builds the banner image on a canvas so the text picks up the theme colors/font.
 function makeBannerTexture(theme) {
     const w = 1024, h = 256;
@@ -74,10 +90,17 @@ export default function BoothStructure({ theme }) {
         });
         return () => { alive = false; };
     }, []);
-    const logoAspect = logoTex && logoTex.image ? logoTex.image.width / logoTex.image.height : 3.2;
-    const logoW = 9;                 // as wide as the booth
+    // Sign and logo stack in the clear band above the rack (top at y=4.1): sign
+    // first, logo above it. The logo is placed off the sign's measured top
+    // rather than a fixed number, so the two can't grow onto each other — which
+    // is exactly what used to happen. The old code assumed a 3.2 aspect ratio
+    // and hardcoded the logo's bottom at 4.05; the real art is 1400x616 (2.27),
+    // so the logo came out a full unit taller than planned and swallowed the
+    // sign whole.
+    const logoAspect = logoTex && logoTex.image ? logoTex.image.width / logoTex.image.height : 2.27;
+    const logoW = 7.4;
     const logoH = logoW / logoAspect;
-    const logoY = 4.05 + logoH / 2;  // bottom just overhanging the rack top (~4.1)
+    const logoY = SIGN_TOP + LOGO_GAP + logoH / 2;
     const poleMat = useMemo(
         () => new THREE.MeshStandardMaterial({ color: theme.trim, metalness: 0.6, roughness: 0.4 }),
         [theme]
@@ -151,18 +174,18 @@ export default function BoothStructure({ theme }) {
                 <cylinderGeometry args={[0.06, 0.06, 9.1, 12]} />
             </mesh>
 
-            {/* rectangular "merch booth" sign — behind the logo (backmost) */}
-            <mesh position={[0, 4.55, -0.88]}>
-                <planeGeometry args={[3.8, 0.95]} />
-                <meshBasicMaterial map={bannerTex} transparent />
+            {/* rectangular "merch booth" sign — sits below the logo, not behind it */}
+            <mesh position={[0, SIGN.y, SIGN.z]} renderOrder={SIGN_ORDER}>
+                <planeGeometry args={[SIGN.w, SIGN.h]} />
+                <meshBasicMaterial map={bannerTex} transparent depthWrite={false} />
             </mesh>
 
-            {/* big site logo — booth-wide, above the rack, in FRONT of the sign
+            {/* big site logo — above the sign, both clear of the rack
                 (shirts at z ≈ -0.7 still render in front of both) */}
             {logoTex && (
-                <mesh position={[0, logoY, -0.8]}>
+                <mesh position={[0, logoY, -0.8]} renderOrder={LOGO_ORDER}>
                     <planeGeometry args={[logoW, logoH]} />
-                    <meshBasicMaterial map={logoTex} transparent toneMapped={false} />
+                    <meshBasicMaterial map={logoTex} transparent depthWrite={false} toneMapped={false} />
                 </mesh>
             )}
 

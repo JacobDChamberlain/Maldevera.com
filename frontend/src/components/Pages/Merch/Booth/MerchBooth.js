@@ -11,6 +11,37 @@ import './booth.css';
 
 const Booth3D = lazy(() => import('./Booth3D'));
 
+// What you can actually do in here. This used to be a single hardcoded line
+// that mentioned walking and looking and nothing else, so E, space and shift
+// went undiscovered — they've all worked in WalkControls the whole time.
+const WALK_CONTROLS = [
+    ['WASD / arrows', 'walk'],
+    ['mouse', 'look'],
+    ['E or click', 'pick up / talk'],
+    ['space', 'jump'],
+    ['shift', 'crouch'],
+    ['esc', 'exit'],
+];
+const ORBIT_CONTROLS = [
+    ['drag', 'look around'],
+    ['pinch or scroll', 'zoom'],
+    ['two fingers', 'pan'],
+    ['tap an item', 'open it'],
+];
+
+function ControlList({ controls, className }) {
+    return (
+        <dl className={className}>
+            {controls.map(([input, does]) => (
+                <div className="booth-control" key={input}>
+                    <dt>{input}</dt>
+                    <dd>{does}</dd>
+                </div>
+            ))}
+        </dl>
+    );
+}
+
 function useMediaQuery(query) {
     const [matches, setMatches] = useState(() =>
         typeof window !== 'undefined' && window.matchMedia(query).matches
@@ -33,14 +64,24 @@ export default function MerchBooth() {
     const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
     const isMobile = useMediaQuery('(max-width: 768px)');
 
-    // View preference, persisted. Booth is the default; forced to grid without WebGL.
+    // View preference, persisted. The grid is the default now and the booth is
+    // something you choose. New storage key on purpose: the old one was written
+    // on every mount, so every past visitor has 'booth' saved whether they ever
+    // chose it or not — reusing it would hand them a default they never picked.
     const [view, setView] = useState(() => {
         if (!webglOK) return 'grid';
-        return localStorage.getItem('merch-view') || 'booth';
+        return localStorage.getItem('merch-view-2') || 'grid';
     });
-    useEffect(() => {
-        if (webglOK) localStorage.setItem('merch-view', view);
-    }, [view, webglOK]);
+    // Only an actual choice is written, so the stored value means something.
+    const chooseView = useCallback((next) => {
+        setView(next);
+        if (webglOK) localStorage.setItem('merch-view-2', next);
+    }, [webglOK]);
+
+    // The touch intro card, dismissed by tapping it. Not persisted — it's the
+    // only place the orbit controls are spelled out, and it costs one tap.
+    const [introDone, setIntroDone] = useState(false);
+    const dismissIntro = useCallback(() => { boothAudio.resume(); setIntroDone(true); }, []);
 
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [locked, setLocked] = useState(false);
@@ -74,7 +115,7 @@ export default function MerchBooth() {
         <button
             type="button"
             className="booth-toggle"
-            onClick={() => setView(showBooth ? 'grid' : 'booth')}
+            onClick={() => chooseView(showBooth ? 'grid' : 'booth')}
         >
             {showBooth ? 'Grid view' : 'Enter the booth'}
         </button>
@@ -107,7 +148,9 @@ export default function MerchBooth() {
                         {walkMode ? (
                             <>
                                 {/* pointer-lock trigger + how-to. Kept mounted (just hidden when
-                                    walking) so drei's click-to-lock listener stays attached. */}
+                                    walking) so drei's click-to-lock listener stays attached, and
+                                    #booth-explore is the selector WalkControls matches clicks on —
+                                    the id has to survive any restyling of this card. */}
                                 <button
                                     id="booth-explore"
                                     type="button"
@@ -115,12 +158,36 @@ export default function MerchBooth() {
                                 >
                                     <span className="booth-explore-play">▶</span>
                                     <span className="booth-explore-title">Enter the booth</span>
-                                    <span className="booth-explore-keys">WASD / arrows to walk · mouse to look · Esc to release</span>
+                                    <span className="booth-explore-sub">click to look around</span>
+                                    <ControlList controls={WALK_CONTROLS} className="booth-controls-list" />
                                 </button>
                                 {locked && !talking && <div className="booth-reticle" aria-hidden="true" />}
+                                {/* the card is gone once you're walking, so the controls stay
+                                    readable in the corner instead of vanishing with it */}
+                                {locked && !talking && (
+                                    <ControlList controls={WALK_CONTROLS} className="booth-legend" />
+                                )}
                             </>
                         ) : (
-                            <div className="booth-hint">drag to orbit · scroll to zoom · drag sideways to pan · tap an item</div>
+                            <>
+                                {/* touch/orbit got no intro card at all before — just a thin line
+                                    of text along the bottom edge. */}
+                                {!introDone && (
+                                    <button
+                                        type="button"
+                                        className="booth-explore"
+                                        onClick={dismissIntro}
+                                    >
+                                        <span className="booth-explore-play">▶</span>
+                                        <span className="booth-explore-title">The booth</span>
+                                        <span className="booth-explore-sub">tap to start looking around</span>
+                                        <ControlList controls={ORBIT_CONTROLS} className="booth-controls-list" />
+                                    </button>
+                                )}
+                                {introDone && (
+                                    <ControlList controls={ORBIT_CONTROLS} className="booth-legend" />
+                                )}
+                            </>
                         )}
 
                         {talking && <BoothDialogue onClose={stopTalking} />}
